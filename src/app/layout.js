@@ -1,8 +1,8 @@
-import "./globals.css";
+import "./page.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export const metadata = {
-  title: "Coursiv",
+  title: "ADM Digital",
   description:
     "We are so confident in our service that we are ready to offer a full refund within 30 days of purchase if you do not achieve initial results and can demonstrate you have followed the plan",
 };
@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
       </head>
-      <body style={{ maxWidth: "400px", margin: "0 auto" }}>
+      <body>
         <main>{children}</main>
       </body>
     </html>

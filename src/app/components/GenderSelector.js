@@ -23,7 +23,7 @@ export default function GenderSelector() {
               className="btn btn-primary w-100"
               onClick={() => handleGenderSelect('m')}
             >
-              MALE <i className="bi bi-arrow-right ms-2"></i>
+              Male <i className="bi bi-arrow-right ms-2"></i>
             </button>
           </div>
         </div>
@@ -40,7 +40,25 @@ export default function GenderSelector() {
               className="btn btn-primary w-100"
               onClick={() => handleGenderSelect('f')}
             >
-              FEMALE <i className="bi bi-arrow-right ms-2"></i>
+              Female <i className="bi bi-arrow-right ms-2"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="col-6 mb-4">
+        <div className="card border-primary">
+          {/* <img
+            src="/images/picker_female_18-24.webp"
+            className="card-img-top"
+            alt="Female"
+          /> */}
+          <div className="card-body">
+            <button
+              className="btn btn-primary w-100"
+              onClick={() => handleGenderSelect('other')}
+            >
+              Prefer not to say <i className="bi bi-arrow-right ms-2"></i>
             </button>
           </div>
         </div>

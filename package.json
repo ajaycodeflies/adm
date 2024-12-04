@@ -2,6 +2,7 @@
   "name": "coursiv",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,7 +10,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "bootstrap": "^5.3.3",
+    "dotenv": "^16.4.6",
+    "js-cookie": "^3.0.5",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.8.3",
     "next": "15.0.3",
     "react": "19.0.0-rc-66855b96-20241106",
     "react-dom": "19.0.0-rc-66855b96-20241106"
