@@ -1,11 +1,18 @@
 "use client";
 
+import React, { useState } from 'react';
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import Link from "next/link";
 
-export default function Sidebar() {
+export default function Sidebar({ isExpanded }) {
   const router = useRouter();
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
 
   // Handle logout
   const handleLogout = async () => {
@@ -31,7 +38,7 @@ export default function Sidebar() {
   };
 
   return (
-    <div className="navbar-vertical navbar">
+    <aside className={isExpanded ? 'dashboard-sidebar hide' : 'dashboard-sidebar'}>
       <div
         data-simplebar="init"
         style={{ maxHeight: '100vh' }}
@@ -58,12 +65,12 @@ export default function Sidebar() {
                   style={{ padding: '0px' }}
                 >
                   <div className="nav-scroller">
-                    <a className="navbar-brand text-center" href="/">
-                      <img src="/images/logo2.png" alt="Logo" style={{ width: "70%", height: "100%" }} />
-                    </a>
+                    <Link className="navbar-brand" href="/">
+                      <img src="/images/logo.png" alt="Logo" />
+                    </Link>
                   </div>
                   <ul className="navbar-nav flex-column accordion">
-                    <div className="nav-item">
+                    <li className="nav-item">
                       <Link href="/admin/dashboard" className="nav-link active">
                         <img
                           src="/icons/home.svg"
@@ -72,32 +79,43 @@ export default function Sidebar() {
                         />
                         Dashboard
                       </Link>
-                    </div>
-
-                    <div className="nav-item">
-                      <div className="navbar-heading">Page Documentation</div>
-                    </div>
-                    <div className="nav-item">
-                      <a className="nav-link " href="/documentation">
-                        <img src="/icons/users.svg" alt="users" className="nav-icon me-2" /> Users
-                      </a>
-                    </div>
-                    <li className="nav-item">
-                      <a className="nav-link " data-bs-toggle="collapse" data-bs-target="#navDashboard" aria-expanded="false" aria-controls="navDashboard" href="">
-                        <img src="/icons/help-circle.svg" alt="questions" className="nav-icon me-2" /> Questions
-                      </a>
                     </li>
-                    <li className="nav-item collapse">
-                      <ul className="nav flex-column list-group">
+
+                    <li className="nav-item">
+                      <div className="navbar-heading">Page Documentation</div>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link " href="/admin/dashboard">
+                        <img src="/icons/users.svg" alt="users" className="nav-icon me-2" /> Users
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link
+                        className="nav-link"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navDashboard"
+                        aria-expanded={isOpen}
+                        aria-controls="navDashboard"
+                        href="#"
+                        onClick={toggleDropdown}
+                      >
+                        <img src="/icons/help-circle.svg" alt="questions" className="nav-icon me-2" />
+                        Questions
+                      </Link>
+                      <ul className={`nav flex-column list-group collapse ${isOpen ? 'show' : ''}`}>
                         <li className="nav-item">
-                          <a className="nav-link " href="">Add Question</a>
+                          <Link className="nav-link" href="#">
+                            Add Question
+                          </Link>
                         </li>
                         <li className="nav-item">
-                          <a className="nav-link " href="">View Questions</a>
+                          <Link className="nav-link" href="#">
+                            View Questions
+                          </Link>
                         </li>
                       </ul>
                     </li>
-                    <div className="nav-item">
+                    <li className="nav-item">
                       <Link href="/admin/plan" className="nav-link">
                         <img
                           src="/icons/dollar-sign.svg"
@@ -106,27 +124,27 @@ export default function Sidebar() {
                         />
                         Plans
                       </Link>
-                    </div>
-                    <div className="nav-item">
-                      <a className="nav-link " href="">
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link " href="">
                         <img src="/icons/book.svg" alt="lessons" className="nav-icon me-2" />Lessons
-                      </a>
-                    </div>
+                      </Link>
+                    </li>
 
-                    <div className="nav-item">
-                      <a className="nav-link " href="">
+                    <li className="nav-item">
+                      <Link className="nav-link " href="">
                         <img src="/icons/file-text.svg" alt="pages" className="nav-icon me-2" />Pages
-                      </a>
-                    </div>
+                      </Link>
+                    </li>
 
-                    <div className="nav-item">
-                      <a className="nav-link " href="">
+                    <li className="nav-item">
+                      <Link className="nav-link " href="">
                         <img src="/icons/settings.svg" alt="settings" className="nav-icon me-2" />Settings
-                      </a>
-                    </div>
+                      </Link>
+                    </li>
 
-                    <div className="nav-item">
-                      <a
+                    <li className="nav-item">
+                      <Link
                         className="nav-link"
                         href=""
                         onClick={handleLogout}  // Call the logout function
@@ -137,8 +155,8 @@ export default function Sidebar() {
                           className="nav-icon me-2"
                         />
                         Logout
-                      </a>
-                    </div>
+                      </Link>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -146,6 +164,6 @@ export default function Sidebar() {
           </div>
         </div>
       </div>
-    </div>
+    </aside>
   );
 }

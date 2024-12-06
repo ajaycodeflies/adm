@@ -4,6 +4,9 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 
+import Footer from "../components/Footer";
+
+
 export default function AdminLogin() {
   const router = useRouter();
   const [email, setEmail] = useState("");
@@ -46,6 +49,11 @@ export default function AdminLogin() {
 
   return (
     <main className="d-flex flex-column align-items-center justify-content-center vh-100 bg-light">
+
+      <div className="mb-3">
+        <img src="/images/logo.png" alt="Logo" className="img-fluid w-20 mx-auto d-block opacity-90" style={{ maxWidth: "20%" }} />
+      </div>
+
       <div className="card p-4 shadow-sm" style={{ width: "400px" }}>
         <h2 className="text-center fw-bold mb-4">Admin</h2>
         <form onSubmit={handleLogin}>
@@ -78,11 +86,14 @@ export default function AdminLogin() {
               required
             />
           </div>
-          <button type="submit" className="btn btn-primary w-100">
+          <button type="submit" className="btn btn-blue w-100">
             Login
           </button>
         </form>
       </div>
+
+      <Footer/>
+
     </main>
   );
 }

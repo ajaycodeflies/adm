@@ -1,6 +1,9 @@
 "use client";
 
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+
+
 
 export default function GenderSelector() {
   const router = useRouter();
@@ -9,60 +12,45 @@ export default function GenderSelector() {
     router.push(`/start-quiz?utm_gender=${gender}`);
   };
 
+  const genders = [
+    {
+      img: "/images/picker_male_18-24.webp",
+      label: "Male",
+      value: "m"
+    },
+    {
+      img: "/images/picker_female_18-24.webp",
+      label: "Female",
+      value: "f"
+    },
+    {
+      img: "/images/picker_female_18-24.webp",
+      label: "Prefer not to say",
+      value: "other"
+    },
+  ];
+
   return (
     <div className="row justify-content-center mt-4">
-      <div className="col-6 mb-4">
-        <div className="card border-primary">
-          <img
-            src="/images/picker_male_18-24.webp"
-            className="card-img-top"
-            alt="Male"
-          />
-          <div className="card-body">
-            <button
-              className="btn btn-primary w-100"
-              onClick={() => handleGenderSelect('m')}
-            >
-              Male <i className="bi bi-arrow-right ms-2"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div className="col-6 mb-4">
-        <div className="card border-primary">
-          <img
-            src="/images/picker_female_18-24.webp"
-            className="card-img-top"
-            alt="Female"
-          />
-          <div className="card-body">
-            <button
-              className="btn btn-primary w-100"
-              onClick={() => handleGenderSelect('f')}
-            >
-              Female <i className="bi bi-arrow-right ms-2"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div className="col-6 mb-4">
-        <div className="card border-primary">
-          {/* <img
-            src="/images/picker_female_18-24.webp"
-            className="card-img-top"
-            alt="Female"
-          /> */}
-          <div className="card-body">
-            <button
-              className="btn btn-primary w-100"
-              onClick={() => handleGenderSelect('other')}
-            >
-              Prefer not to say <i className="bi bi-arrow-right ms-2"></i>
-            </button>
-          </div>
-        </div>
-      </div>
+      {genders.map((gender) => {
+        return (
+          <>
+            <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 mb-3">
+              <div className="card">
+                <Image src={gender.img} width={100} height={100} alt="" />
+                <div className="card-body">
+                  <button
+                    className="btn btn-blue"
+                    onClick={() => handleGenderSelect(gender.value)}
+                  >
+                    {gender.label} <i className="bi bi-arrow-right"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </>
+        );
+      })}
     </div>
   );
 }

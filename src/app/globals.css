@@ -1,0 +1,687 @@
+:root {
+    --black: #1e1815;
+    --white: #FFFFFF;
+    --grey: #595959;
+    --grey-9: hsl(0, 0%, 60%);
+    --red-darker: #cc4125;
+    --red-dark: #ea4335;
+    --red: #e06666;
+    --orange-dark: #e69138;
+    --orange: #f6b26b;
+    --yellow-dark: #f1c232;
+    --yellow: #ffd966;
+    --green: #b6d7a8;
+    --green-dark: #93c47d;
+    --blue: #a4c2f4;
+    --blue-dark: #6d9eeb;
+    --purple-dark: #8e7cc3;
+    --purple: #b4a7d6;
+}
+
+/* Thin */
+@font-face {
+    font-family: "Exo";
+    font-weight: 100;
+    font-style: normal;
+    src: url("./fonts/Exo/Exo-Thin.ttf");
+}
+
+@font-face {
+    font-family: "Exo";
+    font-weight: 100;
+    font-style: italic;
+    src: url("./fonts/Exo/Exo-ThinItalic.ttf");
+}
+
+/* Extra Light */
+@font-face {
+    font-family: "Exo";
+    font-weight: 200;
+    font-style: normal;
+    src: url("./fonts/Exo/Exo-ExtraLight.ttf");
+}
+
+@font-face {
+    font-family: "Exo";
+    font-weight: 200;
+    font-style: italic;
+    src: url("./fonts/Exo/Exo-ExtraLightItalic.ttf");
+}
+
+/* Light */
+@font-face {
+    font-family: "Exo";
+    font-weight: 300;
+    font-style: normal;
+    src: url("./fonts/Exo/Exo-Light.ttf");
+}
+
+@font-face {
+    font-family: "Exo";
+    font-weight: 300;
+    font-style: italic;
+    src: url("./fonts/Exo/Exo-LightItalic.ttf");
+}
+
+/* Regular */
+@font-face {
+    font-family: "Exo";
+    font-weight: 400;
+    font-style: normal;
+    src: url("./fonts/Exo/Exo-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Exo";
+    font-weight: 400;
+    font-style: italic;
+    src: url("./fonts/Exo/Exo-Italic.ttf");
+}
+
+/* Medium */
+@font-face {
+    font-family: "Exo";
+    font-weight: 500;
+    font-style: normal;
+    src: url("./fonts/Exo/Exo-Medium.ttf");
+}
+
+@font-face {
+    font-family: "Exo";
+    font-weight: 500;
+    font-style: italic;
+    src: url("./fonts/Exo/Exo-MediumItalic.ttf");
+}
+
+/* Semi Bold */
+@font-face {
+    font-family: "Exo";
+    font-weight: 600;
+    font-style: normal;
+    src: url("./fonts/Exo/Exo-SemiBold.ttf");
+}
+
+@font-face {
+    font-family: "Exo";
+    font-weight: 600;
+    font-style: italic;
+    src: url("./fonts/Exo/Exo-SemiBoldItalic.ttf");
+}
+
+/* Bold */
+@font-face {
+    font-family: "Exo";
+    font-weight: 700;
+    font-style: normal;
+    src: url("./fonts/Exo/Exo-Bold.ttf");
+}
+
+@font-face {
+    font-family: "Exo";
+    font-weight: 700;
+    font-style: italic;
+    src: url("./fonts/Exo/Exo-BoldItalic.ttf");
+}
+
+/* Extra Bold */
+@font-face {
+    font-family: "Exo";
+    font-weight: 800;
+    font-style: normal;
+    src: url("./fonts/Exo/Exo-ExtraBold.ttf");
+}
+
+@font-face {
+    font-family: "Exo";
+    font-weight: 800;
+    font-style: italic;
+    src: url("./fonts/Exo/Exo-ExtraBoldItalic.ttf");
+}
+
+/* Black */
+@font-face {
+    font-family: "Exo";
+    font-weight: 900;
+    font-style: normal;
+    src: url("./fonts/Exo/Exo-Black.ttf");
+}
+
+@font-face {
+    font-family: "Exo";
+    font-weight: 900;
+    font-style: italic;
+    src: url("./fonts/Exo/Exo-BlackItalic.ttf");
+}
+
+body {
+    background-color: var(--white);
+    font-family: "Exo", sans-serif;
+}
+
+a {
+    color: var(--purple-dark);
+}
+
+a:hover {
+    color: var(--purple);
+}
+
+/* Background Colors */
+.bg-black {
+    background-color: var(--black);
+}
+
+.bg-white {
+    background-color: var(--white);
+}
+
+.bg-grey {
+    background-color: var(--grey);
+}
+
+.bg-grey-9 {
+    background-color: var(--grey-9);
+}
+
+.bg-red-darker {
+    background-color: var(--red-darker);
+}
+
+.bg-red-dark {
+    background-color: var(--red-dark);
+}
+
+.bg-red {
+    background-color: var(--red);
+}
+
+.bg-orange-dark {
+    background-color: var(--orange-dark);
+}
+
+.bg-orange {
+    background-color: var(--orange);
+}
+
+.bg-yellow-dark {
+    background-color: var(--yellow-dark);
+}
+
+.bg-yellow {
+    background-color: var(--yellow);
+}
+
+.bg-green {
+    background-color: var(--green);
+}
+
+.bg-green-dark {
+    background-color: var(--green-dark);
+}
+
+.bg-blue {
+    background-color: var(--blue);
+}
+
+.bg-blue-dark {
+    background-color: var(--blue-dark);
+}
+
+.bg-purple-dark {
+    background-color: var(--purple-dark);
+}
+
+.bg-purple {
+    background-color: var(--purple);
+}
+
+/* Text Colors */
+.text-black {
+    color: var(--black);
+}
+
+.text-white {
+    color: var(--white);
+}
+
+.text-grey {
+    color: var(--grey);
+}
+
+.text-grey-9 {
+    color: var(--grey-9);
+}
+
+.text-red-darker {
+    color: var(--red-darker);
+}
+
+.text-red-dark {
+    color: var(--red-dark);
+}
+
+.text-red {
+    color: var(--red);
+}
+
+.text-orange-dark {
+    color: var(--orange-dark);
+}
+
+.text-orange {
+    color: var(--orange);
+}
+
+.text-yellow-dark {
+    color: var(--yellow-dark);
+}
+
+.text-yellow {
+    color: var(--yellow);
+}
+
+.text-green {
+    color: var(--green);
+}
+
+.text-green-dark {
+    color: var(--green-dark);
+}
+
+.text-blue {
+    color: var(--blue);
+}
+
+.text-blue-dark {
+    color: var(--blue-dark);
+}
+
+.text-purple-dark {
+    color: var(--purple-dark);
+}
+
+.text-purple {
+    color: var(--purple);
+}
+
+/* Buttons */
+.btn {
+    outline: none !important;
+}
+
+/* Blue Button */
+.btn-blue {
+    color: var(--white) !important;
+    background-color: var(--blue-dark) !important;
+}
+
+.btn-blue:hover,
+.btn-blue:focus,
+.btn-blue:active {
+    outline: none !important;
+    border-color: #0000 !important;
+    background-color: var(--blue) !important;
+}
+
+/* Green Button */
+.btn-green {
+    color: var(--white) !important;
+    background-color: var(--green-dark) !important;
+}
+
+.btn-green:hover,
+.btn-green:focus,
+.btn-green:active {
+    outline: none !important;
+    border-color: #0000 !important;
+    background-color: var(--green) !important;
+}
+
+
+/* Black Button */
+.btn-black {
+    color: var(--white) !important;
+    background-color: var(--black) !important;
+}
+
+.btn-black:hover,
+.btn-black:focus,
+.btn-black:active {
+    outline: none !important;
+    border-color: #0000 !important;
+    background-color: var(--grey) !important;
+}
+
+/* Grey Button */
+.btn-grey {
+    color: var(--white) !important;
+    background-color: var(--grey) !important;
+}
+
+.btn-grey:hover,
+.btn-grey:focus,
+.btn-grey:active {
+    outline: none !important;
+    border-color: #0000 !important;
+    background-color: var(--grey-9) !important;
+}
+
+/* Red Button */
+.btn-red {
+    color: var(--white) !important;
+    background-color: var(--red-dark) !important;
+}
+
+.btn-red:hover,
+.btn-red:focus,
+.btn-red:active {
+    outline: none !important;
+    border-color: #0000 !important;
+    background-color: var(--red) !important;
+}
+
+/* Orange Button */
+.btn-orange {
+    color: var(--white) !important;
+    background-color: var(--orange-dark) !important;
+}
+
+.btn-orange:hover,
+.btn-orange:focus,
+.btn-orange:active {
+    outline: none !important;
+    border-color: #0000 !important;
+    background-color: var(--orange) !important;
+}
+
+/* Yellow Button */
+.btn-yellow {
+    color: var(--black) !important;
+    background-color: var(--yellow-dark) !important;
+}
+
+.btn-yellow:hover,
+.btn-yellow:focus,
+.btn-yellow:active {
+    outline: none !important;
+    border-color: #0000 !important;
+    background-color: var(--yellow) !important;
+}
+
+/* Purple Button */
+.btn-purple {
+    color: var(--white) !important;
+    background-color: var(--purple-dark) !important;
+}
+
+.btn-purple:hover,
+.btn-purple:focus,
+.btn-purple:active {
+    outline: none !important;
+    border-color: #0000 !important;
+    background-color: var(--purple) !important;
+}
+
+
+/* Cards */
+.card {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    padding: 0;
+    margin: 0;
+    display: block;
+    position: relative;
+    border: 2px solid var(--blue-dark);
+    border-radius: .75rem;
+}
+
+.card:hover,
+.card:focus,
+.card:active {
+    border-color: var(--blue);
+}
+
+.card-horizontal {
+    padding: 1rem;
+    margin: .5rem auto;
+    aspect-ratio: unset;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+}
+
+.card.selected::before {
+    content: "\F26E";
+    width: 1rem;
+    height: 1rem;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: .5rem;
+    top: .5rem;
+    color: var(--white);
+    background-color: var(--blue-dark);
+    border-radius: .35rem;
+    font-family: 'bootstrap-icons';
+}
+
+.card>img {
+    width: auto;
+    height: 10rem;
+    margin: 0 auto;
+    display: block;
+    position: absolute;
+    top: -1rem;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.card-horizontal>img {
+    width: 100%;
+    max-width: 5rem;
+    height: auto;
+    margin: 0;
+    position: static;
+    transform: none;
+}
+
+.card>.card-body {
+    width: 100%;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    bottom: -100%;
+    transform: translateY(-100%);
+}
+
+.card>.card-body>.btn {
+    width: 100%;
+    height: auto;
+    padding: .5rem 1rem;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    gap: .25rem;
+    position: relative;
+    border-radius: 0 0 .375rem .375rem;
+    font-size: 1rem;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.card>.card-body>.btn>i {
+    display: inline-block;
+    transition: .3s ease all;
+}
+
+.card>.card-body>.btn:hover>i {
+    transform: translateX(5px);
+}
+
+/* Container */
+.box-container {
+    width: 100%;
+    max-width: 400px;
+    height: 100vh;
+    padding: 0 1rem;
+    margin: 0 auto;
+    display: block;
+    position: relative;
+    background-color: var(--white);
+}
+
+/* Header */
+.header {
+    width: 100%;
+    height: auto;
+    padding: 0;
+    margin: 0 auto;
+    position: sticky;
+    top: 0px;
+    z-index: 999;
+    background-color: #fff;
+}
+
+.header .navbar-brand {
+    width: fit-content;
+    height: auto;
+    padding: 0;
+    margin: 0;
+}
+
+.header .navbar-brand img {
+    width: 100%;
+    max-width: 15rem;
+    height: auto;
+}
+
+/* Sidebar */
+/* Header */
+.sidebar {
+    width: 100%;
+    max-width: 400px;
+    min-height: 100vh;
+    padding: 0 1rem;
+    margin: 0 auto;
+    position: fixed;
+    top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+    background-color: #fff;
+    opacity: 0;
+    visibility: collapse;
+    transition: .1s ease all;
+}
+
+.sidebar.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+.sidebar .navbar-brand {
+    width: fit-content;
+    height: auto;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar .navbar-brand img {
+    width: 100%;
+    max-width: 15rem;
+    height: auto;
+}
+
+.sidebar .navbar-nav {
+    width: 100%;
+    min-height: 100%;
+    padding: 0;
+    margin: 1rem auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.sidebar .navbar-nav .nav-item {
+    overflow: hidden;
+}
+
+.sidebar .navbar-nav .nav-item .nav-link {
+    transform: translateY(100%) rotate(90deg);
+    transform-origin: left;
+    transition: .3s ease all;
+}
+
+.sidebar.show .navbar-nav .nav-item .nav-link {
+    transform: translateY(0%) rotate(0deg);
+}
+
+.sidebar.show .navbar-nav .nav-item:nth-child(1) .nav-link {
+    transition-delay: .1s;
+}
+
+.sidebar.show .navbar-nav .nav-item:nth-child(2) .nav-link {
+    transition-delay: .2s;
+}
+
+.sidebar.show .navbar-nav .nav-item:nth-child(3) .nav-link {
+    transition-delay: .3s;
+}
+
+.sidebar.show .navbar-nav .nav-item:nth-child(4) .nav-link {
+    transition-delay: .4s;
+}
+
+/* Media Queries */
+@media (max-width: 767px) {
+
+    .header .navbar-brand img,
+    .sidebar .navbar-brand img {
+        max-width: 10rem;
+    }
+
+    .card {
+        aspect-ratio: 4 / 2;
+        margin-bottom: 1rem;
+    }
+
+    .card>img {
+        top: -1.5rem;
+    }
+}
+
+/* Content Box & Content */
+.box-inner-content {
+    width: 100%;
+    height: 100%;
+    max-height: 70vh;
+    padding: 1rem 0;
+    margin: 0 auto;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    overflow-y: auto;
+}
+
+.doc-content {
+    width: 100%;
+    height: auto;
+    padding: 1rem;
+    margin: 0 auto;
+    position: relative;
+    text-align: left;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+}

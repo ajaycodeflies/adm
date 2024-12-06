@@ -1,5 +1,7 @@
-import "./page.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./globals.css";
+import "./page.module.css";
+
 
 export const metadata = {
   title: "ADM Digital",

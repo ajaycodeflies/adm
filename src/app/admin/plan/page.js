@@ -1,6 +1,8 @@
 "use client";
-import { useEffect } from "react";
+
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import Cookies from "js-cookie";
 import AdminLayout from "../components/AdminLayout";
 
@@ -16,13 +18,14 @@ export default function PlanPage() {
 
     return (
         <AdminLayout>
-            <div className="bg-primary pt-10 pb-21"></div>
+            <div className="bg-blue-dark pt-10 pb-21"></div>
             <div className="mt-n22 px-6 container-fluid">
                 <div className="my-6 row">
                     <div className="col-xl-12 col-lg-12 col-md-12 col-12">
                         <div className="h-100 card">
-                            <div className="bg-white py-4 card-header">
-                                <h4 className="mb-0">All Plans </h4>
+                            <div className="bg-white card-header d-flex justify-content-between align-items-center">
+                                <h4 className="mb-0 text-blue-dark">All Plans </h4>
+                                <button className="btn btn-sm btn-blue"><i class="bi bi-plus-lg"></i> Add</button>
                             </div>
                             <div className="table-responsive">
                                 <table className="text-nowrap table">
@@ -44,13 +47,13 @@ export default function PlanPage() {
                                             <td className="align-middle">3 May, 2023</td>
                                             <td className="align-middle">
                                                 <div className="dropdown">
-                                                    <a className="text-muted text-primary-hover" href="/">
+                                                    <Link href="/admin/plan" className="text-muted text-primary-hover">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-muted">
                                                             <circle cx="12" cy="12" r="1"></circle>
                                                             <circle cx="12" cy="5" r="1"></circle>
                                                             <circle cx="12" cy="19" r="1"></circle>
                                                         </svg>
-                                                    </a>
+                                                    </Link>
                                                 </div>
                                             </td>
                                         </tr>
@@ -62,13 +65,13 @@ export default function PlanPage() {
                                             <td className="align-middle">Today</td>
                                             <td className="align-middle">
                                                 <div className="dropdown">
-                                                    <a className="text-muted text-primary-hover" href="/">
+                                                    <Link href="/admin/plan" className="text-muted text-primary-hover">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-muted">
                                                             <circle cx="12" cy="12" r="1"></circle>
                                                             <circle cx="12" cy="5" r="1"></circle>
                                                             <circle cx="12" cy="19" r="1"></circle>
                                                         </svg>
-                                                    </a>
+                                                    </Link>
                                                 </div>
                                             </td>
                                         </tr>
@@ -80,13 +83,13 @@ export default function PlanPage() {
                                             <td className="align-middle">Yesterday</td>
                                             <td className="align-middle">
                                                 <div className="dropdown">
-                                                    <a className="text-muted text-primary-hover" href="/">
+                                                    <Link className="text-muted text-primary-hover" href="/admin/plan">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-muted">
                                                             <circle cx="12" cy="12" r="1"></circle>
                                                             <circle cx="12" cy="5" r="1"></circle>
                                                             <circle cx="12" cy="19" r="1"></circle>
                                                         </svg>
-                                                    </a>
+                                                    </Link>
                                                 </div>
                                             </td>
                                         </tr>

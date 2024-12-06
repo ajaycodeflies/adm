@@ -1,6 +1,9 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Image from "next/image";
+import Header from '../components/Header';
+import '../globals.css';
 
 export default function Quiz() {
     const router = useRouter();
@@ -31,19 +34,9 @@ export default function Quiz() {
     };
 
     return (
-        <div style={{ maxWidth: "400px", margin: "0 auto" }}>
-            <div className="d-flex flex-column align-items-center justify-content-center">
-                <header className="w-100 d-flex align-items-center justify-content-between py-3">
-                    <button
-                        className="btn btn-light"
-                        onClick={handlePreviousStep}
-                    >
-                        <i className="bi bi-arrow-left"></i>
-                    </button>
-                    <img src="/images/logo.png" alt="ADM Digital Logo" style={{ width: "50%", height:"100%" }} />
-                    {/* <h3 className="text-primary"></h3> */}
-                    <p className="text-muted">{`${currentStep}/${totalSteps}`}</p>
-                </header>
+        <div className="box-container">
+            <div className="d-flex flex-column align-items-center justify-content-center text-center">
+                <Header />
 
                 {/* Progress Bar */}
                 <div className="progress w-100 mt-2" style={{ height: "8px" }}>
@@ -61,19 +54,17 @@ export default function Quiz() {
                     <h2 className="fw-bold">What is your main goal?</h2>
                 </section>
 
-                <section className="d-flex flex-column align-items-center w-100 mt-3 px-3">
+                <section className="d-flex flex-column align-items-center w-100 mt-3 mb-5 px-3">
                     {goals.map((goal) => (
                         <div
                             key={goal.id}
-                            className="card border-0 shadow-sm mb-3 d-flex flex-row align-items-center px-3 py-2 w-100"
-                            style={{ maxWidth: "600px", borderRadius: "10px" }}
+                            className="card card-horizontal selected"
                             onClick={handleNextStep}
                         >
                             <img
                                 src={goal.image}
                                 alt={goal.label}
-                                className="rounded-circle me-3"
-                                style={{ width: "60px", height: "60px" }}
+                                className="rounded-circle"
                             />
                             <h5 className="mb-0 fw-bold">{goal.label}</h5>
                         </div>
