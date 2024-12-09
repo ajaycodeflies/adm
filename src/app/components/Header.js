@@ -17,7 +17,7 @@ export default function Header() {
       <header className="header">
         <nav class="navbar navbar-expand-lg">
           <div class="container-fluid">
-            <Link class="navbar-brand" href="#">
+            <Link class="navbar-brand" href="/">
               <Image src={logo} alt="ADM Digital Logo" width={200} height={100} />
             </Link>
             <button class="btn btn-light" type="button" onClick={toggleSidebar}>

@@ -139,18 +139,11 @@ export default function Header({ onToggleSidebar }) {
                     </div>
                   </button>
                   <div data-bs-popper="static" className={`dropdown-menu dropdown-menu-end dropdown-menu dropdown-menu-end ${isProfileShow ? 'show' : ''}`} aria-labelledby="dropdownUser">
-                    <div data-rr-ui-dropdown-item="" className="px-4 pb-0 pt-2  ">
-                      <div className="lh-1 ">
-                        <h5 className="mb-1"> John E. Grainger</h5>
-                        <Link className="text-inherit fs-6" href="/">View my profile</Link>
-                      </div>
-                      <div className=" dropdown-divider mt-3 mb-2"></div>
-                    </div>
-                    <a aria-selected="false" data-rr-ui-dropdown-item="" className="dropdown-item" role="button" tabIndex="0" href="#">
+                    <Link className="dropdown-item" href="/admin/profile">
                       <img src="/images/admin/profile.jpg" alt="avatar" className="rounded-circle avatar avatar-xs me-2" />  Edit Profile
-                    </a>
+                    </Link>
                     <a data-rr-ui-dropdown-item="" className="dropdown-item" role="button" tabIndex="0" href="#">
-                      <img src="/icons/log-out.svg" alt="sign out" className="avatar avatar-xs me-2" /> Sign Out
+                      <img src="/icons/log-out.svg" alt="sign out" className="avatar avatar-xs me-2" /> Logout
                     </a>
                   </div>
                 </li>
