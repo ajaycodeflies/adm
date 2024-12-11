@@ -61,7 +61,7 @@ export default function Quiz() {
                             className="card card-horizontal selected"
                             onClick={handleNextStep}
                         >
-                            <img
+                            <Image
                                 src={goal.image}
                                 alt={goal.label}
                                 className="rounded-circle"

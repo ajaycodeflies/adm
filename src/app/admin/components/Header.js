@@ -135,15 +135,15 @@ export default function Header({ onToggleSidebar }) {
                 <li className="ms-2 dropdown">
                   <button className="btn btn-light btn-icon rounded-circle indicator indicator-primary text-muted" id="dropdownUser" aria-expanded="false" onClick={handleProfileButtonClick}>
                     <div className="avatar avatar-md avatar-indicators avatar-online">
-                      <img alt="avatar" src="/images/admin/profile.jpg" className="rounded-circle" />
+                      <Image alt="avatar" src="/images/admin/profile.jpg" className="rounded-circle" />
                     </div>
                   </button>
                   <div data-bs-popper="static" className={`dropdown-menu dropdown-menu-end dropdown-menu dropdown-menu-end ${isProfileShow ? 'show' : ''}`} aria-labelledby="dropdownUser">
                     <Link className="dropdown-item" href="/admin/profile">
-                      <img src="/images/admin/profile.jpg" alt="avatar" className="rounded-circle avatar avatar-xs me-2" />  Edit Profile
+                      <Image src="/images/admin/profile.jpg" alt="avatar" className="rounded-circle avatar avatar-xs me-2" />  Edit Profile
                     </Link>
                     <a data-rr-ui-dropdown-item="" className="dropdown-item" role="button" tabIndex="0" href="#">
-                      <img src="/icons/log-out.svg" alt="sign out" className="avatar avatar-xs me-2" /> Logout
+                      <Image src="/icons/log-out.svg" alt="sign out" className="avatar avatar-xs me-2" /> Logout
                     </a>
                   </div>
                 </li>

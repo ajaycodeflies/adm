@@ -1,14 +1,14 @@
+
 "use client";
 
-import { useRouter } from 'next/navigation';
+import { Suspense } from "react";
+import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
-import Image from 'next/image';
-import Header from '../components/Header';
+import Image from "next/image";
+import Header from "../components/Header";
+import "../globals.css";
 
-
-import '../globals.css';
-
-export default function StartQuiz() {
+function QuizContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const utmGender = searchParams.get("utm_gender");
@@ -21,7 +21,7 @@ export default function StartQuiz() {
 
   const handleQuizClick = (quizGroup) => {
     router.push(`/quiz?utm_gender=${utmGender}&step=1`);
-  }
+  };
 
   if (step === "1") {
     return (
@@ -59,12 +59,11 @@ export default function StartQuiz() {
         <section className="mt-4">
           <h2 className="fw-bold">CAREER FREEDOM CHALLENGE</h2>
           <p className="mt-2">
-            SELECT YOUR <span className="fw-bold" style={{ "color": "var(--blue-dark)" }}>AGE</span>
+            SELECT YOUR <span className="fw-bold" style={{ color: "var(--blue-dark)" }}>AGE</span>
           </p>
           <p className="fw-bold text-secondary">1-MINUTE QUIZ</p>
-
           <div className="row justify-content-center mt-4">
-            {isMale ? (
+          {isMale ? (
               <>
                 <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
                   <div className="card">
@@ -250,7 +249,6 @@ export default function StartQuiz() {
               </>
             )}
           </div>
-
           <footer className="text-center mt-4 text-muted small">
             <p className="text-muted small mb-2">
               By choosing your age, you agree with{" "}
@@ -258,12 +256,18 @@ export default function StartQuiz() {
               <a href="/privacy">Privacy Policy</a>,{" "}
               <a href="/subscription">Subscription Terms</a>
             </p>
-            <p>
-              Coursiv Limited. Limassol, Cyprus
-            </p>
+            <p>Coursiv Limited. Limassol, Cyprus</p>
           </footer>
         </section>
       </div>
     </div>
+  );
+}
+
+export default function StartQuiz() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <QuizContent />
+    </Suspense>
   );
 }

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import AdminLayout from "../components/AdminLayout";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function ProfilePage() {
     const router = useRouter();
@@ -111,7 +112,7 @@ export default function ProfilePage() {
                             <div className="d-flex align-items-center justify-content-between pt-4 pb-6 px-4">
                                 <div className="d-flex align-items-center">
                                     <div className="avatar-xxl avatar-indicators avatar-online me-2 position-relative d-flex justify-content-end align-items-end mt-n10">
-                                        <img src="/images/admin/profile.jpg" alt="admin" className="avatar-xxl rounded-circle border border-4 border-white-color-40" /><a className="position-absolute top-0 right-0 me-2" data-bs-toggle="tooltip" data-placement="top" title="" data-original-title="Verified" href="/pages/profile#!"></a></div>
+                                        <Image src="/images/admin/profile.jpg" alt="admin" className="avatar-xxl rounded-circle border border-4 border-white-color-40" /><a className="position-absolute top-0 right-0 me-2" data-bs-toggle="tooltip" data-placement="top" title="" data-original-title="Verified" href="/pages/profile#!"></a></div>
                                     <div className="lh-1">
                                         <h2 className="mb-0">Admin<a className="text-decoration-none" data-bs-toggle="tooltip" data-placement="top" title="" data-original-title="Beginner" href="/pages/profile#!"></a></h2>
                                         {/* <p className="mb-0 d-block">@admin</p> */}
@@ -139,7 +140,7 @@ export default function ProfilePage() {
                                             <div className="mb-3 row">
                                                 <label htmlFor="profileImage" className="col-sm-4 col-form-label">Profile</label>
                                                 <div className="col-md-8">
-                                                    <img
+                                                    <Image
                                                         src={profile.profileImage || "/images/admin/profile.jpg"}
                                                         alt="Profile"
                                                         className="rounded-circle avatar avatar-lg me-3"

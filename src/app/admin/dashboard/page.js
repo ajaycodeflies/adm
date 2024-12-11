@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Cookies from "js-cookie";
 import AdminLayout from "../components/AdminLayout";
+import Image from "next/image";
 
 export default function AdminDashboard() {
   const router = useRouter();
@@ -140,7 +141,7 @@ export default function AdminDashboard() {
                       <td className="align-middle">
                         <div className="d-flex align-items-center">
                           <div>
-                            <img src="/images/avatar/avatar-2.jpg" alt="" className="avatar-md avatar rounded-circle" />
+                            <Image src="/images/avatar/avatar-2.jpg" alt="avatar" className="avatar-md avatar rounded-circle" />
                           </div>
                           <div className="ms-3 lh-1">
                             <h5 className=" mb-1">Anita Parmar</h5>
@@ -166,7 +167,7 @@ export default function AdminDashboard() {
                       <td className="align-middle">
                         <div className="d-flex align-items-center">
                           <div>
-                            <img src="/images/avatar/avatar-2.jpg" alt="" className="avatar-md avatar rounded-circle" />
+                            <Image src="/images/avatar/avatar-2.jpg" alt="" className="avatar-md avatar rounded-circle" />
                           </div>
                           <div className="ms-3 lh-1">
                             <h5 className=" mb-1">Jitu Chauhan</h5>
@@ -192,7 +193,7 @@ export default function AdminDashboard() {
                       <td className="align-middle">
                         <div className="d-flex align-items-center">
                           <div>
-                            <img src="/images/avatar/avatar-2.jpg" alt="" className="avatar-md avatar rounded-circle" />
+                            <Image src="/images/avatar/avatar-2.jpg" alt="" className="avatar-md avatar rounded-circle" />
                           </div>
                           <div className="ms-3 lh-1">
                             <h5 className=" mb-1">Sandeep Chauhan</h5>
@@ -218,7 +219,7 @@ export default function AdminDashboard() {
                       <td className="align-middle">
                         <div className="d-flex align-items-center">
                           <div>
-                            <img src="/images/avatar/avatar-2.jpg" alt="" className="avatar-md avatar rounded-circle" />
+                            <Image src="/images/avatar/avatar-2.jpg" alt="" className="avatar-md avatar rounded-circle" />
                           </div>
                           <div className="ms-3 lh-1">
                             <h5 className=" mb-1">Amanda Darnell</h5>

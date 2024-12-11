@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import Link from "next/link";
+import Image from 'next/image';
 
 export default function Sidebar({ isExpanded }) {
   const router = useRouter();
@@ -66,13 +67,13 @@ export default function Sidebar({ isExpanded }) {
                 >
                   <div className="nav-scroller">
                     <Link className="navbar-brand" href="/">
-                      <img src="/images/logo.png" alt="Logo" />
+                      <Image src="/images/logo.png" alt="Logo" />
                     </Link>
                   </div>
                   <ul className="navbar-nav flex-column accordion">
                     <li className="nav-item">
                       <Link href="/admin/dashboard" className="nav-link active">
-                        <img
+                        <Image
                           src="/icons/home.svg"
                           alt="home"
                           className="nav-icon me-2"
@@ -86,7 +87,7 @@ export default function Sidebar({ isExpanded }) {
                     </li>
                     <li className="nav-item">
                       <Link className="nav-link " href="/admin/dashboard">
-                        <img src="/icons/users.svg" alt="users" className="nav-icon me-2" /> Users
+                        <Image src="/icons/users.svg" alt="users" className="nav-icon me-2" /> Users
                       </Link>
                     </li>
                     <li className="nav-item">
@@ -99,7 +100,7 @@ export default function Sidebar({ isExpanded }) {
                         href="#"
                         onClick={toggleDropdown}
                       >
-                        <img src="/icons/help-circle.svg" alt="questions" className="nav-icon me-2" />
+                        <Image src="/icons/help-circle.svg" alt="questions" className="nav-icon me-2" />
                         Questions
                       </Link>
                       <ul className={`nav flex-column list-group collapse ${isOpen ? 'show' : ''}`}>
@@ -117,7 +118,7 @@ export default function Sidebar({ isExpanded }) {
                     </li>
                     <li className="nav-item">
                       <Link href="/admin/plan" className="nav-link">
-                        <img
+                        <Image
                           src="/icons/dollar-sign.svg"
                           alt="plans"
                           className="nav-icon me-2"
@@ -127,19 +128,19 @@ export default function Sidebar({ isExpanded }) {
                     </li>
                     <li className="nav-item">
                       <Link className="nav-link " href="">
-                        <img src="/icons/book.svg" alt="lessons" className="nav-icon me-2" />Lessons
+                        <Image src="/icons/book.svg" alt="lessons" className="nav-icon me-2" />Lessons
                       </Link>
                     </li>
 
                     <li className="nav-item">
                       <Link className="nav-link " href="">
-                        <img src="/icons/file-text.svg" alt="pages" className="nav-icon me-2" />Pages
+                        <Image src="/icons/file-text.svg" alt="pages" className="nav-icon me-2" />Pages
                       </Link>
                     </li>
 
                     <li className="nav-item">
                       <Link className="nav-link " href="">
-                        <img src="/icons/settings.svg" alt="settings" className="nav-icon me-2" />Settings
+                        <Image src="/icons/settings.svg" alt="settings" className="nav-icon me-2" />Settings
                       </Link>
                     </li>
 
@@ -149,7 +150,7 @@ export default function Sidebar({ isExpanded }) {
                         href=""
                         onClick={handleLogout}  // Call the logout function
                       >
-                        <img
+                        <Image
                           src="/icons/log-out.svg"
                           alt="logout"
                           className="nav-icon me-2"

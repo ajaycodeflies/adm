@@ -15,7 +15,7 @@ const Privacy = () => {
                             <p>
                                 This Privacy Policy is incorporated by reference in the &nbsp;
                                 <a href="https://www.google.com/url?q=https://legal.coursiv.io/terms&amp;sa=D&amp;source=editors&amp;ust=1733472576610662&amp;usg=AOvVaw0xE_gXN5sN-_vwxRJeWVqP">Terms and Conditions</a>
-                                &nbsp;of Coursiv™ &nbsp; 'Coursiv', or 'us' and is part of the agreement between you, user of the Website www.coursiv.io&nbsp;(“Website” or “Service”), and Coursiv.
+                                &nbsp;of Coursiv™ &nbsp; &apos;Coursiv&apos;, or &apos;us&apos; and is part of the agreement between you, user of the Website www.coursiv.io&nbsp;(“Website” or “Service”), and Coursiv.
                             </p>
                             <p>Important Privacy Information</p>
                             <p>
@@ -129,7 +129,7 @@ const Privacy = () => {
                                 credit card number data, though we may receive credit card-related data, data about the transaction, including: date, time and amount of the transaction, the type of payment method used.
                             </p>
                             <p>
-                                2.5. Cookies . A cookie is a small text file that is stored on a user's computer for record-keeping purposes. Cookies can be either session cookies or persistent cookies. A session cookie expires when you close your
+                                2.5. Cookies . A cookie is a small text file that is stored on a user&apos;s computer for record-keeping purposes. Cookies can be either session cookies or persistent cookies. A session cookie expires when you close your
                                 browser and is used to make it easier for you to navigate our Service. A persistent cookie remains on your hard drive for an extended period of time. We also use tracking pixels that set cookies to assist with delivering
                                 online advertising. Cookies are used, in particular, to automatically recognize you the next time you visit our Website. As a result, the information, which you have earlier entered in certain fields on the Website may
                                 automatically appear the next time when you use our Service. Cookie data will be stored on your device and most of the times only for a limited time period.
