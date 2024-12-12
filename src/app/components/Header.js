@@ -18,7 +18,7 @@ export default function Header() {
         <nav className="navbar navbar-expand-lg">
           <div className="container-fluid">
             <Link className="navbar-brand" href="/">
-              <Image src={logo} alt="ADM Digital Logo" width={200} height={100} />
+              <Image src={logo} alt="ADM Digital Logo" width={150} height={100} />
             </Link>
             <button className="btn btn-light" type="button" onClick={toggleSidebar}>
               <i className="bi bi-list"></i>

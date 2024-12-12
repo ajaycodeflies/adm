@@ -67,7 +67,7 @@ export default function Sidebar({ isExpanded }) {
                 >
                   <div className="nav-scroller">
                     <Link className="navbar-brand" href="/">
-                      <Image src="/images/logo.png" alt="Logo" />
+                      <Image src="/images/logo.png" alt="Logo" width={200} height={100} />
                     </Link>
                   </div>
                   <ul className="navbar-nav flex-column accordion">
@@ -77,6 +77,8 @@ export default function Sidebar({ isExpanded }) {
                           src="/icons/home.svg"
                           alt="home"
                           className="nav-icon me-2"
+                          width={20}
+                          height={20}
                         />
                         Dashboard
                       </Link>
@@ -87,7 +89,7 @@ export default function Sidebar({ isExpanded }) {
                     </li>
                     <li className="nav-item">
                       <Link className="nav-link " href="/admin/dashboard">
-                        <Image src="/icons/users.svg" alt="users" className="nav-icon me-2" /> Users
+                        <Image src="/icons/users.svg" alt="users" className="nav-icon me-2" width={20} height={20} /> Users
                       </Link>
                     </li>
                     <li className="nav-item">
@@ -100,7 +102,7 @@ export default function Sidebar({ isExpanded }) {
                         href="#"
                         onClick={toggleDropdown}
                       >
-                        <Image src="/icons/help-circle.svg" alt="questions" className="nav-icon me-2" />
+                        <Image src="/icons/help-circle.svg" alt="questions" className="nav-icon me-2" width={20} height={20} />
                         Questions
                       </Link>
                       <ul className={`nav flex-column list-group collapse ${isOpen ? 'show' : ''}`}>
@@ -122,25 +124,27 @@ export default function Sidebar({ isExpanded }) {
                           src="/icons/dollar-sign.svg"
                           alt="plans"
                           className="nav-icon me-2"
+                          width={20}
+                          height={20}
                         />
                         Plans
                       </Link>
                     </li>
                     <li className="nav-item">
                       <Link className="nav-link " href="">
-                        <Image src="/icons/book.svg" alt="lessons" className="nav-icon me-2" />Lessons
+                        <Image src="/icons/book.svg" alt="lessons" className="nav-icon me-2" width={20} height={20} />Lessons
                       </Link>
                     </li>
 
                     <li className="nav-item">
                       <Link className="nav-link " href="">
-                        <Image src="/icons/file-text.svg" alt="pages" className="nav-icon me-2" />Pages
+                        <Image src="/icons/file-text.svg" alt="pages" className="nav-icon me-2" width={20} height={20} />Pages
                       </Link>
                     </li>
 
                     <li className="nav-item">
                       <Link className="nav-link " href="">
-                        <Image src="/icons/settings.svg" alt="settings" className="nav-icon me-2" />Settings
+                        <Image src="/icons/settings.svg" alt="settings" className="nav-icon me-2" width={20} height={20} />Settings
                       </Link>
                     </li>
 
@@ -154,6 +158,8 @@ export default function Sidebar({ isExpanded }) {
                           src="/icons/log-out.svg"
                           alt="logout"
                           className="nav-icon me-2"
+                          width={20}
+                          height={20}
                         />
                         Logout
                       </Link>

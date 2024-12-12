@@ -141,7 +141,7 @@ export default function AdminDashboard() {
                       <td className="align-middle">
                         <div className="d-flex align-items-center">
                           <div>
-                            <Image src="/images/avatar/avatar-2.jpg" alt="avatar" className="avatar-md avatar rounded-circle" />
+                            <Image src="/images/avatar/avatar-2.jpg" alt="avatar" className="avatar-md avatar rounded-circle" width={40} height={40} />
                           </div>
                           <div className="ms-3 lh-1">
                             <h5 className=" mb-1">Anita Parmar</h5>
@@ -167,7 +167,7 @@ export default function AdminDashboard() {
                       <td className="align-middle">
                         <div className="d-flex align-items-center">
                           <div>
-                            <Image src="/images/avatar/avatar-2.jpg" alt="" className="avatar-md avatar rounded-circle" />
+                            <Image src="/images/avatar/avatar-2.jpg" alt="" className="avatar-md avatar rounded-circle" width={40} height={40}/>
                           </div>
                           <div className="ms-3 lh-1">
                             <h5 className=" mb-1">Jitu Chauhan</h5>
@@ -193,7 +193,7 @@ export default function AdminDashboard() {
                       <td className="align-middle">
                         <div className="d-flex align-items-center">
                           <div>
-                            <Image src="/images/avatar/avatar-2.jpg" alt="" className="avatar-md avatar rounded-circle" />
+                            <Image src="/images/avatar/avatar-2.jpg" alt="" className="avatar-md avatar rounded-circle" width={40} height={40}/>
                           </div>
                           <div className="ms-3 lh-1">
                             <h5 className=" mb-1">Sandeep Chauhan</h5>
@@ -219,7 +219,7 @@ export default function AdminDashboard() {
                       <td className="align-middle">
                         <div className="d-flex align-items-center">
                           <div>
-                            <Image src="/images/avatar/avatar-2.jpg" alt="" className="avatar-md avatar rounded-circle" />
+                            <Image src="/images/avatar/avatar-2.jpg" alt="" className="avatar-md avatar rounded-circle" width={40} height={40} />
                           </div>
                           <div className="ms-3 lh-1">
                             <h5 className=" mb-1">Amanda Darnell</h5>

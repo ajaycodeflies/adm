@@ -51,7 +51,7 @@ export default function AdminLogin() {
     <main className="d-flex flex-column align-items-center justify-content-center vh-100 bg-light">
 
       <div className="mb-3">
-        <Image src="/images/logo.png" alt="Logo" className="Image-fluid w-20 mx-auto d-block opacity-90" style={{ maxWidth: "15%" }} />
+        <Image src="/images/logo.png" alt="Logo" className="Image-fluid w-20 mx-auto d-block opacity-90" width={180} height={45} />
       </div>
 
       <div className="card p-4 shadow-sm" style={{ width: "400px" }}>

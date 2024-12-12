@@ -8,11 +8,11 @@ export default function Home() {
       <div className="d-flex flex-column align-items-center justify-content-center text-center">
         <Header />
         <section className="mt-4">
-          <h2 className="fw-bold">CAREER FREEDOM CHALLENGE</h2>
+          <h2 className="fw-bold text-uppercase main-heading" >Career Freedom Challenge</h2>
           <p className="mt-2">
-            SELECT YOUR <span className="fw-bold" style={{ "color": "var(--blue-dark)" }}>GENDER</span>
+            Select Your <span className="fw-bold" style={{ "color": "var(--blue-dark)" }}>Gender</span>
           </p>
-          <p className="fw-bold text-secondary">1-MINUTE QUIZ</p>
+          <p className="fw-bold text-secondary">1-Minute Quiz</p>
           <GenderSelector />
           <Footer />
         </section>

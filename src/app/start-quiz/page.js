@@ -57,11 +57,11 @@ function QuizContent() {
       <div className="d-flex flex-column align-items-center justify-content-center text-center">
         <Header />
         <section className="mt-4">
-          <h2 className="fw-bold">CAREER FREEDOM CHALLENGE</h2>
+          <h2 className="fw-bold text-uppercase main-heading">Career Freedom Challenge</h2>
           <p className="mt-2">
-            SELECT YOUR <span className="fw-bold" style={{ color: "var(--blue-dark)" }}>AGE</span>
+          Select Your <span className="fw-bold" style={{ color: "var(--blue-dark)" }}>Age</span>
           </p>
-          <p className="fw-bold text-secondary">1-MINUTE QUIZ</p>
+          <p className="fw-bold text-secondary">1-Minute Quiz</p>
           <div className="row justify-content-center mt-4">
           {isMale ? (
               <>
@@ -159,7 +159,7 @@ function QuizContent() {
                 <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
                   <div className="card">
                     <Image
-                      src="/images/under-18-f.avif"
+                      src="/images/under-18-f.jpg"
                       width={100}
                       height={100}
                       alt="Female under 18"
@@ -256,7 +256,7 @@ function QuizContent() {
               <a href="/privacy">Privacy Policy</a>,{" "}
               <a href="/subscription">Subscription Terms</a>
             </p>
-            <p>Coursiv Limited. Limassol, Cyprus</p>
+            <p>&copy; 2024 ADM Digital. All Rights Reserved.</p>
           </footer>
         </section>
       </div>

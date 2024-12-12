@@ -9,9 +9,7 @@ export default function Footer() {
                     <a href="/privacy">Privacy Policy</a>,{" "}
                     <a href="/subscription">Subscription Terms</a>
                 </p>
-                <p>
-                    Coursiv Limited. Limassol, Cyprus
-                </p>
+                <p>&copy; 2024 ADM Digital. All Rights Reserved.</p>
             </footer>
         </>
     );
