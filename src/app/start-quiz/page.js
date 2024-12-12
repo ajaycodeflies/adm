@@ -67,7 +67,7 @@ function QuizContent() {
               <>
                 <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
                   <div className="card">
-                    <Image src="/images/under-18-m.avif" width={100} height={100} alt="" />
+                    <Image src="/images/under-18-m.webp" width={100} height={100} alt="" />
                     <div className="card-body">
                       <button
                         className="btn btn-blue"
@@ -159,7 +159,7 @@ function QuizContent() {
                 <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
                   <div className="card">
                     <Image
-                      src="/images/under-18-f.jpg"
+                      src="/images/under-18-f.webp"
                       width={100}
                       height={100}
                       alt="Female under 18"
