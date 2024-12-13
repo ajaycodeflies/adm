@@ -151,7 +151,7 @@ export default function Sidebar({ isExpanded }) {
                       <div className="navbar-heading">Management</div>
                     </li>
                     <li className="nav-item">
-                      <Link className="nav-link " href="/profile">
+                      <Link className="nav-link " href="/admin/profile">
                         <Image src="/icons/user.svg" alt="profile" className="nav-icon me-2" width={20} height={20} />Profile
                       </Link>
                     </li>
