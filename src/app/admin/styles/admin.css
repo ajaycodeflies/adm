@@ -28613,3 +28613,6 @@ div.code-toolbar>.toolbar>.toolbar-item>span:hover {
   bottom: unset;
   transform: unset;  
 }
+.form-label{
+  font-weight: bold;
+}

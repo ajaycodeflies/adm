@@ -13,8 +13,8 @@ export default function ProfilePage() {
         firstName: "Admin",
         lastName: "",
         email: "N/A",
-        phone: "N/A",
-        profileImage: "/images/admin/profile.jpg",
+        mobile: "N/A",
+        profile: "/images/admin/profile.jpg",
     });
     useEffect(() => {
         const sessionToken = Cookies.get("session_token");
@@ -46,8 +46,8 @@ export default function ProfilePage() {
                     firstName: data.data.firstName || "Admin",
                     lastName: data.data.lastName || "",
                     email: data.data.email || "N/A",
-                    phone: data.data.phone || "N/A",
-                    profileImage: data.data.profileImage || "/images/admin/default-profile.jpg",
+                    mobile: data.data.mobile || "N/A",
+                    profile: data.data.profile || "/images/admin/profile.jpg",
                 });
                 console.log("Profile data:", data.data);
             } else {
@@ -64,14 +64,15 @@ export default function ProfilePage() {
         const formData = new FormData(e.target);
     
         const updatedProfile = {
-            fullName: formData.get("firstName"),
-            lastName: formData.get("lastName"),
+            first_name: formData.get("firstName"),
+            last_name: formData.get("lastName"),
             email: formData.get("email"),
-            phone: formData.get("phone"),
+            mobile: formData.get("mobile"),
+            profile: formData.get("profile"),
         };
     
-        if (formData.get("profileImage")) {
-            updatedProfile.profileImage = formData.get("profileImage");
+        if (formData.get("profile")) {
+            updatedProfile.profile = formData.get("profile");
         }
     
         try {
@@ -138,16 +139,16 @@ export default function ProfilePage() {
                                     <div>
                                         <form onSubmit={handleUpdateProfile}>
                                             <div className="mb-3 row">
-                                                <label htmlFor="profileImage" className="col-sm-4 col-form-label">Profile</label>
+                                                <label htmlFor="profile" className="col-sm-4 col-form-label">Profile</label>
                                                 <div className="col-md-8">
                                                     <Image
-                                                        src={profile.profileImage || "/images/admin/profile.jpg"}
+                                                        src={profile.profile || "/images/admin/profile.jpg"}
                                                         alt="Profile"
                                                         className="rounded-circle avatar avatar-lg me-3"
                                                         width={100}
                                                         height={100}
                                                     />
-                                                    <input type="file" className="form-control" id="profileImage" name="profileImage" />
+                                                    <input type="file" className="form-control" id="profile" name="profile" />
                                                 </div>
                                             </div>
                                             <div className="mb-3 row">
@@ -187,14 +188,14 @@ export default function ProfilePage() {
                                                 </div>
                                             </div>
                                             <div className="mb-3 row">
-                                                <label htmlFor="phone" className="col-sm-4 col-form-label">Phone</label>
+                                                <label htmlFor="mobile" className="col-sm-4 col-form-label">Mobile</label>
                                                 <div className="col-md-8">
                                                     <input
                                                         type="text"
                                                         className="form-control"
-                                                        id="phone"
-                                                        name="phone"
-                                                        defaultValue={profile.phone}
+                                                        id="mobile"
+                                                        name="mobile"
+                                                        defaultValue={profile.mobile}
                                                     />
                                                 </div>
                                             </div>

@@ -85,10 +85,10 @@ export default function Sidebar({ isExpanded }) {
                     </li>
 
                     <li className="nav-item">
-                      <div className="navbar-heading">Page Documentation</div>
+                      {/* <div className="navbar-heading">Page Documentation</div> */}
                     </li>
                     <li className="nav-item">
-                      <Link className="nav-link " href="/admin/dashboard">
+                      <Link className="nav-link " href="/admin/users">
                         <Image src="/icons/users.svg" alt="users" className="nav-icon me-2" width={20} height={20} /> Users
                       </Link>
                     </li>
@@ -107,7 +107,7 @@ export default function Sidebar({ isExpanded }) {
                       </Link>
                       <ul className={`nav flex-column list-group collapse ${isOpen ? 'show' : ''}`}>
                         <li className="nav-item">
-                          <Link className="nav-link" href="#">
+                          <Link className="nav-link" href="/admin/questions/create">
                             Add Question
                           </Link>
                         </li>

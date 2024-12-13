@@ -5,10 +5,33 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function Header({ onToggleSidebar }) {
-
+  
   const [isNotificationShow, setIsNotificationShow] = useState(false);
   const [isProfileShow, setIsProfileShow] = useState(false);
 
+  // Handle logout
+    const handleLogout = async () => {
+      const sessionToken = Cookies.get("session_token");
+  
+      try {
+        await fetch("/api/admin/logout", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ session_token: sessionToken }),
+        });
+  
+        // Remove the session token from cookies
+        Cookies.remove("session_token");
+  
+        // Redirect to login page
+        router.push("/admin/login");
+      } catch (error) {
+        console.error("Logout failed:", error);
+      }
+    };
+    
   const handleNotificationButtonClick = () => {
     setIsNotificationShow(!isNotificationShow);
   };
@@ -142,9 +165,9 @@ export default function Header({ onToggleSidebar }) {
                     <Link className="dropdown-item" href="/admin/profile">
                       <Image src="/images/admin/profile.jpg" alt="avatar" className="rounded-circle avatar avatar-xs me-2" width={40} height={40} />  Edit Profile
                     </Link>
-                    <a data-rr-ui-dropdown-item="" className="dropdown-item" role="button" tabIndex="0" href="#">
+                    <Link href="" className="dropdown-item" onClick={handleLogout}>
                       <Image src="/icons/log-out.svg" alt="sign out" className="avatar avatar-xs me-2" width={40} height={40} /> Logout
-                    </a>
+                    </Link>
                   </div>
                 </li>
               </ul>
