@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/admin.css";
+import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Header({ onToggleSidebar }) {
-  
+  const router = useRouter();
   const [isNotificationShow, setIsNotificationShow] = useState(false);
   const [isProfileShow, setIsProfileShow] = useState(false);
 
@@ -14,7 +16,7 @@ export default function Header({ onToggleSidebar }) {
       const sessionToken = Cookies.get("session_token");
   
       try {
-        await fetch("/api/admin/logout", {
+        await fetch("../api/admin/logout", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
