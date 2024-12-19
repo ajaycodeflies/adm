@@ -16,7 +16,7 @@ export default function Header() {
     <>
       <header className="header">
         <nav className="navbar navbar-expand-lg">
-          <div className="container-fluid">
+          <div className="container-fluid px-0">
             <Link className="navbar-brand" href="/">
               <Image src={logo} alt="ADM Digital Logo" width={150} height={100} />
             </Link>
@@ -28,7 +28,7 @@ export default function Header() {
       </header>
       <aside className={`sidebar ${isSidebarVisible ? 'show' : ''}`}>
         <nav className="navbar navbar-expand-lg">
-          <div className="container-fluid flex-row flex-wrap">
+          <div className="container-fluid flex-row flex-wrap  px-0">
             <Link className="navbar-brand" href="#">
               <Image src={logo} alt="ADM Digital Logo" width={200} height={100} />
             </Link>
