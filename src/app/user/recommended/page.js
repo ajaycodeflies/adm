@@ -19,7 +19,7 @@ const Recommended = () => {
                     <div className="card-course-ingrid">
                         <div className="card-course">
 
-                            <Image src="/images/icons/artificial-intelligence.png" width={200} height={100} />
+                            <Image src="/images/icons/artificial-intelligence.png" alt="course-preview" width={200} height={100} />
 
 
                             <p>ChatGPT</p>
@@ -29,7 +29,7 @@ const Recommended = () => {
                         </div>
                         <div className="card-course">
 
-                            <Image src="/images/icons/ai.png" width={200} height={100} />
+                            <Image src="/images/icons/ai.png" alt="course-preview" width={200} height={100} />
 
                             <p>MidJourney</p>
                             <h6>Lessons 16 - 3 Levels</h6>
@@ -41,7 +41,7 @@ const Recommended = () => {
                     <div className="card-course-ingrid">
                         <div className="card-course">
 
-                            <Image src="/images/icons/artificial-intelligence-c1.png" width={200} height={100} />
+                            <Image src="/images/icons/artificial-intelligence-c1.png" alt="course-preview" width={200} height={100} />
 
 
                             <p>First Steps to Profit with AI</p>
@@ -51,7 +51,7 @@ const Recommended = () => {
                         </div>
                         <div className="card-course">
 
-                            <Image src="/images/icons/money.png" width={200} height={100} />
+                            <Image src="/images/icons/money.png" alt="course-preview" width={200} height={100} />
 
                             <p>Earning Through ChatGPT-4 in SMM</p>
                             <h6>Lessons 16 - 3 Levels</h6>
@@ -63,7 +63,7 @@ const Recommended = () => {
                     <div className="card-course-ingrid">
                         <div className="card-course">
 
-                            <Image src="/images/icons/artificial-intelligence.png" width={200} height={100} />
+                            <Image src="/images/icons/artificial-intelligence.png" alt="course-preview" width={200} height={100} />
 
 
                             <p>ChatGPT</p>
@@ -73,7 +73,7 @@ const Recommended = () => {
                         </div>
                         <div className="card-course">
 
-                            <Image src="/images/icons/ai.png" width={200} height={100} />
+                            <Image src="/images/icons/ai.png" alt="course-preview" width={200} height={100} />
 
                             <p>MidJourney</p>
                             <h6>Lessons 16 - 3 Levels</h6>
@@ -85,7 +85,7 @@ const Recommended = () => {
                     <div className="card-course-ingrid">
                         <div className="card-course">
 
-                            <Image src="/images/icons/artificial-intelligence-c1.png" width={200} height={100} />
+                            <Image src="/images/icons/artificial-intelligence-c1.png" alt="course-preview" width={200} height={100} />
 
 
                             <p>First Steps to Profit with AI</p>
@@ -95,7 +95,7 @@ const Recommended = () => {
                         </div>
                         <div className="card-course">
 
-                            <Image src="/images/icons/money.png" width={200} height={100} />
+                            <Image src="/images/icons/money.png" alt="course-preview" width={200} height={100} />
 
                             <p>Earning Through ChatGPT-4 in SMM</p>
                             <h6>Lessons 16 - 3 Levels</h6>

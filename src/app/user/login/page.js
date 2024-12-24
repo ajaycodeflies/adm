@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 
 export default function UserLogin() {
@@ -15,7 +16,7 @@ export default function UserLogin() {
         <main class="d-flex flex-column align-items-center justify-content-center bg-light py-5">
 
             <div className="mb-3">
-                <img src="/images/logo.png" alt="Logo" className="img-fluid w-20 mx-auto d-block opacity-90" style={{ maxWidth: "20%" }} />
+                <Image src="/images/logo.png" alt="Logo" className="img-fluid w-20 mx-auto d-block opacity-90" style={{ maxWidth: "20%" }} />
             </div>
 
             <div className="card p-4 shadow-sm  border-0" style={{ width: "400px" }}>

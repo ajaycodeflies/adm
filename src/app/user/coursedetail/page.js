@@ -17,7 +17,7 @@ const CourseDetail = () => {
 
 
                     <div className="course-preview">
-                        <Image src="/images/courses/15863066.jpg" width={500} height={200} />
+                        <Image src="/images/courses/15863066.jpg" alt="course-preview" width={500} height={200} />
                     </div>
                     <div className="course-detail">
                         <h5>AI Mastery</h5>
@@ -29,7 +29,7 @@ const CourseDetail = () => {
                     {/* Course Modules */}
                     <div className="course-item">
                         <div className="course-item-preview">
-                            <Image src="/images/icons/artificial-intelligence.png" width={500} height={200} />
+                            <Image src="/images/icons/artificial-intelligence.png" alt="course-preview" width={500} height={200} />
                         </div>
                         <div className="course-item-content">
                             <h6>ChatGPT</h6>
@@ -42,7 +42,7 @@ const CourseDetail = () => {
 
                     <div className="course-item">
                         <div className="course-item-preview">
-                            <Image src="/images/icons/ai.png" width={500} height={200} />
+                            <Image src="/images/icons/ai.png" alt="course-preview" width={500} height={200} />
                         </div>
                         <div className="course-item-content">
                             <h6>MidJourney</h6>
@@ -55,7 +55,7 @@ const CourseDetail = () => {
 
                     <div className="course-item">
                         <div className="course-item-preview">
-                            <Image src="/images/icons/artificial-intelligence-c1.png" width={500} height={200} />
+                            <Image src="/images/icons/artificial-intelligence-c1.png" alt="course-preview" width={500} height={200} />
                         </div>
                         <div className="course-item-content">
                             <h6>First Steps to Profit with AI</h6>
@@ -68,7 +68,7 @@ const CourseDetail = () => {
                     
                     <div className="course-item">
                         <div className="course-item-preview">
-                            <Image src="/images/icons/money.png" width={500} height={200} />
+                            <Image src="/images/icons/money.png" alt="course-preview" width={500} height={200} />
                         </div>
                         <div className="course-item-content">
                             <h6>Earning Through ChatGPT-4 in SMM</h6>

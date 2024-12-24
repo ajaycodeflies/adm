@@ -83,8 +83,7 @@ export default function QuestionsPage() {
                                                     {question.options.map((option, idx) => (
                                                         <div key={idx} className="d-flex align-items-center py-2">
                                                             {option.image && (
-                                                                <img
-                                                                    src={option.image}
+                                                                <Image                                                  src={option.image}
                                                                     alt={`Option ${idx}`}
                                                                     style={{ width: "40px", height: "40px", marginRight: "10px" }}
                                                                     className="rounded-circle"
