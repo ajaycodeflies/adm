@@ -12,14 +12,19 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.3.3",
+    "cors": "^2.8.5",
     "coursiv": "file:",
     "dotenv": "^16.4.6",
+    "formidable": "^3.5.2",
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.8.3",
+    "multer": "^1.4.5-lts.1",
     "next": "15.0.3",
+    "next-connect": "^1.0.0",
     "react": "19.0.0-rc-66855b96-20241106",
-    "react-dom": "19.0.0-rc-66855b96-20241106"
+    "react-dom": "19.0.0-rc-66855b96-20241106",
+    "uuid": "^11.0.3"
   },
   "devDependencies": {
     "eslint": "^8",

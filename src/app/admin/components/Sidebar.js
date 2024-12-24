@@ -112,7 +112,7 @@ export default function Sidebar({ isExpanded }) {
                           </Link>
                         </li>
                         <li className="nav-item">
-                          <Link className="nav-link" href="#">
+                          <Link className="nav-link" href="/admin/questions">
                            - View Questions
                           </Link>
                         </li>

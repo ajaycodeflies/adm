@@ -11,6 +11,14 @@ const nextConfig = {
             },
         ];
     },
+
+    // Allow images to be loaded from localhost (or any other required domains)
+    images: {
+        domains: ["localhost"], // Add other domains as needed
+    },
+
+    // Add staticPageGenerationTimeout if required
+    staticPageGenerationTimeout: 60,
 };
 
 export default nextConfig;

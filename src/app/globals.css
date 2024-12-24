@@ -430,8 +430,20 @@ a:hover {
     margin: 0;
     display: block;
     position: relative;
-    border: 2px solid var(--blue-dark);
+    /* border: 1px solid var(--blue-dark); */
     border-radius: .75rem;
+}
+.back-button {
+    border: none;
+    background: none;
+}
+
+.back-button i{
+    font-size: 27px;
+}
+
+.text-left {
+    text-align: left;
 }
 
 .card:hover,
@@ -449,6 +461,9 @@ a:hover {
     justify-content: flex-start;
     align-items: center;
     gap: 1rem;
+    cursor: pointer;
+    background: #f1f1f180;
+    height: 112px;
 }
 
 .card.selected::before {
@@ -529,7 +544,7 @@ a:hover {
 /* Container */
 .box-container {
     width: 100%;
-    max-width: 430px;
+    max-width: 500px;
     height: 100vh;
     padding: 0 1rem;
     margin: 0 auto;
