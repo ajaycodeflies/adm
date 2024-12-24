@@ -81,7 +81,31 @@ const CourseDetail = () => {
                     <h5 class="my-3">Certificates</h5>
 
                     <div className="card-certificate-ingrid">
-                        
+                        <div className="certificate-item">
+                            <div class="certificate-image"></div>
+                            <h5>ChatGPT</h5>
+                            <span>0%</span>
+                        </div>
+
+                        <div className="certificate-item">
+                            <div class="certificate-image"></div>
+                            <h5>DALL-E</h5>
+                            <span>0%</span>
+                        </div>
+
+                        <div className="certificate-item">
+                            <div class="certificate-image"></div>
+                            <h5>MidJourney</h5>
+                            <span>0%</span>
+                        </div>
+
+                        <div className="certificate-item">
+                            <div class="certificate-image"></div>
+                            <h5>Jasper AI</h5>
+                            <span>0%</span>
+                        </div>
+
+
                     </div>
 
                 </div>
