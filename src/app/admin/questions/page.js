@@ -55,8 +55,9 @@ export default function QuestionsPage() {
             <div className="p-6 container-fluid">
                 <div className="row">
                     <div className="col-lg-12 col-md-12 col-12">
-                        <div className="border-bottom pb-4 mb-4">
-                            <h3 className="mb-0 fw-bold">Assessments Questions</h3>
+                        <div className="border-bottom pb-4 mb-4 d-flex justify-content-between align-items-center">
+                            <h3 className="mb-0 fw-bold">Assessments Questions List</h3>
+                            <Link href="/admin/questions/create" className="btn btn-sm btn-blue"><i className="bi bi-plus-lg"></i> Add More</Link>
                         </div>
                     </div>
                 </div>
@@ -83,9 +84,12 @@ export default function QuestionsPage() {
                                                     {question.options.map((option, idx) => (
                                                         <div key={idx} className="d-flex align-items-center py-2">
                                                             {option.image && (
-                                                                <Image                                                  src={option.image}
+                                                                <Image
+                                                                    src={option.image}
                                                                     alt={`Option ${idx}`}
-                                                                    style={{ width: "40px", height: "40px", marginRight: "10px" }}
+                                                                    width={40}
+                                                                    height={40}
+                                                                    style={{ marginRight: "10px" }}
                                                                     className="rounded-circle"
                                                                 />
                                                             )}
@@ -94,7 +98,7 @@ export default function QuestionsPage() {
                                                     ))}
                                                 </td>
 
-                                                <td className="align-middle">{question.position || index + 1 }</td>
+                                                <td className="align-middle">{question.position || index + 1}</td>
                                                 <td className="align-middle">
                                                     <div className="dropdown">
                                                         <Link href={`/admin/questions/edit/${question._id}`} className="btn btn-sm btn-primary">

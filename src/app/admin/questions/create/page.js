@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import AdminLayout from "../../components/AdminLayout";
+import Link from "next/link";
 
 export default function QuestionCreatePage() {
   const [question, setQuestion] = useState("");
@@ -89,6 +90,7 @@ export default function QuestionCreatePage() {
             <div className="bg-white rounded-bottom smooth-shadow-sm">
               <div className="d-flex align-items-center justify-content-between pt-4 pb-6 px-4">
                 <h3 className="mb-0 fw-bold">Add Assessment Question</h3>
+                <Link href="/admin/questions" className="btn btn-sm btn-blue">View Questions <i className="bi bi-arrow-right"></i></Link>
               </div>
             </div>
           </div>
