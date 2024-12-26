@@ -1,4 +1,5 @@
 import clientPromise from "@/lib/connection";
+import { ObjectId } from "mongodb";
 
 const connectToDatabase = async () => {
   try {
@@ -72,7 +73,7 @@ export const getAllQuestions = async () => {
 export async function getQuestionById(id) {
   try {
     const questionCollection = await connectToDatabase();
-    const question = await questionCollection.findById(id);
+    const question = await questionCollection.findOne({ _id: new ObjectId(id) });
     return question;
   } catch (error) {
     console.error("Error fetching question by ID:", error);
@@ -96,13 +97,18 @@ export const updateQuestion = async (id, { question, options }) => {
   }
 };
 
-// Delete a question by ID
+
 export const deleteQuestion = async (id) => {
   try {
-    const deletedQuestion = await Question.findByIdAndDelete(id);
-    return deletedQuestion;
+    const questionCollection = await connectToDatabase();
+    const result = await questionCollection.findOneAndDelete({ _id: new ObjectId(id) });
+    if (result.value) {
+      return { success: true, message: "Question deleted successfully" };
+    } else {
+      return { success: false, message: "Question not found" };
+    }
   } catch (error) {
     console.error("Error deleting question:", error);
-    return null;
+    return { success: false, message: "Internal Server Error" };
   }
 };

@@ -1,4 +1,3 @@
-// src/app/admin/questions/page.js
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -11,8 +10,10 @@ import Image from "next/image";
 export default function QuestionsPage() {
     const router = useRouter();
     const [questions, setQuestions] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);  // Change initial state to false, not true
     const [error, setError] = useState("");
+    const [toastMessage, setToastMessage] = useState("");  // For Toast message
+    const [toastType, setToastType] = useState("");  // To define message type (success/error)
 
     useEffect(() => {
         const sessionToken = Cookies.get("session_token");
@@ -41,6 +42,35 @@ export default function QuestionsPage() {
 
         fetchQuestions();
     }, []);
+
+    const deleteQuestion = async (id) => {
+        if (window.confirm("Are you sure you want to delete this question?")) {
+            setLoading(true);
+            try {
+                const response = await fetch(`/api/admin/questions?id=${id}`, {
+                    method: "DELETE",
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    setToastMessage("Question deleted successfully");
+                    setToastType("success"); // Set success type for the toast
+                    setQuestions(questions.filter((question) => question._id !== id));
+                } else {
+                    const error = await response.json();
+                    setToastMessage(error.message || "Failed to delete the question");
+                    setToastType("error"); // Set error type for the toast
+                }
+            } catch (error) {
+                console.error("Error deleting question:", error);
+                setToastMessage("Failed to delete the question. Please try again.");
+                setToastType("error");
+            } finally {
+                setLoading(false);
+                setTimeout(() => setToastMessage(""), 5000); // Hide message after 5 seconds
+            }
+        }
+    };
 
     if (loading) {
         return <p>Loading questions...</p>;
@@ -106,12 +136,12 @@ export default function QuestionsPage() {
                                                         </Link>
 
                                                         &nbsp;
-                                                        <Link
-                                                            href={`/admin/questions/${question._id}`}
+                                                        <button
                                                             className="btn btn-sm btn-danger"
-                                                        >
-                                                            Delete
-                                                        </Link>
+                                                            onClick={() => deleteQuestion(question._id)}
+                                                            disabled={loading}
+                                                        > Delete
+                                                        </button>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -123,6 +153,14 @@ export default function QuestionsPage() {
                     </div>
                 </div>
             </div>
+
+            {/* Toaster Message */}
+            {toastMessage && (
+                <div className={`toast-message ${toastType}`}>
+                    <p>{toastMessage}</p>
+                </div>
+            )}
+
         </AdminLayout>
     );
 }

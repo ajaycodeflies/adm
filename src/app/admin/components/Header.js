@@ -159,16 +159,14 @@ export default function Header({ onToggleSidebar }) {
                 </li>
                 <li className="ms-2 dropdown">
                   <button className="btn btn-light btn-icon rounded-circle indicator indicator-primary text-muted" id="dropdownUser" aria-expanded="false" onClick={handleProfileButtonClick}>
-                    <div className="avatar avatar-md avatar-indicators avatar-online">
-                      <Image alt="avatar" src="/images/admin/profile.jpg" className="rounded-circle" width={40} height={40} />
-                    </div>
+                    <Image src="/icons/user.svg" alt="profile"  className="fe-icon" width={24} height={24} />
                   </button>
                   <div data-bs-popper="static" className={`dropdown-menu dropdown-menu-end dropdown-menu dropdown-menu-end ${isProfileShow ? 'show' : ''}`} aria-labelledby="dropdownUser">
                     <Link className="dropdown-item" href="/admin/profile">
-                      <Image src="/images/admin/profile.jpg" alt="avatar" className="rounded-circle avatar avatar-xs me-2" width={40} height={40} />  Edit Profile
+                      <Image src="/icons/edit.svg" alt="avatar" className="fe-icon" width={16} height={16} />  &nbsp; Edit Profile
                     </Link>
                     <Link href="" className="dropdown-item" onClick={handleLogout}>
-                      <Image src="/icons/log-out.svg" alt="sign out" className="avatar avatar-xs me-2" width={40} height={40} /> Logout
+                      <Image src="/icons/log-out.svg" alt="sign out" className="fe-icon" width={16} height={16} /> &nbsp; Logout
                     </Link>
                   </div>
                 </li>

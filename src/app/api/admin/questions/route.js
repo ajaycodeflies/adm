@@ -1,34 +1,22 @@
-import multer from "multer";
 import { addQuestion, getAllQuestions, getQuestionById, deleteQuestion, updateQuestion } from "./questionController";
 import { NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
 import fs from "fs";
 import path from "path";
+import clientPromise from "@/lib/connection";
+import { ObjectId } from "mongodb";
+import { log } from "console";
 
-// Disable body parsing as multer will handle it
-export const config = {
-  api: {
-    bodyParser: false,
-  },
+const connectToDatabase = async () => {
+  try {
+    const client = await clientPromise;
+    const db = client.db("admDigital");
+    return db;
+  } catch (error) {
+    console.error("Failed to connect to the database", error);
+    throw new Error("Database connection error");
+  }
 };
-
-// Multer setup for file storage
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const uploadPath = path.join(process.cwd(), "public/uploads");
-    if (!fs.existsSync(uploadPath)) {
-      fs.mkdirSync(uploadPath, { recursive: true });
-    }
-    cb(null, uploadPath);
-  },
-  filename: (req, file, cb) => {
-    const uniqueName = `${uuidv4()}_${file.originalname}`;
-    cb(null, uniqueName);
-  },
-});
-
-const upload = multer({ storage });
-
 export const POST = async (req) => {
   try {
     const formData = await req.formData();
@@ -89,10 +77,6 @@ export const POST = async (req) => {
 };
 
 
-
-
-
-
 // Handle GET request to fetch all questions or a single question by its ID
 export async function GET(req) {
   const { nextUrl } = req;
@@ -123,66 +107,49 @@ export async function GET(req) {
   }
 }
 
-
-// Handle PUT request to update an existing question
-export async function PUT(req) {
-  try {
-    const data = await req.json();
-    const { id, question, options } = data;
-
-    if (!id || !question || !Array.isArray(options)) {
-      return NextResponse.json(
-        { success: false, message: "Invalid data format" },
-        { status: 400 }
-      );
-    }
-
-    const updatedQuestion = await updateQuestion(id, { question, options });
-
-    if (!updatedQuestion) {
-      return NextResponse.json(
-        { success: false, message: "Question not found" },
-        { status: 404 }
-      );
-    }
-
-    return NextResponse.json(updatedQuestion, { status: 200 });
-  } catch (error) {
-    console.error("Error updating question:", error);
-    return NextResponse.json(
-      { success: false, message: "Internal Server Error" },
-      { status: 500 }
-    );
-  }
-}
-
-// Handle DELETE request to delete a question
+// DELETE Request (Static Route)
 export async function DELETE(req) {
-  try {
-    const { id } = req.query;
+  const { nextUrl } = req;
+  const id = nextUrl.searchParams.get("id");  // Expecting the id via query parameters
 
+  try {
+    
     if (!id) {
-      return NextResponse.json(
-        { success: false, message: "Question ID is required" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Question ID is required." }, { status: 400 });
     }
 
+    if (!ObjectId.isValid(id)) {
+      return NextResponse.json({ error: "Invalid Question ID." }, { status: 400 });
+    }
+    
+    const db = await connectToDatabase();
+    const question = await getQuestionById(id);
+    if (!question) {
+      return NextResponse.json({ error: "Question not found." }, { status: 404 });
+    }
+    // Image cleanup and delete logic
+    const imagePaths = [];
+    question.options.forEach(option => {
+      if (option.image) {
+        imagePaths.push(path.join(process.cwd(), "public", option.image));
+      }
+    });
+
+    imagePaths.forEach(imagePath => {
+      if (fs.existsSync(imagePath)) {
+        fs.unlinkSync(imagePath);
+      }
+    });
+
+    // Delete the question
     const deletedQuestion = await deleteQuestion(id);
 
-    if (!deletedQuestion) {
-      return NextResponse.json(
-        { success: false, message: "Question not found" },
-        { status: 404 }
-      );
-    }
-
-    return NextResponse.json({ success: true, message: "Question deleted" }, { status: 200 });
+    return NextResponse.json(
+      { message: "Question and associated images deleted successfully."},
+      { status: 200 }
+    );
   } catch (error) {
     console.error("Error deleting question:", error);
-    return NextResponse.json(
-      { success: false, message: "Internal Server Error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to delete question." }, { status: 500 });
   }
 }

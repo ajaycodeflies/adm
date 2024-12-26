@@ -28616,3 +28616,43 @@ div.code-toolbar>.toolbar>.toolbar-item>span:hover {
 .form-label{
   font-weight: bold;
 }
+.text-red{
+  color: red;
+}
+.modal-header{
+  background-color: #6d9eeb;
+}
+
+.toast-message {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 9999;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: slide-in 0.5s ease-out;
+}
+
+.toast-message.success {
+    background-color: #28a745;
+}
+
+.toast-message.error {
+    background-color: #dc3545;
+}
+
+@keyframes slide-in {
+    0% {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

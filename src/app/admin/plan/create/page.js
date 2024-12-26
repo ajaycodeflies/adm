@@ -9,17 +9,15 @@ import Link from "next/link";
 export default function PlanCreate() {
   const router = useRouter();
 
-  const [plans, setPlans] = useState([
-    { name: "1-Week Plan", price: 6.93, originalPrice: 13.86, perDay: 0.99 },
-    { name: "4-Week Plan", price: 19.99, originalPrice: 39.99, perDay: 0.71, mostPopular: true },
-    { name: "12-Week Plan", price: 39.99, originalPrice: 79.99, perDay: 0.48 },
-  ]);
-
-  const handleInputChange = (index, field, value) => {
-    const updatedPlans = [...plans];
-    updatedPlans[index][field] = value;
-    setPlans(updatedPlans);
-  };
+  const [plan, setPlan] = useState({
+    planName: "",
+    price: "",
+    originalPrice: "",
+    perDayPrice: "",
+    perDayOff:"",
+    status: "1", // Default value set to 'Active'
+    isPopular: false, // Default value for the checkbox
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,7 +27,7 @@ export default function PlanCreate() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ plans }),
+        body: JSON.stringify(plan), // Send the plan state directly
       });
       if (response.ok) {
         alert("Plans saved successfully!");
@@ -40,6 +38,14 @@ export default function PlanCreate() {
     } catch (error) {
       console.error("Error saving plans:", error);
     }
+  };
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setPlan((prevPlan) => ({
+      ...prevPlan,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
   useEffect(() => {
@@ -56,8 +62,8 @@ export default function PlanCreate() {
           <div className="col-xl-12 col-lg-12 col-md-12 col-12">
             <div className="bg-white rounded-bottom smooth-shadow-sm">
               <div className="d-flex align-items-center justify-content-between pt-4 pb-6 px-4">
-                <h3 className="mb-0 fw-bold">Add or Edit Plans</h3>
-                <Link href="/admin/plans" className="btn btn-sm btn-blue">
+                <h3 className="mb-0 fw-bold">Add Plan</h3>
+                <Link href="/admin/plan" className="btn btn-sm btn-blue">
                   <i className="bi bi-arrow-left"></i> View Plans
                 </Link>
               </div>
@@ -66,62 +72,89 @@ export default function PlanCreate() {
         </div>
         <div className="py-6">
           <div className="row">
-            <div className="mb-6 col-xl-9 col-lg-12 col-md-12 col-12">
+            <div className="mb-6 col-xl-7 col-lg-12 col-md-12 col-12">
               <div className="card">
                 <div className="card-body">
                   <form onSubmit={handleSubmit}>
-                    {plans.map((plan, index) => (
-                      <div key={index} className="mb-4">
-                        <h5>Plan {index + 1}</h5>
-                        <div className="mb-3">
-                          <label className="form-label">Plan Name</label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            value={plan.name}
-                            onChange={(e) => handleInputChange(index, "name", e.target.value)}
-                          />
-                        </div>
-                        <div className="mb-3">
-                          <label className="form-label">Price</label>
-                          <input
-                            type="number"
-                            className="form-control"
-                            value={plan.price}
-                            onChange={(e) => handleInputChange(index, "price", e.target.value)}
-                          />
-                        </div>
-                        <div className="mb-3">
-                          <label className="form-label">Original Price</label>
-                          <input
-                            type="number"
-                            className="form-control"
-                            value={plan.originalPrice}
-                            onChange={(e) => handleInputChange(index, "originalPrice", e.target.value)}
-                          />
-                        </div>
-                        <div className="mb-3">
-                          <label className="form-label">Per Day Price</label>
-                          <input
-                            type="number"
-                            className="form-control"
-                            value={plan.perDay}
-                            onChange={(e) => handleInputChange(index, "perDay", e.target.value)}
-                          />
-                        </div>
-                        <div className="mb-3 form-check">
-                          <input
-                            type="checkbox"
-                            className="form-check-input"
-                            checked={plan.mostPopular || false}
-                            onChange={(e) =>
-                              handleInputChange(index, "mostPopular", e.target.checked)
-                            }
-                          />
-                          <label className="form-check-label">Most Popular</label>
-                        </div>
+                    <div className="mb-4">
+                      <div className="mb-3">
+                        <label className="form-label">Plan Name</label>
+                        <input
+                          type="text"
+                          name="planName"
+                          className="form-control"
+                          placeholder="Enter Plan Name"
+                          value={plan.planName}
+                          onChange={handleChange}
+                        />
                       </div>
-                    ))}
+                      <div className="mb-3">
+                        <label className="form-label">Offer Price</label>
+                        <input
+                          type="number"
+                          name="price"
+                          className="form-control"
+                          placeholder="0.00"
+                          value={plan.price}
+                          onChange={handleChange}
+                        />
+                      </div>
+                      <div className="mb-3">
+                        <label className="form-label">Original Price</label>
+                        <input
+                          type="number"
+                          name="originalPrice"
+                          className="form-control"
+                          placeholder="0.00"
+                          value={plan.originalPrice}
+                          onChange={handleChange}
+                        />
+                      </div>
+                      <div className="mb-3">
+                        <label className="form-label">Per Day Price</label>
+                        <input
+                          type="number"
+                          name="perDayPrice"
+                          className="form-control"
+                          placeholder="0.00"
+                          value={plan.perDayPrice}
+                          onChange={handleChange}
+                        />
+                      </div>
+                      <div className="mb-3">
+                        <label className="form-label">Per Day Off</label>
+                        <input
+                          type="number"
+                          name="perDayOff"
+                          className="form-control"
+                          placeholder="0.00"
+                          value={plan.perDayOff}
+                          onChange={handleChange}
+                        />
+                      </div>
+                      <div className="mb-3">
+                        <label className="form-label">Status</label>
+                        <select
+                          name="status"
+                          className="form-select"
+                          value={plan.status}
+                          onChange={handleChange}
+                        >
+                          <option value="1">Active</option>
+                          <option value="0">Inactive</option>
+                        </select>
+                      </div>
+                      <div className="mb-3 form-check">
+                        <input
+                          type="checkbox"
+                          name="isPopular"
+                          className="form-check-input"
+                          checked={plan.isPopular}
+                          onChange={handleChange}
+                        />
+                        <label className="form-check-label">Most Popular</label>
+                      </div>
+                    </div>
                     <button type="submit" className="btn btn-primary">
                       Save Plans
                     </button>

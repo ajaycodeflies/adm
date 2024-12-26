@@ -582,7 +582,7 @@ a:hover {
 /* Header */
 .sidebar {
     width: 100%;
-    max-width: 400px;
+    max-width: 500px;
     min-height: 100vh;
     padding: 0;
     margin: 0 auto;

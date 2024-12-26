@@ -19,7 +19,7 @@ export async function POST(request) {
     const sessionsCollection = db.collection("sessions");
 
     // Find user by email
-    const user = await usersCollection.findOne({ email });
+    const user = await usersCollection.findOne({ email, role: "admin" });
 
     if (!user) {
       return new Response(JSON.stringify({ message: "User not found" }), {
