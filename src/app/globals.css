@@ -544,7 +544,7 @@ a:hover {
 /* Container */
 .box-container {
   width: 100%;
-  max-width: 500px;
+  max-width: 420px;
   height: 100vh;
   padding: 0;
   margin: 0 auto;
