@@ -20,12 +20,11 @@ const connectToDatabase = async () => {
 export const POST = async (req) => {
   try {
     const formData = await req.formData();
-    console.log("Form Data:", Array.from(formData.entries()));
+    // console.log("Form Data:", Array.from(formData.entries()));
 
     const question = formData.get("question");
     const options = [];
 
-    // Process each option and handle the associated image files
     for (const key of formData.keys()) {
       if (key.startsWith("options")) {
         const [_, index, field] = key.match(/options\[(\d+)\]\[(.+)\]/);
@@ -34,26 +33,23 @@ export const POST = async (req) => {
       }
     }
 
-    console.log("Parsed Options:", options);
+    // console.log("Parsed Options:", options);
 
-    // Process images for each option
     for (let i = 0; i < options.length; i++) {
       const option = options[i];
       
-      // Handle image for the option if it exists
       if (option.image instanceof File) {
         const imageBuffer = Buffer.from(await option.image.arrayBuffer());
         const imageName = `${uuidv4()}_${option.image.name}`;
         const imagePath = path.join(process.cwd(), "public/uploads", imageName);
 
         fs.writeFileSync(imagePath, imageBuffer);
-        options[i].image = `/uploads/${imageName}`; // Update the image path to store in DB
+        options[i].image = `/uploads/${imageName}`; 
       } else {
-        options[i].image = null; // If no image, ensure it's set to null
+        options[i].image = null;
       }
     }
 
-    // Check if question and options are valid
     if (!question || !options.length) {
       return NextResponse.json(
         { success: false, message: "Invalid data format" },
@@ -63,7 +59,7 @@ export const POST = async (req) => {
 
     const response = await addQuestion({
       question,
-      options, // Pass options directly, including images for each option
+      options,
     });
 
     return NextResponse.json(response, { status: 201 });
@@ -80,11 +76,10 @@ export const POST = async (req) => {
 // Handle GET request to fetch all questions or a single question by its ID
 export async function GET(req) {
   const { nextUrl } = req;
-  const id = nextUrl.searchParams.get("id"); // Capture the dynamic ID from the URL query
+  const id = nextUrl.searchParams.get("id");
 
   try {
     if (id) {
-      // Fetch a single question by ID (for editing)
       const question = await getQuestionById(id);
       if (!question) {
         return NextResponse.json(
@@ -94,7 +89,6 @@ export async function GET(req) {
       }
       return NextResponse.json(question, { status: 200 });
     } else {
-      // Fetch all questions
       const questions = await getAllQuestions();
       return NextResponse.json(questions, { status: 200 });
     }
@@ -110,7 +104,7 @@ export async function GET(req) {
 // DELETE Request (Static Route)
 export async function DELETE(req) {
   const { nextUrl } = req;
-  const id = nextUrl.searchParams.get("id");  // Expecting the id via query parameters
+  const id = nextUrl.searchParams.get("id");
 
   try {
     
@@ -127,7 +121,7 @@ export async function DELETE(req) {
     if (!question) {
       return NextResponse.json({ error: "Question not found." }, { status: 404 });
     }
-    // Image cleanup and delete logic
+    
     const imagePaths = [];
     question.options.forEach(option => {
       if (option.image) {
@@ -141,7 +135,6 @@ export async function DELETE(req) {
       }
     });
 
-    // Delete the question
     const deletedQuestion = await deleteQuestion(id);
 
     return NextResponse.json(

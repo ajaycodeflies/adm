@@ -45,7 +45,7 @@ const Challenges = () => {
                             id="all">
                             <div className="card-challenges">
                                 <div className="card-challenges-image">
-                                    <Image src="/images/courses/15863066.jpg" width={200} height={100} />
+                                    <Image src="/images/courses/15863066.jpg" width={200} height={100} alt="course-preview" />
                                 </div>
                                 <h6>28-Day AI Challenge</h6>
                                 <p>28 days - Beginner</p>
@@ -55,7 +55,7 @@ const Challenges = () => {
                             id="completed">
                             <div className="card-challenges">
                                 <div className="card-challenges-image">
-                                    <Image src="/images/courses/15863066.jpg" width={200} height={100} />
+                                    <Image src="/images/courses/15863066.jpg" width={200} height={100} alt="course-preview" />
                                 </div>
                                 <h6>28-Day AI Challenge</h6>
                                 <p>28 days - Beginner</p>

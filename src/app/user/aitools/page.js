@@ -14,28 +14,28 @@ const AiTools = () => {
                     <h5 class="my-3 heading-with-btn">Get Help With Any Task</h5>
                     <div className="task-grid">
                         <div className="card-task">
-                            <Image src="/images/ai-tools/001.jpg" width={200} height={100} />
+                            <Image src="/images/ai-tools/001.jpg" width={200} height={100} alt="AI Assistant" />
                             <div className="card-task-content">
                                 <h5>AI Assistant</h5>
                                 <p>Your personal AI-powered helper</p>
                             </div>
                         </div>
                         <div className="card-task">
-                            <Image src="/images/ai-tools/002.jpg" width={200} height={100} />
+                            <Image src="/images/ai-tools/002.jpg" width={200} height={100} alt="AI Assistant" />
                             <div className="card-task-content">
                                 <h5>ChatGPT Classic</h5>
                                 <p>The latest version of GPT-4 with...</p>
                             </div>
                         </div>
                         <div className="card-task">
-                            <Image src="/images/ai-tools/001.jpg" width={200} height={100} />
+                            <Image src="/images/ai-tools/001.jpg" width={200} height={100} alt="AI Assistant" />
                             <div className="card-task-content">
                                 <h5>AI Assistant</h5>
                                 <p>Your personal AI-powered helper</p>
                             </div>
                         </div>
                         <div className="card-task">
-                            <Image src="/images/ai-tools/002.jpg" width={200} height={100} />
+                            <Image src="/images/ai-tools/002.jpg" width={200} height={100} alt="AI Assistant" />
                             <div className="card-task-content">
                                 <h5>ChatGPT Classic</h5>
                                 <p>The latest version of GPT-4 with...</p>
@@ -64,7 +64,7 @@ const AiTools = () => {
                     <div className="tools-card-grid">
                         <div className="tools-card">
                             <div className="tools-card-header">
-                                <Image src="/images/ai-tools-vector/diamond.png" width={200} height={200} />
+                                <Image src="/images/ai-tools-vector/diamond.png" width={200} height={200} alt="AI Assistant" />
                                 <a href="#">
                                     <i class="bi bi-arrow-right-short"></i>
                                 </a>
@@ -78,7 +78,7 @@ const AiTools = () => {
                         </div>
                         <div className="tools-card">
                             <div className="tools-card-header">
-                                <Image src="/images/ai-tools-vector/creativity.png" width={200} height={200} />
+                                <Image src="/images/ai-tools-vector/creativity.png" width={200} height={200} alt="AI Assistant" />
                                 <a href="#">
                                     <i class="bi bi-arrow-right-short"></i>
                                 </a>
@@ -92,7 +92,7 @@ const AiTools = () => {
                         </div>
                         <div className="tools-card">
                             <div className="tools-card-header">
-                                <Image src="/images/ai-tools-vector/writing.png" width={200} height={200} />
+                                <Image src="/images/ai-tools-vector/writing.png" width={200} height={200} alt="AI Assistant" />
                                 <a href="#">
                                     <i class="bi bi-arrow-right-short"></i>
                                 </a>
@@ -106,7 +106,7 @@ const AiTools = () => {
                         </div>
                         <div className="tools-card">
                             <div className="tools-card-header">
-                                <Image src="/images/ai-tools-vector/pencil.png" width={200} height={200} />
+                                <Image src="/images/ai-tools-vector/pencil.png" width={200} height={200} alt="AI Assistant" />
                                 <a href="#">
                                     <i class="bi bi-arrow-right-short"></i>
                                 </a>
@@ -120,7 +120,7 @@ const AiTools = () => {
                         </div>
                         <div className="tools-card">
                             <div className="tools-card-header">
-                                <Image src="/images/ai-tools-vector/star.png" width={200} height={200} />
+                                <Image src="/images/ai-tools-vector/star.png" width={200} height={200} alt="AI Assistant" />
                                 <a href="#">
                                     <i class="bi bi-arrow-right-short"></i>
                                 </a>
@@ -134,7 +134,7 @@ const AiTools = () => {
                         </div>
                         <div className="tools-card">
                             <div className="tools-card-header">
-                                <Image src="/images/ai-tools-vector/hospital.png" width={200} height={200} />
+                                <Image src="/images/ai-tools-vector/hospital.png" width={200} height={200} alt="AI Assistant" />
                                 <a href="#">
                                     <i class="bi bi-arrow-right-short"></i>
                                 </a>

@@ -38,14 +38,13 @@ function QuizContent() {
               alt="social-proof-background"
               className="img-fluid w-100"
             />
-            <footer className="text-center mt-4 text-muted small">
-              <button
-                className="btn btn-blue"
+            <button
+                className="btn btn-blue main-btn-con"
                 onClick={() => handleQuizClick("continue")}
+                style={{ width: "100%", padding: ".75rem" }}
               >
                 Continue
               </button>
-            </footer>
           </section>
         </div>
       </div>
