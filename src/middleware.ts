@@ -26,8 +26,13 @@ export function middleware(request: NextRequest) {
   }
 
   // Redirect logged-in users away from login pages
-  if ((isAdminPath && isAdminLoginPage) || (isUserPath && isUserLoginPage)) {
-    url.pathname = isAdminPath ? "/admin/dashboard" : "/user/dashboard";
+  // if ((isAdminPath && isAdminLoginPage) || (isUserPath && isUserLoginPage)) {
+  //   url.pathname = isAdminPath ? "/admin/dashboard" : "/user/dashboard";
+  //   return NextResponse.redirect(url);
+  // }
+
+  if (isAdminPath && isAdminLoginPage) {
+    url.pathname = "/admin/dashboard";
     return NextResponse.redirect(url);
   }
 

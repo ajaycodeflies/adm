@@ -13,10 +13,10 @@ export default function UserLogin() {
     };
 
     return (
-        <main class="d-flex flex-column align-items-center justify-content-center bg-light py-5">
+        <main className="d-flex flex-column align-items-center justify-content-center bg-light py-5">
 
             <div className="mb-3">
-                <Image src="/images/logo.png" alt="Logo" className="img-fluid w-20 mx-auto d-block opacity-90" style={{ maxWidth: "20%" }} />
+                <img src="/images/logo.png" alt="Logo" className="img-fluid w-20 mx-auto d-block opacity-90" style={{ maxWidth: "20%" }} />
             </div>
 
             <div className="card p-4 shadow-sm  border-0" style={{ width: "400px" }}>
