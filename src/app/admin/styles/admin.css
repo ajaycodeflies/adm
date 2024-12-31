@@ -28624,35 +28624,42 @@ div.code-toolbar>.toolbar>.toolbar-item>span:hover {
 }
 
 .toast-message {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    background-color: #333;
-    color: #fff;
-    padding: 10px;
-    border-radius: 5px;
-    z-index: 9999;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    animation: slide-in 0.5s ease-out;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 9999;
+  color: #fff;
+  font-weight: bold;
+  opacity: 0.9;
+  animation: fade-in-out 5s forwards;
 }
 
 .toast-message.success {
-    background-color: #28a745;
+  background-color: #28a745;
 }
 
 .toast-message.error {
-    background-color: #dc3545;
+  background-color: #dc3545;
 }
 
-@keyframes slide-in {
-    0% {
-        opacity: 0;
-        transform: translateX(100%);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0);
-    }
+@keyframes fade-in-out {
+  0% {
+      opacity: 0;
+      transform: translateY(-20px);
+  }
+  10%, 90% {
+      opacity: 0.9;
+      transform: translateY(0);
+  }
+  100% {
+      opacity: 0;
+      transform: translateY(-20px);
+  }
+}
+
+
+.ml-3{
+  margin-left: 1rem !important;
 }

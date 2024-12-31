@@ -83,7 +83,7 @@ function QuizContent() {
           <Header />
           <section className="my-5">
             <div className="text-center justify-content-center align-items-center mb-5">
-              <h2 className="fw-bold">
+              <h3 className="fw-bold">
                 Enter your email to get your{" "}
                 <span
                   className="fw-bold"
@@ -92,7 +92,7 @@ function QuizContent() {
                   Personal AI-Driven Income Growth
                 </span>{" "}
                 Challenge!
-              </h2>
+              </h3>
             </div>
             <input
               className="form-control mb-3 background-primary pr-[44px] pl-[44px] text-sm bg-[14px]"

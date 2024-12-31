@@ -22,7 +22,7 @@ export default function GenderSelector() {
       value: "f",
     },
     {
-      img: "/images/picker_female_18-24.webp",
+      img: "/images/7326558.png",
       label: "Prefer Not To Say",
       value: "other",
     },

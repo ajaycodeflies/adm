@@ -11,8 +11,8 @@ export default function PlanPage() {
     const [plans, setPlans] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
-    const [editPlan, setEditPlan] = useState(null); // Holds the plan being edited
-    const [modalVisible, setModalVisible] = useState(false); // Modal visibility state
+    const [editPlan, setEditPlan] = useState(null);
+    const [modalVisible, setModalVisible] = useState(false);
 
     useEffect(() => {
         const sessionToken = Cookies.get("session_token");
