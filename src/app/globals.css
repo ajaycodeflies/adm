@@ -166,6 +166,11 @@ a:hover {
   color: var(--purple);
 }
 
+/* landing screen */
+.landing-screen {
+  padding: 1.5rem 1rem;
+}
+
 /* Background Colors */
 .bg-black {
   background-color: var(--black);
@@ -233,6 +238,13 @@ a:hover {
 
 .bg-purple {
   background-color: var(--purple);
+}
+
+.bg-container {
+  background: rgb(255,255,255);
+  background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,253,238,1) 35%, rgb(241, 241, 255) 71%, rgb(248, 239, 255) 100%);
+  border-radius: 18px;
+  border: 1px solid rgb(211,211,211);
 }
 
 /* Text Colors */
@@ -421,6 +433,170 @@ a:hover {
   background-color: var(--purple) !important;
 }
 
+.head-btn {
+  text-decoration: none;
+  background: #fff;
+  font-weight: 500;
+  color: rgb(36, 35, 76);
+  border-radius: 2rem;
+  padding: 0.25rem 0.75rem;
+  font-size: 14px;
+  line-height: 20px;
+  border: 1px solid rgb(211,211,211);
+}
+
+.head-btn:hover, .head-btn:focus, .head-btn:focus-within {
+  color: rgb(36, 35, 76);
+}
+
+.head-btn-alt, .main-btn {
+  text-decoration: none;
+  background: var(--blue-dark);
+  font-weight: 500;
+  color: #fff;
+  border-radius: 2rem;
+  padding: 0.25rem 0.75rem;
+  font-size: 14px;
+  line-height: 20px;
+  border: 1px solid var(--blue-dark);
+}
+
+.head-btn-alt:hover, .head-btn-alt:focus, .head-btn-alt:focus-within, .main-btn:hover, .main-btn:focus, .main-btn:focus-within {
+  color: #fff;
+}
+
+.main-btn {
+  padding: 0.5rem 1.25rem;
+  font-size: 16px;
+  line-height: 24px;
+  margin: 35px 0;
+  display: inline-block;
+}
+
+.head-btn-alt.btn-alt {
+  padding: 0.5rem;
+  width: 100%;
+  font-size: 20px;
+  line-height: 32px;
+  border-radius: 10px;
+}
+
+/* top bar */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.top-bar .logo {
+  max-width: 100%;
+  width: 128px;
+  height: auto;
+}
+
+a.head-link {
+  text-decoration: none;
+  padding: 5px;
+  font-weight: 500;
+  color: rgb(36, 35, 76);
+}
+
+a.head-link:hover, a.head-link:focus, a.head-link:focus-within {
+  color: rgb(36, 35, 76);
+}
+
+.group-left, .group-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Banner Row */
+
+.banner-row {
+  display: flex;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 2rem 6rem;
+}
+
+.banner-row h1 {
+  font-size: 64px;
+  line-height: 1;
+  margin-bottom: 20px;
+}
+
+img.img-avatar {
+  border-radius: 50%;
+  border: 2px solid #fff;
+  max-width: 30px;
+  height: auto;
+}
+
+img.img-avatar:not(:first-of-type) {
+  margin-left: -12px;
+}
+
+.block-50 {
+  width: 50%;
+}
+
+.banner-text {
+  font-size: 20px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+img.img-banner {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 25px 25px rgba(0,0,0,.15);
+}
+
+.img-box {
+  padding-left: 60px;
+}
+
+.users-joined {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.users-joined p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.pill {
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 500;
+  border: 1px solid rgb(229,229,229);
+  border-radius: 2rem;
+  display: inline-block;
+  margin-bottom: 25px;
+  padding: 0.25rem;
+  background: #6d9eeb1f;
+  color: #6d9eeb;
+}
+
+.pill span {
+  background: #fff;
+  padding: 0 0.5rem;
+  border-radius: 2rem;
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: inherit;
+  color: #6d9eeb;
+}
+
 /* Cards */
 .card {
   width: 100%;
@@ -433,6 +609,7 @@ a:hover {
   /* border: 1px solid var(--blue-dark); */
   border-radius: 0.75rem;
 }
+
 .back-button {
   border: none;
   background: none;
@@ -656,20 +833,125 @@ a:hover {
   transition-delay: 0.4s;
 }
 
+/* quiz changes */
+.question-image img {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 10px;
+}
+
+.card-horizontal input[type="radio"] {
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  z-index: 1;
+}
+
+.button-next {
+  width: 100%;
+  padding-inline: 1rem;
+  position: sticky;
+  bottom: 0;
+  backdrop-filter: blur(5px);
+  background: #ffffff75;
+}
+
 /* Media Queries */
+@media (max-width: 991px) {
+  .header {
+    padding-inline: 1rem;
+  }
+  .landing-screen {
+    padding: 1rem 0.5rem;
+  }
+  .banner-row {
+    flex-direction: column;
+    gap: 40px;
+    padding: 1rem 1rem 3rem;
+  }
+  .block-50 {
+    width: 100%;
+    text-align: center;
+  }
+  .users-joined {
+    justify-content: center;
+  }
+  .banner-row h1 {
+    font-size: 36px;
+  }
+  .img-box {
+    padding-left: 0;
+    max-width: 550px;
+    margin: 0px auto;
+  }
+  .banner-text {
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0 auto;
+    max-width: 270px;
+  }
+  .group-left, .group-right {
+    gap: 10px;
+  }
+  .top-bar {
+    padding: 1rem;
+  }
+  .head-btn-alt, .head-btn {
+    padding: 0.15rem 0.5rem;
+  }
+  a.head-link {
+    font-size: 14px;
+  }
+  .top-bar .logo {
+    width: 100px;
+  }
+  .img-avatar-row img:nth-child(n + 4) {
+    display: none;
+  }
+  footer {
+    padding-inline: 1rem;
+  }
+  .pi-1 {
+    padding-inline: 1rem;
+  }
+  .card {
+    aspect-ratio: 1;
+    min-height: 11rem;
+    margin-bottom: 1rem;
+  }
+  .card > img {
+    max-width: 100%;
+  }
+  .card.card-horizontal {
+    min-height: 4rem;
+  }
+  .card.card-horizontal > img {
+    max-width: 5rem;
+  }
+}
+
 @media (max-width: 767px) {
   .header .navbar-brand img,
   .sidebar .navbar-brand img {
     max-width: 10rem;
   }
-
   .card {
-    aspect-ratio: 4 / 2;
+    aspect-ratio: 1;
+    min-height: 11rem;
     margin-bottom: 1rem;
   }
-
   .card > img {
     top: -1.5rem;
+    max-width: 100%;
+  }
+  .intro-screen-section {
+    max-width: 100%;
+  }
+  .card > .card-body > .btn {
+    font-size: 12px;
   }
 }
 
@@ -924,6 +1206,19 @@ a:hover {
 
 .nav-bottom .navbar-nav .nav-link i {
   font-size: 1.5rem;
+}
+
+.navbar button.btn {
+  padding: 0;
+  background: transparent;
+  font-size: 28px;
+}
+
+.progress-block {
+  position: sticky;
+  top: 60px;
+  width: 100%;
+  background: #fff;
 }
 
 /* Card Course Continue */
@@ -2015,6 +2310,7 @@ ul.nav-tablist > li > a.active::before {
 }
 
 .card-horizontal {
+  position: relative;
   display: flex;
   align-items: center;
   padding: 10px;
