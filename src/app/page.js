@@ -3,34 +3,6 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Image from "next/image";
 
-// const avatars = [
-//   {
-//     id: 1,
-//     img: "/images/user_avatar-1.jpg",
-//     alt: 'User 1',
-//   },
-//   {
-//     id: 2,
-//     img: "/images/user_avatar-2.jpg",
-//     alt: 'User 2',
-//   },
-//   {
-//     id: 3,
-//     img: "/images/user_avatar-3.jpg",
-//     alt: 'User 3',
-//   },
-//   {
-//     id: 4,
-//     img: "/images/user_avatar-4.jpg",
-//     alt: 'User 4',
-//   },
-//   {
-//     id: 5,
-//     img: "/images/user_avatar-5.jpg",
-//     alt: 'User 5',
-//   }
-// ];
-
 export default function Home() {
   return (
     <>
@@ -50,7 +22,7 @@ export default function Home() {
               </a>
             </div>
             <div className="group-right">
-              <a href="#" className="head-btn">
+              <a href="/user/login" className="head-btn">
                 Login
               </a>
               <a href="#" className="head-btn-alt">
