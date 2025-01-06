@@ -366,7 +366,7 @@ export default function QuestionsPage() {
                                         }
                                     />
                                     {editQuestion.image && (
-                                        <img
+                                        <Image
                                             src={
                                                 typeof editQuestion.image === 'string'
                                                     ? editQuestion.image

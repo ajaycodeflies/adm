@@ -55,8 +55,8 @@ function QuizContent() {
                 }}
               >
                 <blockquote style={{ fontStyle: "italic", fontSize: "1rem" }}>
-                  "AI Won't Replace Humans — But Humans With AI Will Replace Humans
-                  Without AI"
+                `&quot;AI Won&apos;t Replace Humans — But Humans With AI Will Replace Humans
+                  Without AI`&quot;
                 </blockquote>
                 <p
                   style={{
@@ -66,11 +66,11 @@ function QuizContent() {
                   }}
                 >
                 </p>
-                <img src="/images/hw_social-proof_harvard_logo.webp" alt="Harvard University" style={{ maxWidth: "100px", marginTop: "10px" }} />
+                <Image src="/images/hw_social-proof_harvard_logo.webp" alt="Harvard University" style={{ maxWidth: "100px", marginTop: "10px" }} width={100} height={35} />
               </div>
               <div className="py-4">
                 <p className="m-auto text-center font-semibold text-[#24234C]"> Latest AI tools mentioned in</p>
-                <img className="m-auto h-auto" src="/images/hw_social-proof_source_logo.webp" style={{ maxWidth: "320px" }} />
+                <Image className="m-auto h-auto" src="/images/hw_social-proof_source_logo.webp" style={{ maxWidth: "320px" }} width={320} height={50} alt="Harvard University" />
               </div>
             </div>
             <div
@@ -330,10 +330,12 @@ function QuizContent() {
           <div className="row justify-content-center mt-4">
             <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 mb-3">
               <div className="card">
-                <img
+                <Image
                   src="/images/picker_male_18-24.webp"
                   alt="Male"
                   className="card-img"
+                  width={100}
+                  height={100}
                 />
                 <div className="card-body">
                   <button
@@ -347,10 +349,12 @@ function QuizContent() {
             </div>
             <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 mb-3">
               <div className="card">
-                <img
+                <Image
                   src="/images/picker_female_18-24.webp"
                   alt="Female"
                   className="card-img"
+                  width={100}
+                  height={100}
                 />
                 <div className="card-body">
                   <button
@@ -364,7 +368,7 @@ function QuizContent() {
             </div>
             <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 mb-4">
               <div className="card">
-                <img src="/images/other.png" alt="other" className="card-img" />
+                <Image src="/images/other.png" alt="other" className="card-img" width={100} height={100} />
                 <div className="card-body">
                   <input
                     type="radio"
@@ -386,7 +390,7 @@ function QuizContent() {
         </section>
         <footer className="text-center text-muted small">
           <p className="text-muted small mb-2">
-            By clicking "Male" or "Female", you agree with {" "}
+            By clicking &quot;Male&quot; or &quot;Female&quot;, you agree with {" "}
             <a href="/terms" className="text-muted">Terms and Conditions</a>,{" "}
             <a href="/privacy" className="text-muted">Privacy Policy</a>,{" "}
             <a href="/subscription" className="text-muted">Subscription Terms</a>

@@ -370,7 +370,7 @@ function QuizContent() {
               <i className="bi bi-arrow-left fw-bold"></i>
             </button>
             <Link href="/">
-              <img src="/images/logo.png" alt="Logo" style={{ maxWidth: "130px" }} />
+              <Image src="/images/logo.png" alt="Logo" style={{ maxWidth: "130px" }} width={130} height={35} />
             </Link>
             <h6 className="fw-bold count">
               <span className="text-primary">{currentQuestionIndex + 1} </span> /{" "}
