@@ -324,7 +324,8 @@ a:hover {
 /* Blue Button */
 .btn-blue {
   color: var(--white) !important;
-  background-color: var(--blue-dark) !important;
+  /* background-color: var(--blue-dark) !important; */
+  background-color: #6d9eeb !important;
 }
 
 .btn-blue:hover,
@@ -332,7 +333,8 @@ a:hover {
 .btn-blue:active {
   outline: none !important;
   border-color: #0000 !important;
-  background-color: var(--blue) !important;
+  /* background-color: var(--blue) !important; */
+  background-color: #6d9eeb !important;
 }
 
 /* Green Button */
@@ -607,18 +609,24 @@ img.img-banner {
   display: block;
   position: relative;
   /* border: 1px solid var(--blue-dark); */
+  border: 2px solid #6d9eeb !important;
   border-radius: 0.75rem;
 }
 
 .back-button {
   border: none;
   background: none;
+  padding: 0px;
+  font-size: 20px;
 }
 
 .back-button i {
-  font-size: 27px;
+  font-weight: bold;
 }
 
+.count {
+  font-size: 13px;
+}
 .text-left {
   text-align: left;
 }
@@ -721,9 +729,9 @@ img.img-banner {
 /* Container */
 .box-container {
   width: 100%;
-  max-width: 420px;
+  max-width: 360px;
   height: 100vh;
-  padding: 0;
+  padding: 0px;
   margin: 0 auto;
   display: block;
   position: relative;
@@ -852,9 +860,19 @@ img.img-banner {
 
 .button-next {
   width: 100%;
-  padding-inline: 1rem;
+  padding: 1;
   position: sticky;
   bottom: 0;
+  backdrop-filter: blur(5px);
+  background: #ffffff75;
+  display: block;
+}
+
+.button-continue {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
   backdrop-filter: blur(5px);
   background: #ffffff75;
 }
@@ -1216,11 +1234,19 @@ img.img-banner {
 
 .progress-block {
   position: sticky;
-  top: 60px;
+  top: 0px;
   width: 100%;
   background: #fff;
 }
+/* Add custom CSS for progress segments */
+.progress-segment {
+  position: relative;
+  display: inline-block;
+}
 
+.progress-segment.completed span {
+  color: var(--blue-dark); /* Change color for completed segments */
+}
 /* Card Course Continue */
 .card-course-continue {
   width: 100%;
@@ -1752,6 +1778,11 @@ ul.nav-tablist > li > a.active::before {
 
 .nav-tabpane.active {
   display: block;
+}
+
+.fw-bold {
+  --tw-text-opacity: 1;
+  color: rgb(3 7 18 / var(--tw-text-opacity));
 }
 
 /* Card Challenges */
@@ -2425,4 +2456,96 @@ blockquote {
 .is-invalid {
   border: 1px solid #dc3545 !important;
   background-color: #f8d7da !important;
+}
+
+.results-header h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.readiness-card {
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.score-header {
+  font-size: 1rem;
+  color: #333;
+}
+
+.result-badge {
+  background-color: #e9f5e9;
+  color: #28a745;
+  font-size: 0.875rem;
+  padding: 2px 8px;
+  border-radius: 0px;
+}
+
+.score-bar-container {
+  position: relative;
+}
+
+.score-bar {
+  height: 8px;
+  background: linear-gradient(to right, red, orange, yellow, green);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.score-indicator {
+  width: 20%;
+  height: 8px;
+  /* background: #666; */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.readiness-label {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 13px;
+  color: #000;
+  font-weight: bold;
+}
+
+.insights {
+  background: #fdf6e4;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 12px;
+  color: #666;
+}
+
+.user-attributes {
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.attribute-item {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.user-avatar img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin: 0 auto;
+  border: 4px solid #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.results-header {
+  padding: 20px 0px;
+}
+
+.score-bar-container{
+  height: 44px;
+  margin-top: 40px !important;
 }

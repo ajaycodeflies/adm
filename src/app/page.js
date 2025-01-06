@@ -1,6 +1,3 @@
-import GenderSelector from "./components/GenderSelector";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
 import Image from "next/image";
 
 export default function Home() {
@@ -25,7 +22,7 @@ export default function Home() {
               <a href="/user/login" className="head-btn">
                 Login
               </a>
-              <a href="#" className="head-btn-alt">
+              <a href="/start-quiz" className="head-btn-alt">
                 Start Now
               </a>
             </div>
@@ -40,7 +37,7 @@ export default function Home() {
               <p className="banner-text">
                 Learn how AI can increase your income and improve your life.
               </p>
-              <a href="#" className="main-btn">
+              <a href="/start-quiz" className="main-btn">
                 Start Now <i className="bi bi-chevron-right"></i>
               </a>
               <div className="users-joined">
@@ -100,25 +97,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-      </div>
-      <div className="box-container">
-        <div className="d-flex flex-column align-items-center justify-content-center text-center">
-          <Header className="pi-1" />
-          <section className="mt-4 pi-1 intro-screen-section">
-            <h2 className="fw-bold text-uppercase main-heading">
-              Career Freedom Challenge
-            </h2>
-            <p className="mt-2">
-              Select Your{" "}
-              <span className="fw-bold" style={{ color: "var(--blue-dark)" }}>
-                Gender
-              </span>
-            </p>
-            <p className="fw-bold text-secondary">1-Minute Quiz</p>
-            <GenderSelector className="pi-1" />
-          </section>
-          <Footer />
-        </div>
       </div>
     </>
   );
