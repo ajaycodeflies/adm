@@ -34,7 +34,6 @@ export default function PlanPage() {
                 throw new Error("Failed to fetch plans.");
             }
         } catch (error) {
-            console.error("Error fetching plans:", error);
             setError("Failed to fetch plans. Please try again.");
         } finally {
             setLoading(false);
@@ -69,7 +68,6 @@ export default function PlanPage() {
             const result = await response.json();
     
             if (response.ok) {
-                console.log(result);
                 const updatedPlan = result?.plan;
                 if (updatedPlan) {
                     setPlans((prevPlans) =>
@@ -78,15 +76,12 @@ export default function PlanPage() {
                     setModalVisible(false);
                     alert("Plan updated successfully!");
                 } else {
-                    console.error("No plan data returned");
                     alert("Failed to update the plan. Please try again.");
                 }
             } else {
-                console.error(result.error || "Error updating plan");
                 alert("Failed to update the plan. Please try again.");
             }
         } catch (error) {
-            console.error("Error saving plan:", error);
             alert("Failed to save the plan. Please try again.");
         }
     };
@@ -144,7 +139,7 @@ export default function PlanPage() {
                 </div>
                 <div className="my-6 row">
                     <div className="col-xl-12 col-lg-12 col-md-12 col-12">
-                        <div className="h-100 card">
+                        <div className="h-100">
                             <div className="table-responsive">
                                 <table className="text-nowrap table">
                                     <thead className="table-light">
@@ -170,8 +165,20 @@ export default function PlanPage() {
                                                 <td>${plan.original_price}</td>
                                                 <td>${plan.per_day_price}</td>
                                                 <td>${plan.per_day_off}</td>
-                                                <td>{plan.is_popular ? "Yes" : "No"}</td>
-                                                <td>{plan.status ? "Active" : "Inactive"}</td>
+                                                <td>
+                                                    {plan.is_popular ? (
+                                                        <span className="badge badge-primary">Yes</span>
+                                                    ) : (
+                                                        <span className="badge badge-gray">No</span>
+                                                    )}
+                                                </td>
+                                                <td>
+                                                {plan.status === "1" ? (
+                                                        <span className="badge badge-success">Active</span>
+                                                    ) : (
+                                                        <span className="badge badge-danger">Inactive</span>
+                                                    )}
+                                                </td>
                                                 <td>
                                                     {new Intl.DateTimeFormat("en-US", {
                                                         day: "2-digit",

@@ -9,7 +9,11 @@ import Image from 'next/image';
 export default function Sidebar({ isExpanded }) {
   const router = useRouter();
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isQuestionsOpen, setIsQuestionsOpen] = useState(false);
+const [isCoursesOpen, setIsCoursesOpen] = useState(false);
+
+const toggleQuestionsDropdown = () => setIsQuestionsOpen(!isQuestionsOpen);
+const toggleCoursesDropdown = () => setIsCoursesOpen(!isCoursesOpen);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -96,29 +100,29 @@ export default function Sidebar({ isExpanded }) {
                       <Link
                         className="nav-link"
                         data-bs-toggle="collapse"
-                        data-bs-target="#navDashboard"
-                        aria-expanded={isOpen}
-                        aria-controls="navDashboard"
+                        data-bs-target="#navQuestions"
+                        aria-expanded={isQuestionsOpen}
+                        aria-controls="navQuestions"
                         href="#"
-                        onClick={toggleDropdown}
+                        onClick={toggleQuestionsDropdown}
                       >
                         <Image src="/icons/help-circle.svg" alt="questions" className="nav-icon me-2" width={20} height={20} />
                         Questions
                       </Link>
-                      <ul className={`nav flex-column list-group collapse ${isOpen ? 'show' : ''}`}>
+                      <ul className={`nav flex-column list-group collapse ${isQuestionsOpen ? 'show' : ''}`} id="navQuestions">
                         <li className="nav-item">
                           <Link className="nav-link" href="/admin/questions/create">
-                           - Add Question
+                            - Add Question
                           </Link>
                         </li>
                         <li className="nav-item">
                           <Link className="nav-link" href="/admin/questions">
-                           - View Questions
+                            - View Questions
                           </Link>
                         </li>
                         <li className="nav-item">
                           <Link className="nav-link" href="/admin/labels">
-                           - View labels
+                            - View labels
                           </Link>
                         </li>
                       </ul>
@@ -136,9 +140,35 @@ export default function Sidebar({ isExpanded }) {
                       </Link>
                     </li>
                     <li className="nav-item">
-                      <Link className="nav-link " href="">
-                        <Image src="/icons/book.svg" alt="lessons" className="nav-icon me-2" width={20} height={20} />Lessons
+                      <Link
+                        className="nav-link"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navCourses"
+                        aria-expanded={isCoursesOpen}
+                        aria-controls="navCourses"
+                        href="#"
+                        onClick={toggleCoursesDropdown}
+                      >
+                        <Image src="/icons/folder.svg" alt="courses" className="nav-icon me-2" width={20} height={20} />
+                        Course Modules
                       </Link>
+                      <ul className={`nav flex-column list-group collapse ${isCoursesOpen ? 'show' : ''}`} id="navCourses">
+                        <li className="nav-item">
+                          <Link className="nav-link" href="/admin/courses">
+                            - Courses
+                          </Link>
+                        </li>
+                        <li className="nav-item">
+                          <Link className="nav-link" href="/admin/courses/levels">
+                            - levels
+                          </Link>
+                        </li>
+                        <li className="nav-item">
+                          <Link className="nav-link" href="/admin/courses/lessons">
+                            - Lessons
+                          </Link>
+                        </li>
+                      </ul>
                     </li>
 
                     <li className="nav-item">

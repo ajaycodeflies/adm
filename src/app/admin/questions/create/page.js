@@ -119,111 +119,122 @@ export default function QuestionCreatePage() {
 
   return (
     <AdminLayout>
-      <div className="p-6">
-        <div className="d-flex justify-content-between pt-4 pb-6">
-          <h3 className="fw-bold">Add Assessment Question</h3>
-          <div>
-            <button className="btn btn-success btn-sm" onClick={() => setModalVisible(true)}>
-              <i className="bi bi-plus"></i> Add Label
-            </button>
-            <Link href="/admin/questions" className="btn btn-blue btn-sm ml-3">
-              View Questions <i className="bi bi-arrow-right"></i>
-            </Link>
+      <div className="p-6 container-fluid">
+        <div className="align-items-center row">
+          <div className="col-xl-12 col-lg-12 col-md-12 col-12">
+            <div className="bg-white rounded-bottom smooth-shadow-sm">
+              <div className="d-flex align-items-center justify-content-between pt-4 pb-6 px-4">
+                <h3 className="mb-0 fw-bold">Add Assessment Question</h3>
+                <div>
+                  <button className="btn btn-success btn-sm" onClick={() => setModalVisible(true)}>
+                    <i className="bi bi-plus"></i> Add Label
+                  </button>
+                  <Link href="/admin/questions" className="btn btn-blue btn-sm ml-3">
+                    View Questions <i className="bi bi-arrow-right"></i>
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-
-        <div className="row">
-          <div className="col-md-9">
-            <form onSubmit={handleSubmit}>
-              <div className="mb-3">
-                <label className="form-label">Select Label</label>
-                <select
-                  className="form-select"
-                  value={questionLabel}
-                  onChange={(e) => setQuestionLabel(e.target.value)}
-                >
-                  <option value="">Select Label</option>
-                  {labels.length > 0 ? (
-                    labels.map((label) => (
-                      <option key={label._id} value={label._id}>
-                        {label.label}
-                      </option>
-                    ))
-                  ) : (
-                    <option>No labels available</option>
-                  )}
-                </select>
-              </div>
-              <div className="mb-3">
-                <label className="form-label">Question</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  value={question}
-                  onChange={(e) => setQuestion(e.target.value)}
-                  placeholder="Enter question"
-                />
-              </div>
-
-              <div className="mb-3">
-                <label className="form-label">Options</label>
-                {options.map((option, index) => (
-                  <div key={index} className="mb-3">
-                    <div className="input-group">
-                      <span className="input-group-text">{index + 1}</span>
+        <div className="py-6">
+          <div className="row">
+            <div className="mb-6 col-xl-12 col-lg-12 col-md-12 col-12">
+              <div className="card-form">
+                <div className="card-body">
+                  <form onSubmit={handleSubmit}>
+                    <div className="mb-3">
+                      <label className="form-label">Select Label</label>
+                      <select
+                        className="form-select"
+                        value={questionLabel}
+                        onChange={(e) => setQuestionLabel(e.target.value)}
+                      >
+                        <option value="">Select Label</option>
+                        {labels.length > 0 ? (
+                          labels.map((label) => (
+                            <option key={label._id} value={label._id}>
+                              {label.label}
+                            </option>
+                          ))
+                        ) : (
+                          <option>No labels available</option>
+                        )}
+                      </select>
+                    </div>
+                    <div className="mb-3">
+                      <label className="form-label">Question</label>
                       <input
                         type="text"
                         className="form-control"
-                        value={option.text}
-                        onChange={(e) => handleOptionChange(index, "text", e.target.value)}
-                        placeholder={`Option ${index + 1} text`}
+                        value={question}
+                        onChange={(e) => setQuestion(e.target.value)}
+                        placeholder="Enter question"
                       />
-                      <input
-                        type="number"
-                        className="form-control"
-                        value={option.value}
-                        onChange={(e) => handleOptionChange(index, "value", e.target.value)}
-                        placeholder={`Option ${index + 1} value`}
-                      />
-                      {/* Show the "Remove" button only after the first two options */}
-                      {index >= 2 && (
-                        <button
-                          type="button"
-                          className="btn btn-danger"
-                          onClick={() => handleRemoveOption(index)}
-                        >
-                          <i className="bi bi-trash"></i>
-                        </button>
-                      )}
                     </div>
-                  </div>
-                ))}
-                <button
-                  type="button"
-                  className="btn btn-secondary btn-sm mt-3"
-                  onClick={handleAddOption}
-                >
-                  Add Option
-                </button>
-              </div>
 
-              <div className="mb-3">
-                <label className="form-label">Upload Image</label>
-                <input
-                  type="file"
-                  className="form-control"
-                  accept="image/*"
-                  onChange={(e) => setImage(e.target.files[0])}
-                />
-              </div>
+                    <div className="mb-3">
+                      <label className="form-label">Options</label>
+                      {options.map((option, index) => (
+                        <div key={index} className="mb-3">
+                          <div className="input-group">
+                            <span className="input-group-text">{index + 1}</span>
+                            <input
+                              type="text"
+                              className="form-control"
+                              value={option.text}
+                              onChange={(e) => handleOptionChange(index, "text", e.target.value)}
+                              placeholder={`Option ${index + 1} text`}
+                            />
+                            <input
+                              type="number"
+                              className="form-control"
+                              value={option.value}
+                              onChange={(e) => handleOptionChange(index, "value", e.target.value)}
+                              placeholder={`Option ${index + 1} value`}
+                            />
+                            {/* Show the "Remove" button only after the first two options */}
+                            {index >= 2 && (
+                              <button
+                                type="button"
+                                className="btn btn-danger"
+                                onClick={() => handleRemoveOption(index)}
+                              >
+                                <i className="bi bi-trash"></i>
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                      <button
+                        type="button"
+                        className="btn btn-secondary btn-sm mt-3"
+                        onClick={handleAddOption}
+                      >
+                        Add Option
+                      </button>
+                    </div>
 
-              <button type="submit" className="btn btn-primary">
-                Submit
-              </button>
-            </form>
+                    <div className="mb-3">
+                      <label className="form-label">Upload Image</label>
+                      <input
+                        type="file"
+                        className="form-control"
+                        accept="image/*"
+                        onChange={(e) => setImage(e.target.files[0])}
+                      />
+                    </div>
+
+                    <button type="submit" className="btn btn-primary">
+                      Submit
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="col-md-3"></div>
         </div>
+
 
         {modalVisible && (
           <div className="modal" style={{ display: "block" }}>

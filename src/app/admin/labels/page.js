@@ -134,7 +134,7 @@ export default function LabelPage() {
                 </div>
                 <div className="my-6 row">
                     <div className="col-xl-12 col-lg-12 col-md-12 col-12">
-                        <div className="h-100 card">
+                        <div className="h-100">
                             <div className="table-responsive">
                                 <table className="text-nowrap table">
                                     <thead className="table-light">

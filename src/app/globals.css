@@ -2458,6 +2458,15 @@ blockquote {
   background-color: #f8d7da !important;
 }
 
+h3{
+  font-size: 24px;
+}
+h4{
+  font-size: 20px;
+}
+form small{
+  font-size: 10px;
+}
 .results-header h2 {
   font-size: 1.5rem;
   font-weight: bold;
@@ -2520,6 +2529,21 @@ blockquote {
   color: #666;
 }
 
+.chart-container {
+  width: 100%;
+}
+
+.chart-note{
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  --tw-text-opacity: 1;
+  color: rgb(107 114 128/var(--tw-text-opacity));
+}
+.chart-title{
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
 .user-attributes {
   background: #ffffff;
   border-radius: 15px;

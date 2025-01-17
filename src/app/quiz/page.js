@@ -21,6 +21,8 @@ function QuizContent() {
   const [answers, setAnswers] = useState([]);
   const [showResults, setShowResults] = useState(false);
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
+  const [emailError, setEmailError] = useState("");
+  const [emailSuccess, setEmailSuccess] = useState("");
 
   const toggleSidebar = () => {
     setIsSidebarVisible(!isSidebarVisible);
@@ -90,6 +92,44 @@ function QuizContent() {
     }
   };
 
+  const emailSaved = async (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+
+    setEmailError("");
+    setEmailSuccess("");
+
+    if (!email) {
+      setEmailError("Please enter an email address.");
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setEmailError("Please enter a valid email address.");
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (response.ok) {
+        setEmailSuccess("Well done!");
+        e.target.reset();
+        router.push("/pathway");
+      } else {
+        setEmailError("Hmm... something's wrong, try to enter another email");
+      }
+    } catch (error) {
+      console.error("Error saving email:", error);
+      setEmailError("Internal Server Error occurred while saving your email.");
+    }
+  };
+
   const handleContinueClick = () => {
     const nextLabelIndex = currentLabelIndex + 1;
     if (nextLabelIndex < labels.length) {
@@ -97,6 +137,7 @@ function QuizContent() {
       setCurrentQuestionIndex(0);
       setShowResults(false);
     } else {
+      setShowResults(false);
       setShowEmailSection(true);
     }
   };
@@ -291,47 +332,69 @@ function QuizContent() {
         <div className="d-flex flex-column">
           <Header />
           <section className="my-5">
-            <div className="text-center justify-content-center align-items-center mb-5">
-              <h3 className="fw-bold">
-                Enter your email to get your{" "}
-                <span className="fw-bold" style={{ color: "var(--blue-dark)" }}>
-                  Personal AI-Driven Income Growth
-                </span>{" "}
-                Challenge!
-              </h3>
-            </div>
-            <input
-              className="form-control mb-3 background-primary pr-[44px] pl-[44px] text-sm bg-[14px]"
-              type="text"
-              inputMode="email"
-              placeholder="Your email"
-              autoCapitalize="none"
-              autoCorrect="off"
-              style={{
-                backgroundImage: "url('/icons/mail.svg')",
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "left center",
-                height: "52px",
-              }}
-            />
-            <small>
-              We respect your privacy and are committed to protecting your
-              personal data. Your data will be processed in accordance with our{" "}
-              <a
-                className="font-semibold underline"
-                href="/privacy"
-                target="_blank"
+            <form onSubmit={emailSaved}>
+              <div className="text-center justify-content-center align-items-center mb-5">
+                <h3 className="fw-bold">
+                  Enter your email to get your{" "}
+                  <span className="fw-bold" style={{ color: "var(--blue-dark)" }}>
+                    Personal AI-Driven Income Growth
+                  </span>{" "}
+                  Challenge!
+                </h3>
+              </div>
+              <input
+                className="form-control background-primary pr-[44px] pl-[44px] bg-[14px]"
+                type="text"
+                inputMode="email"
+                name="email"
+                placeholder="Your email"
+                autoCapitalize="none"
+                autoCorrect="off"
+                style={{
+                  backgroundImage: "url('/icons/mail.svg')",
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "left center",
+                  height: "52px",
+                }}
+              />
+              
+              {emailError && (
+                <span
+                  className="block text-danger fw-bold"
+                  style={{ opacity: 1, fontSize: "12px" }}
+                >
+                  {emailError}
+                </span>
+              )}
+              
+              {emailSuccess && (
+                <span
+                  className="block text-success fw-bold"
+                  style={{ opacity: 1, fontSize: "12px" }}
+                >
+                  {emailSuccess}
+                </span>
+              )}
+              <br />
+              <small>
+                We respect your privacy and are committed to protecting your
+                personal data. Your data will be processed in accordance with our{" "}
+                <a
+                  className="font-semibold underline"
+                  href="/privacy"
+                  target="_blank"
+                >
+                  Privacy Policy.
+                </a>
+              </small>
+              <button
+                type="submit"
+                className="btn btn-blue main-btn-con"
+                style={{ width: "100%", padding: ".75rem" }}
               >
-                Privacy Policy.
-              </a>
-            </small>
-            <button
-              className="btn btn-blue main-btn-con"
-              onClick={() => router.push("/results")}
-              style={{ width: "100%", padding: ".75rem" }}
-            >
-              Continue
-            </button>
+                Continue
+              </button>
+            </form>
           </section>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import Email from "@/app/model/Email";
+import { NextResponse } from "next/server";
 import clientPromise from "@/lib/connection";
 
 const connectToDatabase = async () => {
@@ -12,46 +12,29 @@ const connectToDatabase = async () => {
   }
 };
 
-export default async function handler(req, res) {
-  if (req.method === 'POST') {
-    const { email } = req.body;
+export async function POST(req) {
+  try {
+    const db = await connectToDatabase();
+    const email = await req.json();
 
-    // Validate email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return res.status(400).json({
-        success: false,
-        message: 'Invalid email address.',
-      });
+    if (!email.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.email)) {
+      return NextResponse.json({ success: false, message: "Invalid email" }, { status: 400 });
     }
 
-    try {
-      await connectToDatabase();
-
-      // Save email to the database
-      // const existingEmail = await Email.findOne({ email });
-      // if (existingEmail) {
-      //   return res.status(400).json({
-      //     success: false,
-      //     message: 'Email already exists.',
-      //   });
-      // }
-
-      const newEmail = new Email({ email });
-      await newEmail.save();
-
-      res.status(200).json({
-        success: true,
-        message: 'Email saved successfully!',
-      });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({
-        success: false,
-        message: 'Something went wrong. Please try again later.',
-      });
-    }
-  } else {
-    res.status(405).json({ message: 'Method Not Allowed' });
+    await db.collection("emails").insertOne({
+      email: email.email,
+      created_at: new Date(),
+    });
+    
+    return NextResponse.json(
+      { success: true, message: "Email saved successfully!" },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error saving email:", error);
+    return NextResponse.json(
+      { success: false, message: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }
