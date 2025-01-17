@@ -2676,7 +2676,7 @@ ul.points-list li span::before {
 
 .per-day-price {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   background: #f3f3f3;
   padding: 6px;
   border-radius: 0 7px 7px 0;
@@ -2852,8 +2852,8 @@ ul.points-list li span::before {
 
 .bg-selling .counter-time {
   display: flex;
-  align-items: start;
-  justify-content: start;
+  align-items: flex-start;
+  justify-content: flex-start;
   font-size: 22px;
   font-weight: bold;
   max-width: fit-content;
