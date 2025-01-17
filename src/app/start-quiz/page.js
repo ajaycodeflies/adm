@@ -30,7 +30,7 @@ function QuizContent() {
   if (step === "1") {
     return (
       <div className="box-container">
-        <div className="d-flex flex-column align-items-center justify-content-center text-center">
+        <div className="d-flex flex-column align-items-center justify-content-center text-center h-100">
           <Header />
           <section className="mt-2 text-center">
             <div
