@@ -13,7 +13,7 @@ export default function Home() {
       document.body.classList.add("darkmode-active");
     }
   }, []);
-  // Toggle dark mode
+  // Toggle dark mode for for design
   const toggleDarkMode = () => {
     const newMode = !isDarkMode;
     setIsDarkMode(newMode);
