@@ -26,17 +26,17 @@ function QuizContent() {
   if (step === "1") {
     return (
       <div className="box-container">
-        <div className="d-flex flex-column align-items-center justify-content-center text-center">
+        <div className="d-flex flex-column align-items-center justify-content-center text-center h-100">
           <Header />
-          <section className="my-5">
-            <h2 className="fw-bold">More than 100,000</h2>
+          <section className="step-1-return">
+            <h2 className="mt-5 fw-bold">More than 100,000</h2>
             <p className="mt-2">people have chosen Coursiv</p>
             <Image
               src="/images/social-proof_background.webp"
               width={1000}
               height={1000}
               alt="social-proof-background"
-              className="img-fluid w-100"
+              className="mt-auto img-fluid w-100"
             />
             <button
                 className="btn btn-blue main-btn-con"
@@ -61,16 +61,15 @@ function QuizContent() {
           Select Your <span className="fw-bold" style={{ color: "var(--blue-dark)" }}>Age</span>
           </p>
           <p className="fw-bold text-secondary">1-Minute Quiz</p>
-          <div className="row justify-content-center mt-4">
+          <div className="row justify-content-center mt-4 mx-0">
           {isMale ? (
               <>
                 <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
-                  <div className="card">
+                  <div className="card" onClick={() => handleAgeClick("under-18")}>
                     <Image src="/images/under-18-m.webp" width={100} height={100} alt="" />
                     <div className="card-body">
                       <button
                         className="btn btn-blue"
-                        onClick={() => handleAgeClick("under-18")}
                       >
                         Under : 18 <i className="bi bi-arrow-right ms-2"></i>
                       </button>
@@ -79,7 +78,7 @@ function QuizContent() {
                 </div>
 
                 <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
-                  <div className="card">
+                  <div className="card" onClick={() => handleAgeClick("18-24")}>
                     <Image
                       src="/images/picker_male_18-24.webp"
                       width={100}
@@ -89,7 +88,6 @@ function QuizContent() {
                     <div className="card-body">
                       <button
                         className="btn btn-blue"
-                        onClick={() => handleAgeClick("18-24")}
                       >
                         Age: 18-24 <i className="bi bi-arrow-right ms-2"></i>
                       </button>
@@ -98,7 +96,7 @@ function QuizContent() {
                 </div>
 
                 <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
-                  <div className="card">
+                  <div className="card" onClick={() => handleAgeClick("25-34")}>
                     <Image
                       src="/images/picker_male_25-34.webp"
                       width={100}
@@ -108,7 +106,6 @@ function QuizContent() {
                     <div className="card-body">
                       <button
                         className="btn btn-blue"
-                        onClick={() => handleAgeClick("25-34")}
                       >
                         Age: 25-34 <i className="bi bi-arrow-right ms-2"></i>
                       </button>
@@ -117,7 +114,7 @@ function QuizContent() {
                 </div>
 
                 <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
-                  <div className="card">
+                  <div className="card" onClick={() => handleAgeClick("35-44")}>
                     <Image
                       src="/images/picker_male_35-44.webp"
                       width={100}
@@ -127,7 +124,6 @@ function QuizContent() {
                     <div className="card-body">
                       <button
                         className="btn btn-blue"
-                        onClick={() => handleAgeClick("35-44")}
                       >
                         Age: 35-44 <i className="bi bi-arrow-right ms-2"></i>
                       </button>
@@ -135,7 +131,7 @@ function QuizContent() {
                   </div>
                 </div>
                 <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
-                  <div className="card">
+                  <div className="card" onClick={() => handleAgeClick("45+")}>
                     <Image
                       src="/images/picker_male_45.webp"
                       width={100}
@@ -145,7 +141,6 @@ function QuizContent() {
                     <div className="card-body">
                       <button
                         className="btn btn-blue"
-                        onClick={() => handleAgeClick("45+")}
                       >
                         Age: 45+ <i className="bi bi-arrow-right ms-2"></i>
                       </button>
@@ -156,7 +151,7 @@ function QuizContent() {
             ) : (
               <>
                 <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
-                  <div className="card">
+                  <div className="card" onClick={() => handleAgeClick("under-18")}>
                     <Image
                       src="/images/under-18-f.webp"
                       width={100}
@@ -166,7 +161,6 @@ function QuizContent() {
                     <div className="card-body">
                       <button
                         className="btn btn-blue"
-                        onClick={() => handleAgeClick("under-18")}
                       >
                         Under: 18 <i className="bi bi-arrow-right ms-2"></i>
                       </button>
@@ -174,7 +168,7 @@ function QuizContent() {
                   </div>
                 </div>
                 <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
-                  <div className="card">
+                  <div className="card" onClick={() => handleAgeClick("18-24")}>
                     <Image
                       src="/images/picker_female_18-24.webp"
                       width={100}
@@ -184,7 +178,6 @@ function QuizContent() {
                     <div className="card-body">
                       <button
                         className="btn btn-blue"
-                        onClick={() => handleAgeClick("18-24")}
                       >
                         Age: 18-24 <i className="bi bi-arrow-right ms-2"></i>
                       </button>
@@ -192,7 +185,7 @@ function QuizContent() {
                   </div>
                 </div>
                 <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
-                  <div className="card">
+                  <div className="card" onClick={() => handleAgeClick("25-34")}>
                     <Image
                       src="/images/picker_female_25-34.webp"
                       width={100}
@@ -202,7 +195,6 @@ function QuizContent() {
                     <div className="card-body">
                       <button
                         className="btn btn-blue"
-                        onClick={() => handleAgeClick("25-34")}
                       >
                         Age: 25-34 <i className="bi bi-arrow-right ms-2"></i>
                       </button>
@@ -210,7 +202,7 @@ function QuizContent() {
                   </div>
                 </div>
                 <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
-                  <div className="card">
+                  <div className="card" onClick={() => handleAgeClick("35-44")}>
                     <Image
                       src="/images/picker_female_35-44.webp"
                       width={100}
@@ -220,7 +212,6 @@ function QuizContent() {
                     <div className="card-body">
                       <button
                         className="btn btn-blue"
-                        onClick={() => handleAgeClick("35-44")}
                       >
                         Age: 35-44 <i className="bi bi-arrow-right ms-2"></i>
                       </button>
@@ -228,7 +219,7 @@ function QuizContent() {
                   </div>
                 </div>
                 <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
-                  <div className="card">
+                  <div className="card" onClick={() => handleAgeClick("45+")}>
                     <Image
                       src="/images/picker_female_45.webp"
                       width={100}
@@ -238,7 +229,6 @@ function QuizContent() {
                     <div className="card-body">
                       <button
                         className="btn btn-blue"
-                        onClick={() => handleAgeClick("45+")}
                       >
                         Age: 45+ <i className="bi bi-arrow-right ms-2"></i>
                       </button>

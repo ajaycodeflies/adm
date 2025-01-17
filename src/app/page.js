@@ -1,9 +1,25 @@
-import GenderSelector from "./components/GenderSelector";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+"use client";
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  // Load user's preference from localStorage
+  useEffect(() => {
+    const darkModePreference = localStorage.getItem("darkmode-active");
+    if (darkModePreference === "true") {
+      setIsDarkMode(true);
+      document.body.classList.add("darkmode-active");
+    }
+  }, []);
+  // Toggle dark mode
+  const toggleDarkMode = () => {
+    const newMode = !isDarkMode;
+    setIsDarkMode(newMode);
+    document.body.classList.toggle("darkmode-active", newMode);
+    localStorage.setItem("darkmode-active", newMode.toString());
+  };
   return (
     <>
       <div className="landing-screen">
@@ -13,19 +29,19 @@ export default function Home() {
               <Image
                 className="logo"
                 src="/images/logo.png"
-                width={100}
-                height={100}
+                width={128}
+                height={30}
                 alt="User 1"
               />
-              <a href="#" className="head-link">
+              <Link href="/" className="head-link">
                 Home
-              </a>
+              </Link>
             </div>
             <div className="group-right">
               <a href="/user/login" className="head-btn">
                 Login
               </a>
-              <a href="#" className="head-btn-alt">
+              <a href="/start" className="head-btn-alt">
                 Start Now
               </a>
             </div>
@@ -34,13 +50,14 @@ export default function Home() {
             {/* Left Content */}
             <div className="block-50">
               <div className="pill">
-                <span>AI</span> ADM Digital <i className="bi bi-arrow-right"></i>
+                <span>AI</span> ADM Digital{" "}
+                <i className="bi bi-arrow-right"></i>
               </div>
               <h1>Become the Master of AI</h1>
               <p className="banner-text">
                 Learn how AI can increase your income and improve your life.
               </p>
-              <a href="#" className="main-btn">
+              <a href="/start" className="main-btn">
                 Start Now <i className="bi bi-chevron-right"></i>
               </a>
               <div className="users-joined">
@@ -48,42 +65,40 @@ export default function Home() {
                   <Image
                     className="img-avatar"
                     src="/images/user_avatar-1.jpg"
-                    width={100}
-                    height={100}
+                    width={40}
+                    height={40}
                     alt="User 1"
                   />
                   <Image
                     className="img-avatar"
                     src="/images/user_avatar-2.jpg"
-                    width={100}
-                    height={100}
+                    width={40}
+                    height={40}
                     alt="User 2"
                   />
                   <Image
                     className="img-avatar"
                     src="/images/user_avatar-3.jpg"
-                    width={100}
-                    height={100}
+                    width={40}
+                    height={40}
                     alt="User 3"
                   />
                   <Image
                     className="img-avatar"
                     src="/images/user_avatar-4.jpg"
-                    width={100}
-                    height={100}
+                    width={40}
+                    height={40}
                     alt="User 4"
                   />
                   <Image
                     className="img-avatar"
                     src="/images/user_avatar-5.jpg"
-                    width={100}
-                    height={100}
+                    width={40}
+                    height={40}
                     alt="User 5"
                   />
                 </div>
-                <p className="users-joined">
-                  More than 373,317+ people joined
-                </p>
+                <p className="users-joined">More than 373,317+ people joined</p>
               </div>
             </div>
             {/* Right Content */}
@@ -99,26 +114,15 @@ export default function Home() {
               </div>
             </div>
           </div>
+          {/* Dark Mode Toggle Button */}
+          <button onClick={toggleDarkMode} className="darkmode-toggle-btn">
+            {isDarkMode ? (
+              <i className="bi bi-sun-fill" style={{ fontSize: "1.2rem" }}></i>
+            ) : (
+              <i className="bi bi-moon-fill" style={{ fontSize: "1.2rem" }}></i>
+            )}
+          </button>
         </section>
-      </div>
-      <div className="box-container">
-        <div className="d-flex flex-column align-items-center justify-content-center text-center">
-          <Header className="pi-1" />
-          <section className="mt-4 pi-1 intro-screen-section">
-            <h2 className="fw-bold text-uppercase main-heading">
-              Career Freedom Challenge
-            </h2>
-            <p className="mt-2">
-              Select Your{" "}
-              <span className="fw-bold" style={{ color: "var(--blue-dark)" }}>
-                Gender
-              </span>
-            </p>
-            <p className="fw-bold text-secondary">1-Minute Quiz</p>
-            <GenderSelector className="pi-1" />
-          </section>
-          <Footer />
-        </div>
       </div>
     </>
   );

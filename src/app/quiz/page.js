@@ -51,14 +51,12 @@ function QuizContent() {
       if (currentStep < questions.length - 1) {
         const nextStep = currentStep + 1;
         setCurrentStep(nextStep);
-
         const params = new URLSearchParams(window.location.search);
         params.set("step", nextStep + 1);
         router.push(`/quiz?${params.toString()}`);
       } else {
         setShowLoader(true);
       }
-
       setSelectedOption(null);
     }, 500);
   };

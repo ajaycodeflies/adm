@@ -1,28 +1,22 @@
 "use client";
 
 import React, { useState } from 'react';
-
 import NavTop from "@/app/components/NavTop";
 import NavBottom from "@/app/components/NavBottom";
-
 import Image from "next/image";
 
 const Challenges = () => {
-
     const [activeTab, setActiveTab] = useState('all');
-
     const handleTabClick = (e, target) => {
         e.preventDefault();
         setActiveTab(target);
     };
-
 
     return (
         <>
             <div className="box-container">
                 <NavTop />
                 <div className="box-inner-content">
-
                     <ul className="nav-tablist">
                         <li>
                             <a href="#"
@@ -39,7 +33,6 @@ const Challenges = () => {
                                 className={activeTab === 'completed' ? 'active' : ''}>Completed</a>
                         </li>
                     </ul>
-
                     <div className="nav-tabcontent">
                         <div className={`nav-tabpane ${activeTab === 'all' ? 'active' : ''}`}
                             id="all">
@@ -62,7 +55,6 @@ const Challenges = () => {
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <NavBottom />
             </div>
