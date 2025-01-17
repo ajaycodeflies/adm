@@ -3314,6 +3314,14 @@ blockquote {
   background-color: #f8d7da !important;
 }
 
+h3{
+  font-size: 24px;
+}
+h4{
+  font-size: 20px;
+}
+form small{
+  font-size: 10px;
 /* Media Queries */
 @media (max-width: 991px) {
   .landing-screen {
@@ -3565,4 +3573,5 @@ blockquote {
 .score-bar-container{
   height: 44px;
   margin-top: 40px !important;
+}
 }
