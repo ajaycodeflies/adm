@@ -9,6 +9,7 @@ import Image from "next/image";
 
 export default function ProfilePage() {
     const router = useRouter();
+    const [loading, setLoading] = useState(true);
     const [profile, setProfile] = useState({
         firstName: "",
         lastName: "",
@@ -56,6 +57,8 @@ export default function ProfilePage() {
             }
         } catch (err) {
             console.error("Error fetching profile:", err);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -116,6 +119,10 @@ export default function ProfilePage() {
             setFile(file);
         }
     };
+
+    if (loading) {
+        return <p>Loading...</p>;
+    }
 
     return (
         <AdminLayout>

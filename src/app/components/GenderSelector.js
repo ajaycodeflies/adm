@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-
 export default function GenderSelector() {
   const router = useRouter();
 
@@ -35,13 +34,21 @@ export default function GenderSelector() {
           className="col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 mb-3"
           key={gender.value}
         >
-          <div className="card gender-card" onClick={() => handleGenderSelect(gender.value)}>
-            <Image src={gender.img} width={100} height={100} alt="" />
+          <div className="card">
+            <Image src="/images/picker_male_18-24.webp" alt="Male" className="card-img" width={100} height={100} />
             <div className="card-body">
+              <input
+                type="radio"
+                name="gender"
+                id="male"
+                value="male"
+                className="d-none"
+              />
               <button
                 className="btn btn-blue"
+                // onClick={() => handleGenderSelect(gender.value)}
               >
-                {gender.label} <i className="bi bi-arrow-right"></i>
+                Male <i className="bi bi-arrow-right"></i>
               </button>
             </div>
           </div>

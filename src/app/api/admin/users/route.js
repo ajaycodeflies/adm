@@ -6,19 +6,17 @@ export async function GET(request) {
     const client = await clientPromise;
     const db = client.db();
     
-    // Extract pagination parameters from the request query
     const url = new URL(request.url);
-    const page = parseInt(url.searchParams.get("page") || "1", 10); // Default to page 1
-    const limit = parseInt(url.searchParams.get("limit") || "10", 10); // Default to 10 items per page
+    const page = parseInt(url.searchParams.get("page") || "1", 10);
+    const limit = parseInt(url.searchParams.get("limit") || "10", 10);
     
-    // Calculate the number of documents to skip based on the page number and limit
     const skip = (page - 1) * limit;
     
     const users = await db
       .collection("users")
       .aggregate([
         {
-          $match: { role: "user" }, // Filter users with role 'user'
+          $match: { role: "user" },
         },
         {
           $lookup: {
@@ -28,16 +26,14 @@ export async function GET(request) {
             as: "sessionDetails",
           },
         },
-        { $skip: skip }, // Skip documents for pagination
-        { $limit: limit }, // Limit the number of documents
+        { $skip: skip },
+        { $limit: limit },
       ])
       .toArray();
     
-    const totalUsers = await db.collection("users").countDocuments({ role: "user" }); // Get total count of users
+    const totalUsers = await db.collection("users").countDocuments({ role: "user" });
+    const totalPages = Math.ceil(totalUsers / limit);
     
-    const totalPages = Math.ceil(totalUsers / limit); // Calculate total pages
-    
-    // Return the users along with pagination metadata
     return NextResponse.json({
       users,
       totalPages,

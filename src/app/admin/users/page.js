@@ -52,7 +52,7 @@ export default function ProfilePage() {
                 </div>
                 <div className="my-6 row">
                     <div className="col-xl-12 col-lg-12 col-md-12 col-12">
-                        <div className="h-100 card">
+                        <div className="h-100">
                             <div className="table-responsive">
                                 <table className="text-nowrap table">
                                     <thead className="table-light">
@@ -91,7 +91,11 @@ export default function ProfilePage() {
                                                 <td className="align-middle">{user.email}</td>
                                                 <td className="align-middle">{user.mobile}</td>
                                                 <td className="align-middle">
-                                                    {user.status === '1' ? "Active" : "Inactive"}
+                                                    {user.status ? (
+                                                    <span className="badge bg-success">Active</span>)
+                                                    : (
+                                                        <span className="badge bg-danger">Inactive</span>
+                                                    )}
                                                 </td>
                                                 <td className="align-middle">
                                                     {new Intl.DateTimeFormat("en-US", {

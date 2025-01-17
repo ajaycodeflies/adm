@@ -17,6 +17,7 @@ function Start() {
               Gender
             </span>
           </p>
+          
           <p className="fw-bold text-secondary">1-Minute Quiz</p>
           <GenderSelector className="pi-1" />
         </section>
