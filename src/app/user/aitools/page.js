@@ -1,8 +1,6 @@
 import React from "react";
-
 import NavTop from "@/app/components/NavTop";
 import NavBottom from "@/app/components/NavBottom";
-
 import Image from "next/image";
 
 const AiTools = () => { 
@@ -11,7 +9,7 @@ const AiTools = () => {
             <div className="box-container">
                 <NavTop />
                 <div className="box-inner-content">
-                    <h5 class="my-3 heading-with-btn">Get Help With Any Task</h5>
+                    <h5 className="my-3 heading-with-btn">Get Help With Any Task</h5>
                     <div className="task-grid">
                         <div className="card-task">
                             <Image src="/images/ai-tools/001.jpg" width={200} height={100} alt="AI Assistant" />
@@ -42,31 +40,30 @@ const AiTools = () => {
                             </div>
                         </div>
                     </div>
-                    <h5 class="my-3 heading-with-btn">
+                    <h5 className="my-3 heading-with-btn">
                         Explore other tools
                         <a href="#" className="heading-btn">View All</a>
                     </h5>
                     <div className="tools-capsule-grid">
                         <a href="#" className="tools-capsule active">
-                            <i class="bi bi-hand-index"></i> For You
+                            <i className="bi bi-hand-index"></i> For You
                         </a>
                         <a href="#" className="tools-capsule">
-                            <i class="bi bi-star"></i> Productivity
+                            <i className="bi bi-star"></i> Productivity
                         </a>
                         <a href="#" className="tools-capsule">
-                            <i class="bi bi-search"></i> Lifestyle
+                            <i className="bi bi-search"></i> Lifestyle
                         </a>
                         <a href="#" className="tools-capsule">
-                            <i class="bi bi-lightning"></i> Ideas
+                            <i className="bi bi-lightning"></i> Ideas
                         </a>
                     </div>
-
                     <div className="tools-card-grid">
                         <div className="tools-card">
                             <div className="tools-card-header">
                                 <Image src="/images/ai-tools-vector/diamond.png" width={200} height={200} alt="AI Assistant" />
                                 <a href="#">
-                                    <i class="bi bi-arrow-right-short"></i>
+                                    <i className="bi bi-arrow-right-short"></i>
                                 </a>
                             </div>
                             <div className="tools-card-body">
@@ -80,13 +77,13 @@ const AiTools = () => {
                             <div className="tools-card-header">
                                 <Image src="/images/ai-tools-vector/creativity.png" width={200} height={200} alt="AI Assistant" />
                                 <a href="#">
-                                    <i class="bi bi-arrow-right-short"></i>
+                                    <i className="bi bi-arrow-right-short"></i>
                                 </a>
                             </div>
                             <div className="tools-card-body">
-                                <h5>CreativeCopy</h5>
+                                <h5>Creative Copy</h5>
                                 <p>
-                                    CreativeCopy provides innovative copywriting solutions for brandin...
+                                    Creative Copy provides innovative copywriting solutions for brandin...
                                 </p>
                             </div>
                         </div>
@@ -94,7 +91,7 @@ const AiTools = () => {
                             <div className="tools-card-header">
                                 <Image src="/images/ai-tools-vector/writing.png" width={200} height={200} alt="AI Assistant" />
                                 <a href="#">
-                                    <i class="bi bi-arrow-right-short"></i>
+                                    <i className="bi bi-arrow-right-short"></i>
                                 </a>
                             </div>
                             <div className="tools-card-body">
@@ -108,7 +105,7 @@ const AiTools = () => {
                             <div className="tools-card-header">
                                 <Image src="/images/ai-tools-vector/pencil.png" width={200} height={200} alt="AI Assistant" />
                                 <a href="#">
-                                    <i class="bi bi-arrow-right-short"></i>
+                                    <i className="bi bi-arrow-right-short"></i>
                                 </a>
                             </div>
                             <div className="tools-card-body">
@@ -122,11 +119,11 @@ const AiTools = () => {
                             <div className="tools-card-header">
                                 <Image src="/images/ai-tools-vector/star.png" width={200} height={200} alt="AI Assistant" />
                                 <a href="#">
-                                    <i class="bi bi-arrow-right-short"></i>
+                                    <i className="bi bi-arrow-right-short"></i>
                                 </a>
                             </div>
                             <div className="tools-card-body">
-                                <h5>ProductivityPro</h5>
+                                <h5>Productivity Pro</h5>
                                 <p>
                                     Maximize your efficiency with powerful tools that help you...
                                 </p>
@@ -136,7 +133,7 @@ const AiTools = () => {
                             <div className="tools-card-header">
                                 <Image src="/images/ai-tools-vector/hospital.png" width={200} height={200} alt="AI Assistant" />
                                 <a href="#">
-                                    <i class="bi bi-arrow-right-short"></i>
+                                    <i className="bi bi-arrow-right-short"></i>
                                 </a>
                             </div>
                             <div className="tools-card-body">
@@ -147,7 +144,6 @@ const AiTools = () => {
                             </div>
                         </div>
                     </div>
-                    
                 </div>
                 <NavBottom />
             </div>

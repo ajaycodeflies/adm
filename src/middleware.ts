@@ -18,10 +18,10 @@ export function middleware(request: NextRequest) {
       url.pathname = "/admin/login";
       return NextResponse.redirect(url);
     }
-    if (isUserPath && !isUserLoginPage) {
-      url.pathname = "/user/login";
-      return NextResponse.redirect(url);
-    }
+    // if (isUserPath && !isUserLoginPage) {
+    //   url.pathname = "/user/login";
+    //   return NextResponse.redirect(url);
+    // }
     return NextResponse.next(); // Allow login pages to load without token
   }
 
