@@ -41,7 +41,7 @@ export default function Home() {
               <a href="/user/login" className="head-btn">
                 Login
               </a>
-              <a href="/start" className="head-btn-alt">
+              <a href="/start-quiz" className="head-btn-alt">
                 Start Now
               </a>
             </div>
