@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 import AdminLayout from "../components/AdminLayout";
 import Link from "next/link";
 
-export default function labelPage() {
+export default function LabelPage() {
     const router = useRouter();
     const [labels, setlabels] = useState([]);
     const [loading, setLoading] = useState(true);

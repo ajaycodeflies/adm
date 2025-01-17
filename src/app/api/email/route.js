@@ -1,5 +1,5 @@
+import Email from "@/app/model/Email";
 import clientPromise from "@/lib/connection";
-import Email from '../models/Email';
 
 const connectToDatabase = async () => {
   try {
