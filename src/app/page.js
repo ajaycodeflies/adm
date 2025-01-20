@@ -57,7 +57,7 @@ export default function Home() {
               <p className="banner-text">
                 Learn how AI can increase your income and improve your life.
               </p>
-              <a href="/start" className="main-btn">
+              <a href="/start-quiz" className="main-btn">
                 Start Now <i className="bi bi-chevron-right"></i>
               </a>
               <div className="users-joined">
