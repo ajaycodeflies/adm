@@ -66,7 +66,7 @@ function Pathway() {
         <div className="box-container">
             <div className="d-flex flex-column">
                 <Header />
-                <section className="mt-5">
+                <section className="pathway-contain">
                     <div className="readiness-chart">
                         <div className="chart-title">Your readiness level</div>
                         <div className="chart-container">

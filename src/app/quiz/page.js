@@ -82,7 +82,8 @@ function QuizContent() {
         (question) => question.label === currentLabel._id
       );
 
-      const isLastQuestionInLabel = currentQuestionIndex === currentLabelQuestions.length - 1;
+      const isLastQuestionInLabel =
+        currentQuestionIndex === currentLabelQuestions.length - 1;
       if (isLastQuestionInLabel) {
         setShowResults(true);
       } else {
@@ -152,7 +153,10 @@ function QuizContent() {
   }
 
   const calculateResult = () => {
-    const totalScore = answers.reduce((sum, answer) => sum + answer.selectedOption.value, 0);
+    const totalScore = answers.reduce(
+      (sum, answer) => sum + answer.selectedOption.value,
+      0
+    );
 
     if (totalScore <= 10) {
       return "Low";
@@ -179,7 +183,8 @@ function QuizContent() {
 
     const result = calculateResult(totalScore);
     const readinessResult = "Perfect";
-    const insights = "A study in 2022 found that workers who use AI tools in their work have 10-20% higher hourly rates than those who don’t.";
+    const insights =
+      "A study in 2022 found that workers who use AI tools in their work have 10-20% higher hourly rates than those who don’t.";
     const userAttributes = {
       Motivation: "High",
       Potential: "High",
@@ -188,37 +193,49 @@ function QuizContent() {
     };
     return (
       <div className="box-container">
-        <div className="d-flex flex-column align-items-center justify-content-center text-center position-relative mb-5">
+        <div className="d-flex flex-column align-items-center text-center position-relative h-100">
           <div className="progress-block">
-            <div className="d-flex align-items-center justify-content-between w-100 py-3">
+            <div className="d-flex align-items-center justify-content-between w-100 py-2">
               <button
                 className="back-button text-decoration-none"
                 onClick={handleBackClick}
               >
                 <i className="bi bi-arrow-left fw-bold"></i>
               </button>
-              <h6 className="fw-bold">Motivation Leval</h6>
-              <button className="btn btn-light" type="button" onClick={toggleSidebar}>
+              <h6 className="fw-bold">Motivation Level</h6>
+              <button className="btn" type="button" onClick={toggleSidebar}>
                 <i className="bi bi-list"></i>
               </button>
-              <aside className={`sidebar ${isSidebarVisible ? 'show' : ''}`}>
+              <aside className={`sidebar ${isSidebarVisible ? "show" : ""}`}>
                 <nav className="navbar navbar-expand-lg">
                   <div className="container-fluid flex-row flex-wrap  px-0">
-                    <button className="btn btn-light" type="button" onClick={toggleSidebar}>
+                    <button
+                      className="btn btn-light"
+                      type="button"
+                      onClick={toggleSidebar}
+                    >
                       <i className="bi bi-x-lg"></i>
                     </button>
                     <ul className="navbar-nav">
                       <li className="nav-item">
-                        <Link className="nav-link active" href="/terms">Terms & Conditions</Link>
+                        <Link className="nav-link active" href="/terms">
+                          Terms & Conditions
+                        </Link>
                       </li>
                       <li className="nav-item">
-                        <Link className="nav-link" href="/privacy">Privacy Policy</Link>
+                        <Link className="nav-link" href="/privacy">
+                          Privacy Policy
+                        </Link>
                       </li>
                       <li className="nav-item">
-                        <Link className="nav-link" href="/subscription">Subscription Terms</Link>
+                        <Link className="nav-link" href="/subscription">
+                          Subscription Terms
+                        </Link>
                       </li>
                       <li className="nav-item">
-                        <Link className="nav-link" href="/support">Support Center</Link>
+                        <Link className="nav-link" href="/support">
+                          Support Center
+                        </Link>
                       </li>
                     </ul>
                   </div>
@@ -228,7 +245,9 @@ function QuizContent() {
             {labels.map((label, index) => (
               <div
                 key={label._id}
-                className={`progress ${index <= (currentLabelIndex) ? "bg-primary" : ""}`}
+                className={`progress ${
+                  index <= currentLabelIndex ? "bg-primary" : ""
+                }`}
                 style={{
                   height: "5px",
                   backgroundColor: "#e0e0e0",
@@ -236,87 +255,104 @@ function QuizContent() {
                   display: "inline-block",
                   marginRight: "5px",
                 }}
-              >
-              </div>
+              ></div>
             ))}
-
-
           </div>
           <div className="results-container">
             <div className="results-header text-center">
               <h2>{currentLabel.label}</h2>
             </div>
-
-            <div className="readiness-card rounded shadow p-3">
-              <div className="score-header d-flex justify-content-between align-items-center">
-                <h6 className="fw-bold">Readiness score</h6>
-                <span className="result-badge">{`Result: ${readinessResult}`}</span>
-              </div>
-              <div className="score-bar-container mt-3">
-                <div className="score-bar position-relative" style={{ height: "10px", background: "linear-gradient(to right, red, yellow, green)" }}>
+            <div className="readiness-block">
+              <div className="readiness-card rounded shadow p-3 mb-5">
+                <div className="score-header d-flex justify-content-between align-items-center">
+                  <h6 className="fw-bold">Readiness score</h6>
+                  <span className="result-badge">{`Result: ${readinessResult}`}</span>
+                </div>
+                <div className="score-bar-container mt-3">
                   <div
-                    className="score-indicator"
+                    className="score-bar position-relative"
                     style={{
-                      position: "absolute",
-                      left: result === "Low" ? "10%" : result === "Intermediate" ? "50%" : "90%",
-                      transform: "translateX(-50%)",
-                      top: "-12px",
-                      width: "12px",
-                      height: "12px",
-                      borderRadius: "50%",
-                      background: "white",
-                      border: "2px solid black",
+                      height: "10px",
+                      background:
+                        "linear-gradient(to right, red, yellow, green)",
                     }}
                   >
-                    {/* Tooltip */}
-                    <span
+                    <div
+                      className="score-indicator"
                       style={{
                         position: "absolute",
-                        top: "0px",
-                        left: "50%",
+                        left:
+                          result === "Low"
+                            ? "10%"
+                            : result === "Intermediate"
+                            ? "50%"
+                            : "90%",
                         transform: "translateX(-50%)",
-                        padding: "2px 5px",
-                        borderRadius: "4px",
-                        backgroundColor: "#333",
-                        color: "#fff",
-                        fontSize: "12px",
+                        top: "0",
+                        width: "12px",
+                        height: "12px",
+                        borderRadius: "50%",
+                        background: "white",
+                        border: "2px solid black",
                       }}
                     >
-                      {result === "Low"
-                        ? "Low"
-                        : result === "Intermediate"
+                      {/* Tooltip */}
+                      <span
+                        style={{
+                          position: "absolute",
+                          top: "-25px",
+                          left: "50%",
+                          transform: "translateX(-50%)",
+                          padding: "2px 5px",
+                          borderRadius: "4px",
+                          backgroundColor: "#333",
+                          color: "#fff",
+                          fontSize: "12px",
+                        }}
+                      >
+                        {result === "Low"
+                          ? "Low"
+                          : result === "Intermediate"
                           ? "Moderate"
                           : "High"}
-                    </span>
+                      </span>
+                    </div>
+                  </div>
+                  <div className="d-flex justify-content-between mt-2">
+                    <span className="readiness-label">Low</span>
+                    <span className="readiness-label">Intermediate</span>
+                    <span className="readiness-label">High</span>
                   </div>
                 </div>
-                <div className="d-flex justify-content-between mt-2">
-                  <span className="readiness-label">Low</span>
-                  <span className="readiness-label">Intermediate</span>
-                  <span className="readiness-label">High</span>
-                </div>
-              </div>
-
-              <div className="gap-3">
-                <div className="insights mt-4">
-                  <p className="fw-bold"><i className="bi bi-lightbulb-fill text-warning"></i> Impressive score to succeed in AI </p>
-                  <p>{insights}</p>
-                </div>
-              </div>
-              <div className="user-attributes mt-4">
-                {Object.entries(userAttributes).map(([key, value]) => (
-                  <div key={key} className="attribute-item d-flex align-items-center mb-2">
-                    <i className="bi bi-star-fill text-primary me-2"></i>
-                    <strong>{key}:</strong> <span className="ms-2">{value}</span>
+                <div className="gap-3">
+                  <div className="insights mt-4">
+                    <p className="fw-bold">
+                      <i className="bi bi-lightbulb-fill text-warning"></i>{" "}
+                      Impressive score to succeed in AI{" "}
+                    </p>
+                    <p>{insights}</p>
                   </div>
-                ))}
+                </div>
+                <div className="user-attributes mt-4">
+                  {Object.entries(userAttributes).map(([key, value]) => (
+                    <div
+                      key={key}
+                      className="attribute-item d-flex align-items-center mb-2"
+                    >
+                      <i className="bi bi-star-fill text-primary me-2"></i>
+                      <strong>{key}:</strong>{" "}
+                      <span className="ms-2">{value}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
             <div className="button-next">
               <button
                 type="button"
                 onClick={handleContinueClick}
-                className="head-btn-alt btn-alt mb-2 text-uppercase">
+                className="head-btn-alt btn-alt mb-2 text-uppercase"
+              >
                 Continue <i className="bi bi-arrow-right"></i>
               </button>
             </div>
@@ -331,12 +367,15 @@ function QuizContent() {
       <div className="box-container">
         <div className="d-flex flex-column">
           <Header />
-          <section className="my-5">
+          <section className="form-section">
             <form onSubmit={emailSaved}>
               <div className="text-center justify-content-center align-items-center mb-5">
                 <h3 className="fw-bold">
                   Enter your email to get your{" "}
-                  <span className="fw-bold" style={{ color: "var(--blue-dark)" }}>
+                  <span
+                    className="fw-bold"
+                    style={{ color: "var(--blue-dark)" }}
+                  >
                     Personal AI-Driven Income Growth
                   </span>{" "}
                   Challenge!
@@ -357,7 +396,7 @@ function QuizContent() {
                   height: "52px",
                 }}
               />
-              
+
               {emailError && (
                 <span
                   className="block text-danger fw-bold"
@@ -366,7 +405,7 @@ function QuizContent() {
                   {emailError}
                 </span>
               )}
-              
+
               {emailSuccess && (
                 <span
                   className="block text-success fw-bold"
@@ -378,7 +417,8 @@ function QuizContent() {
               <br />
               <small>
                 We respect your privacy and are committed to protecting your
-                personal data. Your data will be processed in accordance with our{" "}
+                personal data. Your data will be processed in accordance with
+                our{" "}
                 <a
                   className="font-semibold underline"
                   href="/privacy"
@@ -425,7 +465,7 @@ function QuizContent() {
       <div className="d-flex flex-column align-items-center justify-content-center text-center position-relative mb-5">
         {/* Back Button and Logo */}
         <div className="progress-block">
-          <div className="d-flex align-items-center justify-content-between w-100 py-3">
+          <div className="d-flex align-items-center justify-content-between w-100 py-2">
             <button
               className="back-button text-decoration-none"
               onClick={handleBackClick}
@@ -433,16 +473,25 @@ function QuizContent() {
               <i className="bi bi-arrow-left fw-bold"></i>
             </button>
             <Link href="/">
-              <Image src="/images/logo.png" alt="Logo" style={{ maxWidth: "130px" }} width={130} height={35} />
+              <Image
+                src="/images/logo.png"
+                className="logo-img"
+                alt="Logo"
+                width={128}
+                height={30}
+              />
             </Link>
             <h6 className="fw-bold count">
-              <span className="text-primary">{currentQuestionIndex + 1} </span> /{" "}
-              {questions.length}
+              <span className="text-primary">{currentQuestionIndex + 1} </span>{" "}
+              / {questions.length}
             </h6>
           </div>
-          <div className="progress w-100 mb-2" style={{ height: "5px", backgroundColor: "#e0e0e0" }}>
+          <div
+            className="progress w-100 mb-3"
+            style={{ height: "5px", backgroundColor: "#e0e0e0" }}
+          >
             <div
-              className="progress-bar bg-primary"
+              className="progress-bar"
               role="progressbar"
               style={{
                 width: `${((answers.length + 1) / questions.length) * 100}%`,
@@ -473,14 +522,15 @@ function QuizContent() {
               option.text === "yes" || option.text === "Yes"
                 ? "/images/yes.webp"
                 : option.text === "no" || option.text === "No"
-                  ? "/images/no.webp"
-                  : "/images/somewhat.webp";
+                ? "/images/no.webp"
+                : "/images/somewhat.webp";
 
             return (
               <div
                 key={index}
-                className={`card card-horizontal ${selectedOption === index ? "highlighted" : ""
-                  }`}
+                className={`card card-horizontal ${
+                  selectedOption === index ? "highlighted" : ""
+                }`}
                 onClick={() => handleOptionClick(option, index)}
               >
                 <input
@@ -520,9 +570,35 @@ function QuizContent() {
 }
 
 export default function Quiz() {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  // Load user's preference from localStorage
+  useEffect(() => {
+    const darkModePreference = localStorage.getItem("darkmode-active");
+    if (darkModePreference === "true") {
+      setIsDarkMode(true);
+      document.body.classList.add("darkmode-active");
+    }
+  }, []);
+  // Toggle dark mode for for design
+  const toggleDarkMode = () => {
+    const newMode = !isDarkMode;
+    setIsDarkMode(newMode);
+    document.body.classList.toggle("darkmode-active", newMode);
+    localStorage.setItem("darkmode-active", newMode.toString());
+  };
   return (
-    <Suspense fallback={<p>Loading...</p>}>
-      <QuizContent />
-    </Suspense>
+    <>
+      <Suspense fallback={<p>Loading...</p>}>
+        <QuizContent />
+      </Suspense>
+      {/* Dark Mode Toggle Button */}
+      <button onClick={toggleDarkMode} className="darkmode-toggle-btn">
+        {isDarkMode ? (
+          <i className="bi bi-sun-fill" style={{ fontSize: "1.2rem" }}></i>
+        ) : (
+          <i className="bi bi-moon-fill" style={{ fontSize: "1.2rem" }}></i>
+        )}
+      </button>
+    </>
   );
 }
