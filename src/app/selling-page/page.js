@@ -34,7 +34,7 @@ function Selling() {
     <>
       <section className="bg-selling">
         <div className="top-nav py-3">
-          <Link href="/" className="head-link">
+          <Link href="/">
             <Image
               className="logo"
               src="/images/logo.png"
@@ -43,17 +43,17 @@ function Selling() {
               alt="User 1"
             />
           </Link>
-          <div class="counter">
-            <p class="counter-label">Discount expires in</p>
-            <div class="counter-time">
-              <div class="time-box">
-                <span class="time-value">07</span>
-                <span class="time-label">min</span>
+          <div className="counter">
+            <p className="counter-label">Discount expires in</p>
+            <div className="counter-time">
+              <div className="time-box">
+                <span className="time-value">07</span>
+                <span className="time-label">min</span>
               </div>
-              <span class="time-separator">:</span>
-              <div class="time-box">
-                <span class="time-value">27</span>
-                <span class="time-label">sec</span>
+              <span className="time-separator">:</span>
+              <div className="time-box">
+                <span className="time-value">27</span>
+                <span className="time-label">sec</span>
               </div>
             </div>
           </div>

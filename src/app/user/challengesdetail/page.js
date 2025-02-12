@@ -30,27 +30,27 @@ const ChallengesDetail = () => {
                         <a href="">Join Now</a>
                     </div>
 
-                    <h5 class="my-3 heading-with-btn">Challenges Detail</h5>
+                    <h5 className="my-3 heading-with-btn">Challenges Detail</h5>
 
                     <div className="challenges-detail-mini">
                         <div className="challenges-detail-item">
                             <p>Duration</p>
-                            <h6><i class="bi bi-clock"></i> 28 days</h6>
+                            <h6><i className="bi bi-clock"></i> 28 days</h6>
                         </div>
                         <div className="challenges-detail-item">
                             <p>Level</p>
-                            <h6><i class="bi bi-reception-4"></i> Beginner</h6>
+                            <h6><i className="bi bi-reception-4"></i> Beginner</h6>
                         </div>
                     </div>
 
-                    <h5 class="my-3 heading-with-btn">How does it work?</h5>
+                    <h5 className="my-3 heading-with-btn">How does it work?</h5>
                     <p>
                         Each day for 28 days, well introduce you to a brand-new AI tool. These tools covers everything from chatting with AI to creating stunning designs and beyond. Its like unwrapping
                        a new gift every day, filled with exciting possibilities. 
                     </p>
 
                     
-                    <h5 class="my-3 heading-with-btn">Success Stories</h5>
+                    <h5 className="my-3 heading-with-btn">Success Stories</h5>
 
                     <div className='testimonials'>
                         <div className='testimonial-item'>
@@ -64,11 +64,11 @@ const ChallengesDetail = () => {
                                 </p>
                             </div>
                             <div className='testimonial-footer'>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
+                                <i className="bi bi-star-fill"></i>
+                                <i className="bi bi-star-fill"></i>
+                                <i className="bi bi-star-fill"></i>
+                                <i className="bi bi-star-fill"></i>
+                                <i className="bi bi-star-fill"></i>
                             </div>
                         </div>
 
@@ -83,11 +83,11 @@ const ChallengesDetail = () => {
                                 </p>
                             </div>
                             <div className='testimonial-footer'>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
+                                <i className="bi bi-star-fill"></i>
+                                <i className="bi bi-star-fill"></i>
+                                <i className="bi bi-star-fill"></i>
+                                <i className="bi bi-star-fill"></i>
+                                <i className="bi bi-star-fill"></i>
                             </div>
                         </div>
 
@@ -102,11 +102,11 @@ const ChallengesDetail = () => {
                                 </p>
                             </div>
                             <div className='testimonial-footer'>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
+                                <i className="bi bi-star-fill"></i>
+                                <i className="bi bi-star-fill"></i>
+                                <i className="bi bi-star-fill"></i>
+                                <i className="bi bi-star-fill"></i>
+                                <i className="bi bi-star-fill"></i>
                             </div>
                         </div>
 

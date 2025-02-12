@@ -69,9 +69,9 @@ export default function ProfilePage() {
                                         {users.map((user) => (
                                             <tr key={user._id}>
                                                 <td className="align-middle">
-                                                    <div class="d-flex align-items-center">
+                                                    <div className="d-flex align-items-center">
                                                         <div>
-                                                            <div class="icon-shape icon-md border p-4 rounded-1 bg-white">
+                                                            <div className="icon-shape icon-md border p-4 rounded-1 bg-white">
                                                                 <Image
                                                                     src={user.avatar || "/images/avatar/avatar-2.jpg"}
                                                                     alt="avatar"
@@ -81,8 +81,8 @@ export default function ProfilePage() {
                                                                 />
                                                             </div>
                                                         </div>
-                                                        <div class="ms-3 lh-1">
-                                                            <h5 class=" mb-1">
+                                                        <div className="ms-3 lh-1">
+                                                            <h5 className=" mb-1">
                                                             {user.first_name} {user.last_name}
                                                             </h5>
                                                         </div>
