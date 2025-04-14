@@ -171,7 +171,7 @@ export default function Courses() {
                                             <tr key={course._id}>
                                                 <td>{index + 1}</td>
                                                 <td>
-                                                    <img src={course.image} alt={course.title} className="img" />
+                                                    <Image src={course.image} alt={course.title} className="img" height={80} width={80} />
                                                 </td>
                                                 <td>{course.title}</td>
                                                 <td>{course.name}</td>

@@ -4,10 +4,13 @@ import { Line } from "react-chartjs-2";
 import { Chart as ChartJS, LineElement, PointElement, CategoryScale, LinearScale, Tooltip } from "chart.js";
 import Header from "../components/Header";
 import "../globals.css";
+import { useRouter } from "next/navigation";
+
 
 ChartJS.register(LineElement, PointElement, CategoryScale, LinearScale, Tooltip);
 
 function Pathway() {
+    const router = useRouter();
 
     const chartData = {
         labels: ["Week 1", "Week 2", "Week 3", "Week 4"],
@@ -60,6 +63,12 @@ function Pathway() {
                 max: 4,
             },
         },
+    };
+
+    const handleQuizClick = (action) => {
+        if (action === "continue") {
+            router.push("/selling-page");
+        }
     };
 
     return (

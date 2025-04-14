@@ -2968,7 +2968,7 @@ ul.points-list li span::before {
   z-index: 1000;
 }
 
-.modal-content {
+.modal-contentt {
   background: #fff;
   padding: 20px;
   border-radius: 8px;
@@ -3387,7 +3387,7 @@ body.darkmode-active .ai-skill-right-block p {
   color: #eee;
 }
 
-body.darkmode-active .modal-content {
+body.darkmode-active .modal-contentt {
   background: #343a40;
 }
 

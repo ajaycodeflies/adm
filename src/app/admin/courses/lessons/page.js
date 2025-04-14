@@ -7,7 +7,13 @@ import Cookies from "js-cookie";
 import AdminLayout from "../../components/AdminLayout";
 import Link from "next/link";
 import { EditorState, ContentState } from 'draft-js';
-import { Editor } from 'react-draft-wysiwyg';
+// import { Editor } from 'react-draft-wysiwyg';
+// import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import dynamic from 'next/dynamic';
+const Editor = dynamic(
+    () => import('react-draft-wysiwyg').then(mod => mod.Editor),
+    { ssr: false } // This is the crucial part
+);
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 export default function Lessons() {
@@ -182,25 +188,27 @@ export default function Lessons() {
     }, [toastMessage]);
 
     const deleteLesson = async (id) => {
-        if (window.confirm("Are you sure you want to delete this course?")) {
-            try {
-                const response = await fetch(`/api/admin/courses/lessons?id=${id}`, {
-                    method: "DELETE",
-                });
+        if (typeof window !== 'undefined') {
+            if (window.confirm("Are you sure...?")) { 
+                try {
+                    const response = await fetch(`/api/admin/courses/lessons?id=${id}`, {
+                        method: "DELETE",
+                    });
 
-                if (response.ok) {
-                    const result = await response.json();
-                    setLessons(lessons.filter((lesson) => lesson._id !== id));
-                    setToastMessage("Lesson deleted successfully!");
-                    setToastType("success");
-                } else {
-                    const error = await response.json();
+                    if (response.ok) {
+                        const result = await response.json();
+                        setLessons(lessons.filter((lesson) => lesson._id !== id));
+                        setToastMessage("Lesson deleted successfully!");
+                        setToastType("success");
+                    } else {
+                        const error = await response.json();
+                        setToastMessage("Failed to delete . Please try again.");
+                        setToastType("error");
+                    }
+                } catch (error) {
                     setToastMessage("Failed to delete . Please try again.");
                     setToastType("error");
                 }
-            } catch (error) {
-                setToastMessage("Failed to delete . Please try again.");
-                setToastType("error");
             }
         }
     };

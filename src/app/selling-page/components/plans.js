@@ -174,7 +174,7 @@ const Plans = () => {
       </div>
       {isModalOpen && (
         <div className="modal">
-          <div className="modal-content">
+          <div className="modal-contentt">
             <h3>Confirm Your Plan</h3>
             <p>You selected: {selectedPlan}</p>
             <button className="btn btn-primary" onClick={toggleModal}>

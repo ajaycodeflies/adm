@@ -8,7 +8,7 @@ import { Navigation, Pagination } from "swiper/modules";
 function CourseSlider() {
   return (
     <div className="course-slider">
-      <h2>Access Coursiv anywhere using your mobile device</h2>
+      <h2>Access ADM anywhere using your mobile device</h2>
       <Swiper
         spaceBetween={30}
         slidesPerView={"2"}
