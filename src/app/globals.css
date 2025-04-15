@@ -760,6 +760,13 @@ img.img-banner {
 .card > .card-body > .btn:hover > i {
   transform: translateX(5px);
 }
+.card-new{
+  padding: 0px 10px !important;
+  width: 80% !important;
+}
+.my-pd{
+  padding: 3rem 0rem;
+}
 
 /* Container */
 .box-container {
@@ -770,6 +777,10 @@ img.img-banner {
   margin: 0 auto;
   display: block;
   position: relative;
+}
+.my-container{
+  max-width: 1024px !important;
+
 }
 
 /* Header */

@@ -461,7 +461,7 @@ function QuizContent() {
   }
 
   return (
-    <div className="box-container">
+    <div className="box-container my-container">
       <div className="d-flex flex-column align-items-center justify-content-center text-center position-relative mb-5">
         {/* Back Button and Logo */}
         <div className="progress-block">
@@ -503,6 +503,8 @@ function QuizContent() {
             />
           </div>
         </div>
+        <div class="d-flex align-items-center justify-content-center text-center position-relative my-pd">
+          <div>
         <div className="question-image">
           <Image
             className="img-fluid mt-4"
@@ -516,6 +518,7 @@ function QuizContent() {
         <section className="text-center mt-4 w-100">
           <h4 className="fw-bold">{currentQuestion?.question}</h4>
         </section>
+        </div>
         <section className="d-flex flex-column w-100 mt-3 mb-4">
           {currentQuestion.options.map((option, index) => {
             const img =
@@ -528,7 +531,7 @@ function QuizContent() {
             return (
               <div
                 key={index}
-                className={`card card-horizontal ${
+                className={`card card-horizontal card-new ${
                   selectedOption === index ? "highlighted" : ""
                 }`}
                 onClick={() => handleOptionClick(option, index)}
@@ -555,6 +558,7 @@ function QuizContent() {
             );
           })}
         </section>
+        </div>
         <div className="button-next">
           <button
             type="button"
