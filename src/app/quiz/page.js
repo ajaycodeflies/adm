@@ -365,7 +365,7 @@ function QuizContent() {
   if (showEmailSection) {
     return (
       <div className="box-container">
-        <div className="d-flex flex-column">
+        <div className="d-flex flex-column h-vh">
           <Header />
           <section className="form-section">
             <form onSubmit={emailSaved}>
