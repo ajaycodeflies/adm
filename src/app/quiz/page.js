@@ -503,8 +503,8 @@ function QuizContent() {
             />
           </div>
         </div>
-        <div class="d-flex align-items-center justify-content-center text-center position-relative my-pd">
-          <div>
+        <div class="d-flex w-100 align-items-center justify-content-center text-center position-relative my-pd">
+          <div class="w-half">
         <div className="question-image">
           <Image
             className="img-fluid mt-4"
@@ -519,7 +519,7 @@ function QuizContent() {
           <h4 className="fw-bold">{currentQuestion?.question}</h4>
         </section>
         </div>
-        <section className="d-flex flex-column w-100 mt-3 mb-4">
+        <section className="d-flex flex-column mt-3 mb-4 w-half">
           {currentQuestion.options.map((option, index) => {
             const img =
               option.text === "yes" || option.text === "Yes"
