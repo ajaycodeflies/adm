@@ -789,6 +789,7 @@ img.img-banner {
 }
 .my-pd{
   padding: 3rem 0rem;
+  height:85%;
 }
 .prg-btn{
   width: 50%  !important;
@@ -3797,11 +3798,15 @@ body.darkmode-active .chart-note {
   }
   .my-pd{
     display: block !important;
+    height: 100% !important;
   }
   .prg-btn{
     width: 100% !important;
   }
   .w-half{
     width: 100% !important;
+  }
+  .h-vh{
+    height: unset !important;
   }
 }
