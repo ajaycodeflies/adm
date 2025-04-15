@@ -71,7 +71,7 @@ const toggleCoursesDropdown = () => setIsCoursesOpen(!isCoursesOpen);
                 >
                   <div className="nav-scroller">
                     <Link className="navbar-brand" href="/">
-                      <Image src="/images/logo.png" alt="Logo" width={200} height={100} />
+                      <Image src="/images/logo.png" alt="Logo" width={200} height={100} priority/>
                     </Link>
                   </div>
                   <ul className="navbar-nav flex-column accordion">
@@ -180,6 +180,11 @@ const toggleCoursesDropdown = () => setIsCoursesOpen(!isCoursesOpen);
                     <li className="nav-item">
                       <Link className="nav-link " href="">
                         <Image src="/icons/settings.svg" alt="settings" className="nav-icon me-2" width={20} height={20} />Settings
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link " href="/admin/emails">
+                        <Image src="/icons/mail.svg" alt="email" className="nav-icon me-2" width={20} height={20} />Emails
                       </Link>
                     </li>
                     <li className="nav-item">
