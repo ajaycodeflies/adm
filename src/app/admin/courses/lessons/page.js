@@ -178,7 +178,7 @@ export default function Lessons() {
             const contentState = ContentState.createFromText(editLesson.description);
             setEditorState(EditorState.createWithContent(contentState));
         }
-    }, [modalVisible]);
+    }, [modalVisible, editLesson, editLesson.description]);
 
     useEffect(() => {
         if (toastMessage) {
