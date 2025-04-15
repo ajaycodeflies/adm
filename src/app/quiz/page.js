@@ -110,7 +110,7 @@ function QuizContent() {
     }
 
     try {
-      const response = await fetch("/api/email", {
+      const response = await fetch("/api/frontend/email", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -258,7 +258,7 @@ function QuizContent() {
               ></div>
             ))}
           </div>
-          <div className="results-container">
+          <div className="results-container h-vh">
             <div className="results-header text-center">
               <h2>{currentLabel.label}</h2>
             </div>
@@ -347,7 +347,7 @@ function QuizContent() {
                 </div>
               </div>
             </div>
-            <div className="button-next">
+            <div className="button-next abs">
               <button
                 type="button"
                 onClick={handleContinueClick}

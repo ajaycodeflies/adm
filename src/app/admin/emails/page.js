@@ -63,29 +63,38 @@ export default function Email() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {emails.map((email, index) => (
-                                            <tr key={email._id}>
-                                                <td>{index + 1}</td>
-                                                <td>{email.email}</td>
-                                                <td className="align-middle">
-                                                    {new Intl.DateTimeFormat("en-US", {
-                                                        day: "2-digit",
-                                                        month: "short",
-                                                        hour: "2-digit",
-                                                        minute: "2-digit",
-                                                        hour12: true,
-                                                    }).format(new Date(email.created_at))}
-                                                </td>
-                                                <td className="align-middle">
-                                                    <div className="dropdown">
-                                                        <Link href="" className="btn btn-sm btn-danger">
-                                                            Delete
-                                                        </Link>
-                                                    </div>
+                                        {emails.length === 0 ? (
+                                            <tr>
+                                                <td colSpan="4" className="text-center py-4">
+                                                    No records found
                                                 </td>
                                             </tr>
-                                        ))}
+                                        ) : (
+                                            emails.map((email, index) => (
+                                                <tr key={email._id}>
+                                                    <td>{(currentPage - 1) * 10 + index + 1}</td>
+                                                    <td>{email.email}</td>
+                                                    <td className="align-middle">
+                                                        {new Intl.DateTimeFormat("en-US", {
+                                                            day: "2-digit",
+                                                            month: "short",
+                                                            hour: "2-digit",
+                                                            minute: "2-digit",
+                                                            hour12: true,
+                                                        }).format(new Date(email.created_at))}
+                                                    </td>
+                                                    <td className="align-middle">
+                                                        <div className="dropdown">
+                                                            <Link href="" className="btn btn-sm btn-danger">
+                                                                Delete
+                                                            </Link>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            ))
+                                        )}
                                     </tbody>
+
                                 </table>
 
                                 <div className="pagination-controls mt-5" style={{ marginLeft: "25px" }}>

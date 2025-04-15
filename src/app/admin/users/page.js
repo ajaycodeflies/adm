@@ -45,8 +45,11 @@ export default function ProfilePage() {
             <div className="p-6 container-fluid">
                 <div className="row">
                     <div className="col-lg-12 col-md-12 col-12">
-                        <div className="border-bottom pb-4 mb-4 ">
-                            <h3 className="mb-0 fw-bold">Users List</h3>
+                        <div className="border-bottom pb-4 mb-4 d-flex justify-content-between align-items-center">
+                            <h3 className="mb-0 fw-bold">User List</h3>
+                            <Link href="/admin/users/create" className="btn btn-sm btn-blue">
+                                <i className="bi bi-plus-lg"></i> Create
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -57,6 +60,7 @@ export default function ProfilePage() {
                                 <table className="text-nowrap table">
                                     <thead className="table-light">
                                         <tr>
+                                            <th>#</th>
                                             <th width="5%">Profile</th>
                                             <th>Email</th>
                                             <th>Mobile</th>
@@ -66,86 +70,95 @@ export default function ProfilePage() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {users.map((user) => (
-                                            <tr key={user._id}>
-                                                <td className="align-middle">
-                                                    <div className="d-flex align-items-center">
-                                                        <div>
-                                                            <div className="icon-shape icon-md border p-4 rounded-1 bg-white">
-                                                                <Image
-                                                                    src={user.avatar || "/images/avatar/avatar-2.jpg"}
-                                                                    alt="avatar"
-                                                                    className="avatar-md avatar rounded-circle"
-                                                                    width={50}
-                                                                    height={40}
-                                                                />
+                                        {users.length === 0 ? (
+                                            <tr>
+                                                <td colSpan="7" className="text-center">
+                                                    No users found.
+                                                </td>
+                                            </tr>
+                                        ) : (
+                                            users.map((user, index) => (
+                                                <tr key={user._id}>
+                                                    <td>{(currentPage - 1) * 10 + index + 1}</td>
+                                                    <td className="align-middle">
+                                                        <div className="d-flex align-items-center">
+                                                            <div>
+                                                                <div className="icon-shape icon-md border p-4 rounded-1 bg-white">
+                                                                    <Image
+                                                                        src={user?.profile || "/images/avatar/avatar-2.jpg"}
+                                                                        alt="avatar"
+                                                                        className="avatar-md avatar rounded-circle"
+                                                                        width={50}
+                                                                        height={40}
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                            <div className="ms-3 lh-1">
+                                                                <h5 className=" mb-1">
+                                                                    {user.first_name} {user.last_name}
+                                                                </h5>
                                                             </div>
                                                         </div>
-                                                        <div className="ms-3 lh-1">
-                                                            <h5 className=" mb-1">
-                                                            {user.first_name} {user.last_name}
-                                                            </h5>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td className="align-middle">{user.email}</td>
-                                                <td className="align-middle">{user.mobile}</td>
-                                                <td className="align-middle">
-                                                    {user.status ? (
-                                                    <span className="badge bg-success">Active</span>)
-                                                    : (
-                                                        <span className="badge bg-danger">Inactive</span>
-                                                    )}
-                                                </td>
-                                                <td className="align-middle">
-                                                    {new Intl.DateTimeFormat("en-US", {
-                                                        day: "2-digit",
-                                                        month: "short",
-                                                        hour: "2-digit",
-                                                        minute: "2-digit",
-                                                        hour12: true,
-                                                    }).format(new Date(user.created_at))}
-                                                </td>
-                                                <td className="align-middle">
-                                                    <div className="dropdown">
-                                                        <Link href="" className="btn btn-sm btn-primary">
-                                                            Edit
-                                                        </Link>
-                                                        &nbsp;
-                                                        <Link href="" className="btn btn-sm btn-danger">
-                                                            Delete
-                                                        </Link>
-                                                        {/* &nbsp;
+                                                    </td>
+                                                    <td className="align-middle">{user.email}</td>
+                                                    <td className="align-middle">{user.mobile}</td>
+                                                    <td className="align-middle">
+                                                        {user.status ? (
+                                                            <span className="badge bg-success">Active</span>)
+                                                            : (
+                                                                <span className="badge bg-danger">Inactive</span>
+                                                            )}
+                                                    </td>
+                                                    <td className="align-middle">
+                                                        {new Intl.DateTimeFormat("en-US", {
+                                                            day: "2-digit",
+                                                            month: "short",
+                                                            hour: "2-digit",
+                                                            minute: "2-digit",
+                                                            hour12: true,
+                                                        }).format(new Date(user.created_at))}
+                                                    </td>
+                                                    <td className="align-middle">
+                                                        <div className="dropdown">
+                                                            <Link href="" className="btn btn-sm btn-primary">
+                                                                Edit
+                                                            </Link>
+                                                            &nbsp;
+                                                            <Link href="" className="btn btn-sm btn-danger">
+                                                                Delete
+                                                            </Link>
+                                                            {/* &nbsp;
                                                         <Link href="" className="btn btn-sm btn-info">
                                                             View
                                                         </Link> */}
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        ))}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            ))
+                                        )}
 
                                     </tbody>
-                                    {/* Pagination controls */}
-                                    <div className="pagination-controls mt-5" style={{ marginLeft: "25px" }}>
-                                        <button
-                                            className="btn btn-sm btn-primary"
-                                            onClick={() => setCurrentPage(currentPage > 1 ? currentPage - 1 : 1)}
-                                            disabled={currentPage <= 1}
-                                            style={{ marginRight: "10px" }}
-                                        >
-                                            Previous
-                                        </button>
-                                        <span>Page {currentPage} of {totalPages}</span>
-                                        <button
-                                            className="btn btn-sm btn-primary"
-                                            onClick={() => setCurrentPage(currentPage < totalPages ? currentPage + 1 : totalPages)}
-                                            disabled={currentPage >= totalPages}
-                                            style={{ marginLeft: "10px" }}
-                                        >
-                                            Next
-                                        </button>
-                                    </div>
                                 </table>
+                                {/* Pagination controls */}
+                                <div className="pagination-controls mt-5" style={{ marginLeft: "25px" }}>
+                                    <button
+                                        className="btn btn-sm btn-primary"
+                                        onClick={() => setCurrentPage(currentPage > 1 ? currentPage - 1 : 1)}
+                                        disabled={currentPage <= 1}
+                                        style={{ marginRight: "10px" }}
+                                    >
+                                        Previous
+                                    </button>
+                                    <span>Page {currentPage} of {totalPages}</span>
+                                    <button
+                                        className="btn btn-sm btn-primary"
+                                        onClick={() => setCurrentPage(currentPage < totalPages ? currentPage + 1 : totalPages)}
+                                        disabled={currentPage >= totalPages}
+                                        style={{ marginLeft: "10px" }}
+                                    >
+                                        Next
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

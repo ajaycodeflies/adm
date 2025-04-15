@@ -5,22 +5,23 @@ export async function GET(request) {
   try {
     const client = await clientPromise;
     const db = client.db();
-    
+
     const url = new URL(request.url);
     const page = parseInt(url.searchParams.get("page") || "1", 10);
     const limit = parseInt(url.searchParams.get("limit") || "10", 10);
-    
     const skip = (page - 1) * limit;
-    
+
+    const totalCount = await db.collection("emails").countDocuments();
+
     const emails = await db
-    .collection("emails")
-    .aggregate([
-        { $skip: skip },
-        { $limit: limit },
-      ])
-    .toArray();
-    const totalPages = Math.ceil(emails.length / limit);
-    
+      .collection("emails")
+      .find({})
+      .skip(skip)
+      .limit(limit)
+      .toArray();
+
+    const totalPages = Math.ceil(totalCount / limit);
+
     return NextResponse.json({
       emails,
       totalPages,

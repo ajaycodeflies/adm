@@ -31,7 +31,7 @@ export default function PlanCreate() {
       status: plan.status === "1" ? 1 : 0,
       isPopular: plan.isPopular === true || plan.isPopular === "true",
     };
-    console.log(preparedPlan);
+
     try {
       const response = await fetch("/api/admin/plans", {
         method: "POST",

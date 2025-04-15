@@ -804,7 +804,11 @@ img.img-banner {
   transform: scale(1.02);
   /* border-radius: 10px; */
 }
-
+.abs{
+  position: absolute !important;
+  bottom: 0 !important;
+  z-index: 999;
+}
 /* end */
 
 /* Container */
