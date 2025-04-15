@@ -21,6 +21,16 @@ export async function POST(req) {
       return NextResponse.json({ success: false, message: "Invalid email" }, { status: 400 });
     }
 
+    // Check if email already exists
+    const existing = await db.collection("emails").findOne({ email: email.email });
+
+    if (existing) {
+      return NextResponse.json(
+        { success: true, message: "Email saved successfully!" },
+        { status: 200 }
+      );
+    }
+
     await db.collection("emails").insertOne({
       email: email.email,
       created_at: new Date(),

@@ -88,6 +88,8 @@ export async function PUT(req) {
     const db = await connectToDatabase();
     const { planId, planName, price, originalPrice, perDayPrice, perDayOff, status, isPopular } = await req.json();
 
+    console.log(req.body);
+    
     if (!planId || !ObjectId.isValid(planId)) {
       return NextResponse.json({ error: "Invalid Plan ID." }, { status: 400 });
     }

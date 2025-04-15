@@ -15,19 +15,30 @@ export default function PlanCreate() {
     originalPrice: "",
     perDayPrice: "",
     perDayOff:"",
-    status: "1", // Default value set to 'Active'
-    isPopular: false, // Default value for the checkbox
+    status: "1",
+    isPopular: "",
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const preparedPlan = {
+      planName: plan.planName,
+      price: parseFloat(plan.price),
+      originalPrice: parseFloat(plan.originalPrice),
+      perDayPrice: parseFloat(plan.perDayPrice),
+      perDayOff: parseFloat(plan.perDayOff) || 0,
+      status: plan.status === "1" ? 1 : 0,
+      isPopular: plan.isPopular === true || plan.isPopular === "true",
+    };
+    console.log(preparedPlan);
     try {
       const response = await fetch("/api/admin/plans", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(plan), // Send the plan state directly
+        body: JSON.stringify(preparedPlan),
       });
       if (response.ok) {
         alert("Plans saved successfully!");

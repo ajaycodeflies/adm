@@ -55,18 +55,18 @@ export default function PlanPage() {
                 body: JSON.stringify({
                     planId: editPlan._id,
                     planName: editPlan.plan_name,
-                    price: editPlan.price,
-                    originalPrice: editPlan.original_price,
-                    perDayPrice: editPlan.per_day_price,
-                    perDayOff: editPlan.per_day_off,
-                    status: editPlan.status,
-                    isPopular: editPlan.is_popular
+                    price: parseFloat(editPlan.price),
+                    originalPrice: parseFloat(editPlan.original_price),
+                    perDayPrice: parseFloat(editPlan.per_day_price),
+                    perDayOff: parseFloat(editPlan.per_day_off) || 0,
+                    status: parseInt(editPlan.status),
+                    isPopular: editPlan.is_popular === true || editPlan.is_popular === "true",
                 }),
                 timeout: 10000,
             });
-    
+
             const result = await response.json();
-    
+
             if (response.ok) {
                 const updatedPlan = result?.plan;
                 if (updatedPlan) {
@@ -85,7 +85,7 @@ export default function PlanPage() {
             alert("Failed to save the plan. Please try again.");
         }
     };
-    
+
     // Function to handle closing the modal
     const closeModal = () => {
         setModalVisible(false);
@@ -173,7 +173,7 @@ export default function PlanPage() {
                                                     )}
                                                 </td>
                                                 <td>
-                                                {plan.status === "1" ? (
+                                                    {plan.status ? (
                                                         <span className="badge badge-success">Active</span>
                                                     ) : (
                                                         <span className="badge badge-danger">Inactive</span>
@@ -305,13 +305,13 @@ export default function PlanPage() {
                                     <label className="form-label">Status</label>
                                     <select
                                         className="form-select"
-                                        value={editPlan.status}
+                                        value={String(editPlan.status)}
                                         onChange={(e) =>
                                             setEditPlan({ ...editPlan, status: e.target.value })
                                         }
                                     >
-                                        <option value="active">Active</option>
-                                        <option value="inactive">Inactive</option>
+                                        <option value="1">Active</option>
+                                        <option value="0">Inactive</option>
                                     </select>
                                 </div>
                             </div>
