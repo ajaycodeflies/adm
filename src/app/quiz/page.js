@@ -462,7 +462,7 @@ function QuizContent() {
 
   return (
     <div className="box-container my-container">
-      <div className="d-flex flex-column align-items-center justify-content-center text-center position-relative mb-5">
+      <div className="d-flex flex-column align-items-center justify-content-center text-center position-relative mb-5 h-vh">
         {/* Back Button and Logo */}
         <div className="progress-block">
           <div className="d-flex align-items-center justify-content-between w-100 py-2">
@@ -503,8 +503,8 @@ function QuizContent() {
             />
           </div>
         </div>
-        <div class="d-flex w-100 align-items-center justify-content-center text-center position-relative my-pd">
-          <div class="w-half">
+        <div className="d-flex w-100 align-items-center justify-content-center text-center position-relative my-pd">
+          <div className="w-half">
         <div className="question-image">
           <Image
             className="img-fluid mt-4"
