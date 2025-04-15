@@ -562,7 +562,7 @@ function QuizContent() {
         <div className="button-next">
           <button
             type="button"
-            className="head-btn-alt btn-alt mb-2 text-uppercase"
+            className="head-btn-alt btn-alt mb-2 text-uppercase prg-btn"
             onClick={handleNextClick}
           >
             Next Step <i className="bi bi-arrow-right"></i>

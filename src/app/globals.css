@@ -760,6 +760,9 @@ img.img-banner {
 .card > .card-body > .btn:hover > i {
   transform: translateX(5px);
 }
+
+
+/* css 15-04-25 ansh */
 .card-new{
   padding: 0px 10px !important;
   width: 80% !important;
@@ -767,6 +770,11 @@ img.img-banner {
 .my-pd{
   padding: 3rem 0rem;
 }
+.prg-btn{
+  width: 50%  !important;
+}
+
+/* end */
 
 /* Container */
 .box-container {
@@ -3754,5 +3762,11 @@ body.darkmode-active .chart-note {
     position: absolute;
     bottom: 0px;
     transform: translateY(0%);
+  }
+  .my-pd{
+    display: block !important;
+  }
+  .prg-btn{
+    width: 100% !important;
   }
 }
