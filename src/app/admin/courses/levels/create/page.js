@@ -4,6 +4,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import AdminLayout from "../../../components/AdminLayout";
+import ShowToast from "../../../components/ShowToast";
 import Link from "next/link";
 import Cookies from "js-cookie";
 
@@ -17,6 +18,14 @@ export default function CourseCreate() {
     const [toastMessage, setToastMessage] = useState("");
     const [toastType, setToastType] = useState("");
     const formRef = useRef(null);
+
+    const showToast = (message, type = "error") => {
+        setToastMessage("");
+        setToastType(type);
+        setTimeout(() => {
+          setToastMessage(message);
+        }, 10);
+      };
 
     useEffect(() => {
         const sessionToken = Cookies.get("session_token");
@@ -86,25 +95,17 @@ export default function CourseCreate() {
                 if (formRef.current) {
                     formRef.current.reset();
                 }
-                setToastMessage("Level added successfully!");
-                setToastType("success");
+                showToast("Level added successfully!", "success");
             } else {
-                setToastMessage(data.message || "Failed to add Level. Please try again.");
-                setToastType("error");
+                const errorMessage = data.message || "Failed to add Level. Please try again.";
+                showToast(errorMessage, "error");
             }
         } catch (error) {
             console.error("Error adding Level:", error);
-            setToastMessage("Failed to add Level. Please try again.");
-            setToastType("error");
+            const errorMessage = error.message || "Failed to add Level. Please try again.";
+            showToast(errorMessage, "error");
         }
     };
-
-    useEffect(() => {
-        if (toastMessage) {
-            const timer = setTimeout(() => setToastMessage(""), 5000);
-            return () => clearTimeout(timer);
-        }
-    }, [toastMessage]);
 
     return (
         <AdminLayout>
@@ -182,11 +183,7 @@ export default function CourseCreate() {
                 </div>
             </div>
             {/* Toaster Message */}
-            {toastMessage && (
-                <div className={`toast-message ${toastType}`}>
-                    <p>{toastMessage}</p>
-                </div>
-            )}
+            <ShowToast message={toastMessage} type={toastType} />
         </AdminLayout>
     );
 }

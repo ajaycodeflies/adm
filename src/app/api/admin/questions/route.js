@@ -33,6 +33,13 @@ export const POST = async (req) => {
       }
     }
 
+    if (!label || !question || !options.length || options.some((option) => !option.text || !option.value)) {
+      return NextResponse.json(
+        { success: false, message: "Invalid data format" },
+        { status: 400 }
+      );
+    }
+
     let image = formData.get("image");
     if (image instanceof File) {
       const imageBuffer = Buffer.from(await image.arrayBuffer());

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import AdminLayout from "../../components/AdminLayout";
+import ShowToast from "../../components/ShowToast";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -17,6 +18,14 @@ export default function Levels() {
     const [modalVisible, setModalVisible] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
     const [toastType, setToastType] = useState("");
+
+    const showToast = (message, type = "error") => {
+        setToastMessage("");
+        setToastType(type);
+        setTimeout(() => {
+            setToastMessage(message);
+        }, 10);
+    };
 
     useEffect(() => {
         const sessionToken = Cookies.get("session_token");
@@ -70,13 +79,24 @@ export default function Levels() {
     // Function to handle saving the edited Level
     const saveEditLevel = async () => {
         try {
-            const formData = new FormData();
+            if (!editLevel || !editLevel._id) {
+                showToast("Invalid level data.", "error");
+                return;
+            }
 
+            const { course, step, title, status } = editLevel;
+
+            if (!course || !step || !title || !status) {
+                showToast("All fields are required.", "error");
+                return;
+            }
+
+            const formData = new FormData();
             formData.append("levelId", editLevel._id);
-            formData.append("course", editLevel.course);
-            formData.append("step", editLevel.step);
-            formData.append("title", editLevel.title);
-            formData.append("status", editLevel.status);
+            formData.append("course", course);
+            formData.append("step", step);
+            formData.append("title", title);
+            formData.append("status", status);
 
             const response = await fetch(`/api/admin/courses/levels`, {
                 method: "PUT",
@@ -89,32 +109,33 @@ export default function Levels() {
                 const updatedLevel = result?.level;
 
                 if (updatedLevel) {
-                    setLevels((prevLevels) =>
-                        prevLevels.map((level) =>
-                            level._id === updatedLevel._id ? { ...level, ...updatedLevel } : level
-                        )
-                    );
-                    setToastMessage("Level updated successfully!");
-                    setToastType("success");
+                    // setLevels((prevLevels) =>
+                    //     prevLevels.map((level) =>
+                    //         level._id === updatedLevel._id
+                    //             ? {
+                    //                 ...level,
+                    //                 ...updatedLevel,
+                    //                 course_details: level.course_details,
+                    //             }
+                    //             : level
+                    //     )
+                    // );
+                    fetchLevels();
+                    showToast("Level updated successfully!", "success");
                     setModalVisible(false);
                 } else {
-                    throw new Error("No level data returned");
+                    const errorMessage = result?.message || "Error updating level";
+                    showToast(errorMessage, "error");
                 }
             } else {
-                throw new Error(result.message || "Error updating level");
+                const error = await response.json();
+                showToast(error.message || "Failed to update the level. Please try again.", "error");
             }
         } catch (err) {
-            setToastMessage(err.message || "Something went wrong!");
-            setToastType("error");
+            showToast("Something went wrong. Please try again.", "error");
         }
     };
 
-    useEffect(() => {
-        if (toastMessage) {
-            const timer = setTimeout(() => setToastMessage(""), 5000);
-            return () => clearTimeout(timer);
-        }
-    }, [toastMessage]);
 
     const deleteLevel = async (id) => {
         if (window.confirm("Are you sure you want to delete this level?")) {
@@ -126,16 +147,14 @@ export default function Levels() {
                 if (response.ok) {
                     const result = await response.json();
                     setLevels(levels.filter((level) => level._id !== id));
-                    setToastMessage("Level deleted successfully!");
-                    setToastType("success");
+                    const errorMessage = result?.message || "Deleted successfully!";
+                    showToast(errorMessage, "success");
                 } else {
-                    const error = await response.json();
-                    setToastMessage("Failed to delete the level. Please try again.");
-                    setToastType("error");
+                    const errorMessage = await response.json();
+                    showToast(error.message || "Failed to delete the level. Please try again.", "error");
                 }
             } catch (error) {
-                setToastMessage("Failed to delete the level. Please try again.");
-                setToastType("error");
+                showToast("Something went wrong. Please try again.", "error");
             }
         }
     };
@@ -316,12 +335,8 @@ export default function Levels() {
                     </div>
                 </div>
             )}
-            {/* Toaster Message */}
-            {toastMessage && (
-                <div className={`toast-message ${toastType}`}>
-                    <p>{toastMessage}</p>
-                </div>
-            )}
+            {/* Toaster Message Component */}
+            <ShowToast message={toastMessage} type={toastType} />
         </AdminLayout>
     );
 }

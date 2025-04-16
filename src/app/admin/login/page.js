@@ -40,7 +40,7 @@ export default function AdminLogin() {
         router.push("/admin/dashboard");
       } else {
         const errorData = await response.json();
-        setError(errorData.message || "Login failed");
+        setError(errorData.message || "Invalid email or password");
       }
     } catch (err) {
       setError("Something went wrong. Please try again later.");

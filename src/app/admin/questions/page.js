@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import AdminLayout from "../components/AdminLayout";
+import ShowToast from "../components/ShowToast";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -18,6 +19,13 @@ export default function QuestionsPage() {
     const [modalVisible, setModalVisible] = useState(false);
     const [labels, setLabels] = useState([]);
 
+    const showToast = (message, type = "error") => {
+        setToastMessage("");
+        setToastType(type);
+        setTimeout(() => {
+            setToastMessage(message);
+        }, 10);
+    };
 
     useEffect(() => {
         const sessionToken = Cookies.get("session_token");
@@ -103,18 +111,18 @@ export default function QuestionsPage() {
                             question._id === updatedQuestion._id ? updatedQuestion : question
                         )
                     );
-                    setToastMessage("Question updated successfully!");
-                    setToastType("success");
+                    showToast("Question updated successfully", "success");
                     setModalVisible(false);
                 } else {
-                    throw new Error("No question data returned");
+                    const errorMessage = result.error || "Error updating question";
+                    showToast(errorMessage, "error");
                 }
             } else {
-                throw new Error(result.error || "Error updating question");
+                const errorMessage = result.error || "Error updating question";
+                showToast(errorMessage, "error");
             }
         } catch (err) {
-            setToastMessage(err.message);
-            setToastType("error");
+            showToast(err.message, "error");
         }
     };
     
@@ -148,27 +156,22 @@ export default function QuestionsPage() {
 
                 if (response.ok) {
                     setQuestions(questions.filter((question) => question._id !== id));
-                    setToastMessage("Question deleted successfully");
-                    setToastType("success");
+                    showToast("Question deleted successfully");
                 } else {
-                    throw new Error("Failed to delete the question");
+                    console.error("Failed to delete question");
+                    showToast("Failed to delete question");
                 }
             } catch (err) {
-                setToastMessage(err.message);
-                setToastType("error");
+                console.error("Error deleting question",err);
+                // setToastMessage(err.message);
+                // setToastType("error");
+                showToast(err.message, "error");
+
             } finally {
                 setLoading(false);
             }
         }
     };
-
-    // Automatically hide the toast after 5 seconds
-    useEffect(() => {
-        if (toastMessage) {
-            const timer = setTimeout(() => setToastMessage(""), 5000);
-            return () => clearTimeout(timer);
-        }
-    }, [toastMessage]);
 
     return (
         <AdminLayout>
@@ -402,15 +405,8 @@ export default function QuestionsPage() {
                     </div>
                 </div>
             )}
-
-
-            {/* Toaster Message */}
-            {toastMessage && (
-                <div className={`toast-message ${toastType}`}>
-                    <p>{toastMessage}</p>
-                </div>
-            )}
-
+            {/* Toast message component */}
+            <ShowToast message={toastMessage} type={toastType} />
         </AdminLayout>
     );
 }

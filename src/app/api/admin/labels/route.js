@@ -3,45 +3,45 @@ import clientPromise from "@/lib/connection";
 import { ObjectId } from "mongodb";
 
 const connectToDatabase = async () => {
-    try {
-        const client = await clientPromise;
-        const db = client.db("admDigital");
-        return db;
-    } catch (error) {
-        console.error("Failed to connect to the database", error);
-        throw new Error("Database connection error");
-    }
+  try {
+    const client = await clientPromise;
+    const db = client.db("admDigital");
+    return db;
+  } catch (error) {
+    console.error("Failed to connect to the database", error);
+    throw new Error("Database connection error");
+  }
 };
 
 export async function POST(req) {
-    try {
-        const db = await connectToDatabase();
-        const { label } = await req.json();
+  try {
+    const db = await connectToDatabase();
+    const { label } = await req.json();
 
-        if (!label || typeof label !== "string") {
-            return NextResponse.json(
-                { success: false, message: "Invalid label data" },
-                { status: 400 }
-            );
-        }
-
-        const result = await db.collection("labels").insertOne({
-            label,
-            createdAt: new Date(),
-        });
-
-        // Return the label with the inserted _id
-        return NextResponse.json(
-            { success: true, message: "Label saved successfully", labels: [{ _id: result.insertedId, label }] },
-            { status: 201 }
-        );
-    } catch (error) {
-        console.error("Error saving label:", error);
-        return NextResponse.json(
-            { success: false, message: "Internal Server Error" },
-            { status: 500 }
-        );
+    if (!label || typeof label !== "string") {
+      return NextResponse.json(
+        { success: false, message: "Invalid label data" },
+        { status: 400 }
+      );
     }
+
+    const result = await db.collection("labels").insertOne({
+      label,
+      createdAt: new Date(),
+    });
+
+    // Return the label with the inserted _id
+    return NextResponse.json(
+      { success: true, message: "Label saved successfully", labels: [{ _id: result.insertedId, label }] },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.error("Error saving label:", error);
+    return NextResponse.json(
+      { success: false, message: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
 }
 
 
@@ -49,7 +49,7 @@ export async function GET(req) {
   try {
     const db = await connectToDatabase();
     const labels = await db.collection("labels").find().toArray();
-    
+
     return NextResponse.json({ success: true, labels }, { status: 200 });
   } catch (error) {
     console.error("Error fetching labels:", error);
@@ -94,10 +94,14 @@ export async function DELETE(req) {
 export async function PUT(req) {
   try {
     const db = await connectToDatabase();
-    const { labelId, label} = await req.json();
+    const { labelId, label } = await req.json();
 
     if (!labelId || !ObjectId.isValid(labelId)) {
       return NextResponse.json({ error: "Invalid Label ID." }, { status: 400 });
+    }
+
+    if (typeof label !== "string" || label.trim().length === 0) {
+      return NextResponse.json({ error: "Label name cannot be empty." }, { status: 400 });
     }
 
     // Update the label in the database
@@ -111,7 +115,7 @@ export async function PUT(req) {
       },
       { returnDocument: "after" }
     );
-    
+
     return NextResponse.json(
       { success: true, message: "Label updated successfully.", label: updatedlabel },
       { status: 200 }

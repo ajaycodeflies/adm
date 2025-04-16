@@ -4,23 +4,44 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import AdminLayout from "../../components/AdminLayout";
+import ShowToast from "../../components/ShowToast";
 import Link from "next/link";
 
 export default function PlanCreate() {
   const router = useRouter();
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastType, setToastType] = useState("");
+
+  const showToast = (message, type = "error") => {
+    setToastMessage("");
+    setToastType(type);
+    setTimeout(() => {
+      setToastMessage(message);
+    }, 10);
+  };
 
   const [plan, setPlan] = useState({
     planName: "",
     price: "",
     originalPrice: "",
     perDayPrice: "",
-    perDayOff:"",
+    perDayOff: "",
     status: "1",
     isPopular: "",
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!plan.planName || !plan.price || !plan.originalPrice || !plan.perDayPrice) {
+      showToast("Please fill out all required fields.", "error");
+      return;
+    }
+
+    if (isNaN(parseFloat(plan.price)) || isNaN(parseFloat(plan.originalPrice)) || isNaN(parseFloat(plan.perDayPrice))) {
+      showToast("Price fields must be valid numbers.", "error");
+      return;
+    }
 
     const preparedPlan = {
       planName: plan.planName,
@@ -41,13 +62,26 @@ export default function PlanCreate() {
         body: JSON.stringify(preparedPlan),
       });
       if (response.ok) {
-        alert("Plans saved successfully!");
-        router.push("/admin/plan");
+        const result = await response.json();
+        console.log(result.message);
+        showToast(result.message, "success");
+        setPlan({
+          planName: "",
+          price: "",
+          originalPrice: "",
+          perDayPrice: "",
+          perDayOff: "",
+          status: "1",
+          isPopular: "",
+        });
       } else {
-        alert("Failed to save plans!");
+        const error = await response.json();
+        console.error("Error saving plans:", error.message || "Unknown error");
+        showToast(error.message || "Unknown error", "error");
       }
     } catch (error) {
       console.error("Error saving plans:", error);
+      showToast("Failed to save the plan. Please try again.", "error");
     }
   };
 
@@ -176,6 +210,8 @@ export default function PlanCreate() {
           </div>
         </div>
       </div>
+      {/* Toast message component */}
+      <ShowToast message={toastMessage} type={toastType} />
     </AdminLayout>
   );
 }

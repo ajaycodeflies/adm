@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import AdminLayout from "../components/AdminLayout";
+import ShowToast from "../components/ShowToast";
 import Link from "next/link";
 
 export default function Email() {
@@ -11,6 +12,16 @@ export default function Email() {
     const [totalPages, setTotalPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
     const router = useRouter();
+    const [toastMessage, setToastMessage] = useState("");
+    const [toastType, setToastType] = useState("");
+
+    const showToast = (message, type = "error") => {
+        setToastMessage("");
+        setToastType(type);
+        setTimeout(() => {
+            setToastMessage(message);
+        }, 10);
+    };
 
     useEffect(() => {
         const sessionToken = Cookies.get("session_token");
@@ -33,6 +44,29 @@ export default function Email() {
             console.error("Error fetching emails:", error);
         }
     };
+
+    const deleteEmail = async (id) => {
+        const confirmed = window.confirm("Are you sure you want to delete this email?");
+        if (!confirmed) return;
+
+        try {
+            const response = await fetch(`/api/admin/emails?id=${id}`, {
+                method: "DELETE",
+            });
+
+            if (response.ok) {
+                showToast("Email deleted successfully", "success");
+                fetchEmails(currentPage);
+            } else {
+                const error = await response.json();
+                showToast(error.message || "Failed to delete email.", "error");
+            }
+        } catch (error) {
+            console.error("Error deleting email:", error);
+            showToast("Something went wrong. Please try again.", "error");
+        }
+    };
+
 
     // Fetch emails initially and when page changes
     useEffect(() => {
@@ -84,12 +118,14 @@ export default function Email() {
                                                         }).format(new Date(email.created_at))}
                                                     </td>
                                                     <td className="align-middle">
-                                                        <div className="dropdown">
-                                                            <Link href="" className="btn btn-sm btn-danger">
-                                                                Delete
-                                                            </Link>
-                                                        </div>
+                                                        <button
+                                                            className="btn btn-sm btn-danger"
+                                                            onClick={() => deleteEmail(email._id)}
+                                                        >
+                                                            Delete
+                                                        </button>
                                                     </td>
+
                                                 </tr>
                                             ))
                                         )}
@@ -122,6 +158,8 @@ export default function Email() {
                     </div>
                 </div>
             </div>
+            {/* Toast message component */}
+            <ShowToast message={toastMessage} type={toastType} />
         </AdminLayout>
     );
 }

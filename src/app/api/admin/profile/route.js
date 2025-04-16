@@ -47,6 +47,14 @@ export const PUT = async (req) => {
             return NextResponse.json({ success: false, message: "User not found" }, { status: 404 });
         }
 
+        if (user.role !== "admin") {
+            return NextResponse.json({ success: false, message: "Unauthorized" }, { status: 401 });
+        }
+
+        if (!firstName || !email) {
+            return NextResponse.json({ success: false, message: "Missing required fields (first_name, email)" }, { status: 400 });
+        }
+
         // Declare profile in the outer scope
         let profile = user.profile;
 

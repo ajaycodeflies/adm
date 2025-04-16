@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import AdminLayout from "../components/AdminLayout";
+import ShowToast from "../components/ShowToast";
 import Link from "next/link";
 
 export default function PlanPage() {
@@ -13,6 +14,16 @@ export default function PlanPage() {
     const [error, setError] = useState("");
     const [editPlan, setEditPlan] = useState(null);
     const [modalVisible, setModalVisible] = useState(false);
+    const [toastMessage, setToastMessage] = useState("");
+    const [toastType, setToastType] = useState("");
+
+    const showToast = (message, type = "error") => {
+        setToastMessage("");
+        setToastType(type);
+        setTimeout(() => {
+            setToastMessage(message);
+        }, 10);
+    };
 
     useEffect(() => {
         const sessionToken = Cookies.get("session_token");
@@ -74,15 +85,18 @@ export default function PlanPage() {
                         prevPlans.map((plan) => (plan._id === updatedPlan._id ? updatedPlan : plan))
                     );
                     setModalVisible(false);
-                    alert("Plan updated successfully!");
+                    showToast("Plan updated successfully", "success");
                 } else {
-                    alert("Failed to update the plan. Please try again.");
+                    const errorMessage = result?.message || "Failed to update the plan. Please try again.";
+                    showToast(errorMessage, "error");
                 }
             } else {
-                alert("Failed to update the plan. Please try again.");
+                console.error("Error updating plan:", result.message);
+                showToast(result.message, "error");
             }
         } catch (error) {
-            alert("Failed to save the plan. Please try again.");
+            console.error("Error updating plan:", error);
+            showToast("Failed to update the plan. Please try again.", "error");
         }
     };
 
@@ -102,16 +116,17 @@ export default function PlanPage() {
 
                 if (response.ok) {
                     const result = await response.json();
-                    console.log(result.message); // Optional: Log the success message
+                    console.log(result.message);
+                    showToast(result.message, "error");
                     setPlans(plans.filter((plan) => plan._id !== id));
                 } else {
                     const error = await response.json();
                     console.error("Error deleting plan:", error.message || "Unknown error");
-                    alert("Failed to delete the plan. Please try again.");
+                    showToast(error.message || "Unknown error", "error");
                 }
             } catch (error) {
                 console.error("Error deleting plan:", error);
-                alert("Failed to delete the plan. Please try again.");
+                showToast("Failed to delete the plan. Please try again.", "error");
             }
         }
     };
@@ -335,7 +350,8 @@ export default function PlanPage() {
                     </div>
                 </div>
             )}
-
+            {/* Toast message component */}
+            <ShowToast message={toastMessage} type={toastType} />
         </AdminLayout>
     );
 }

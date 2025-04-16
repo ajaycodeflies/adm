@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import AdminLayout from "../components/AdminLayout";
+import ShowToast from "../components/ShowToast";
 import Link from "next/link";
 
 export default function LabelPage() {
@@ -13,6 +14,16 @@ export default function LabelPage() {
     const [error, setError] = useState("");
     const [editLabel, setEditLabel] = useState(null); // Holds the Label being edited
     const [modalVisible, setModalVisible] = useState(false); // Modal visibility state
+    const [toastMessage, setToastMessage] = useState("");
+    const [toastType, setToastType] = useState("");
+
+    const showToast = (message, type = "error") => {
+        setToastMessage("");
+        setToastType(type);
+        setTimeout(() => {
+            setToastMessage(message);
+        }, 10);
+    };
 
     useEffect(() => {
         const sessionToken = Cookies.get("session_token");
@@ -49,6 +60,9 @@ export default function LabelPage() {
 
     // Function to handle saving the edited label
     const saveEditLabel = async () => {
+        if (!editLabel || !editLabel.label || editLabel.label.trim().length === 0) {
+            return showToast("Label name cannot be empty.", "error");
+        }
         try {
             const response = await fetch(`/api/admin/labels/`, {
                 method: "PUT",
@@ -59,9 +73,9 @@ export default function LabelPage() {
                 }),
                 timeout: 10000,
             });
-    
+
             const result = await response.json();
-    
+
             if (response.ok) {
                 const updatedLabel = result?.label;
                 if (updatedLabel) {
@@ -69,21 +83,22 @@ export default function LabelPage() {
                         prevLabels.map((label) => (label._id === updatedLabel._id ? updatedLabel : label))
                     );
                     setModalVisible(false);
-                    alert("Label updated successfully!");
+                    showToast("Label updated successfully", "success");
                 } else {
                     console.error("No label data returned");
-                    alert("Failed to update the label. Please try again.");
+                    const error = result.error || "Failed to update the label. Please try again.";
+                    showToast(error, "error");
                 }
             } else {
                 console.error(result.error || "Error updating label");
-                alert("Failed to update the label. Please try again.");
+                showToast(result.error || "Failed to update the label. Please try again.", "error");
             }
         } catch (error) {
             console.error("Error saving label:", error);
-            alert("Failed to save the label. Please try again.");
+            showToast("Failed to update the label. Please try again.", "error");
         }
     };
-    
+
     // Function to handle closing the modal
     const closeModal = () => {
         setModalVisible(false);
@@ -101,12 +116,15 @@ export default function LabelPage() {
                 if (response.ok) {
                     const result = await response.json();
                     setlabels(labels.filter((label) => label._id !== id));
+                    showToast("Label deleted successfully", "error");
                 } else {
                     const error = await response.json();
-                    alert("Failed to delete the label. Please try again.");
+                    console.error("Failed to delete the label. Please try again.");
+                    showToast(error.message, "error");
                 }
             } catch (error) {
-                alert("Failed to delete the label. Please try again.");
+                console.error("Error deleting label:", error);
+                showToast("Failed to delete the label. Please try again.", "error");
             }
         }
     };
@@ -211,7 +229,7 @@ export default function LabelPage() {
                                         placeholder="Enter label name"
                                     />
                                 </div>
-                                
+
                             </div>
                             <div className="modal-footer">
                                 <button
@@ -233,7 +251,8 @@ export default function LabelPage() {
                     </div>
                 </div>
             )}
-
+            {/* Toast message component */}
+            <ShowToast message={toastMessage} type={toastType} />
         </AdminLayout>
     );
 }

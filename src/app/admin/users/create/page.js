@@ -4,10 +4,21 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import AdminLayout from "../../components/AdminLayout";
+import ShowToast from "../../components/ShowToast";
 import Link from "next/link";
 
 export default function UserCreate() {
     const router = useRouter();
+    const [toastMessage, setToastMessage] = useState("");
+    const [toastType, setToastType] = useState("");
+
+    const showToast = (message, type = "error") => {
+        setToastMessage("");
+        setToastType(type);
+        setTimeout(() => {
+            setToastMessage(message);
+        }, 10);
+    };
 
     useEffect(() => {
         const sessionToken = Cookies.get("session_token");
@@ -28,7 +39,6 @@ export default function UserCreate() {
 
     const handleChange = (e) => {
         const { name, value, type, files } = e.target;
-
         if (type === "file") {
             setUser((prev) => ({ ...prev, [name]: files[0] }));
         } else {
@@ -49,21 +59,36 @@ export default function UserCreate() {
         if (user.profile) {
             formData.append("profile", user.profile);
         }
-        console.log(formData);
+
         try {
             const response = await fetch("/api/admin/users", {
                 method: "POST",
                 body: formData,
             });
 
+            const data = await response.json();
+
             if (response.ok) {
-                alert("User created successfully!");
-                router.push("/admin/users");
+                showToast("New user created successfully", "success");
+                setUser({
+                    first_name: "",
+                    last_name: "",
+                    email: "",
+                    mobile: "",
+                    password: "",
+                    status: "1",
+                    profile: null,
+                });
             } else {
-                alert("Failed to create user!");
+                const errorMessage = Array.isArray(data.errors)
+                    ? data.errors.join(" ")
+                    : data.message || "Failed to create user.";
+                console.error("Failed to add user:", errorMessage);
+                showToast(errorMessage, "error");
             }
         } catch (error) {
             console.error("Error creating user:", error);
+            showToast("Something went wrong while creating user.", "error");
         }
     };
 
@@ -125,7 +150,7 @@ export default function UserCreate() {
                                             <div className="mb-3">
                                                 <label className="form-label">Mobile</label>
                                                 <input
-                                                    type="text"
+                                                    type="number"
                                                     name="mobile"
                                                     className="form-control"
                                                     placeholder="Enter Mobile"
@@ -176,6 +201,8 @@ export default function UserCreate() {
                     </div>
                 </div>
             </div>
+            {/* Toast message component */}
+            <ShowToast message={toastMessage} type={toastType} />
         </AdminLayout>
     );
 }

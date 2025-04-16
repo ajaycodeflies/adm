@@ -3,14 +3,13 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import AdminLayout from "../../../components/AdminLayout";
+import ShowToast from "../../../components/ShowToast";
 import Link from "next/link";
 import Cookies from "js-cookie";
-// import { Editor } from 'react-draft-wysiwyg';
-// import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import dynamic from 'next/dynamic';
 const Editor = dynamic(
     () => import('react-draft-wysiwyg').then(mod => mod.Editor),
-    { ssr: false } // This is the crucial part
+    { ssr: false }
 );
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
@@ -27,6 +26,13 @@ export default function LessonCreate() {
     const [toastMessage, setToastMessage] = useState("");
     const [toastType, setToastType] = useState("");
     const formRef = useRef(null);
+    const showToast = (message, type = "error") => {
+        setToastMessage("");
+        setToastType(type);
+        setTimeout(() => {
+            setToastMessage(message);
+        }, 10);
+    };
 
     useEffect(() => {
         const sessionToken = Cookies.get("session_token");
@@ -112,25 +118,15 @@ export default function LessonCreate() {
                 setQuestion("");
                 setDescription("");
                 if (formRef.current) formRef.current.reset();
-                setToastMessage("Lesson added successfully!");
-                setToastType("success");
+                showToast(data.message || "Lesson added successfully!", "success");
             } else {
-                setToastMessage(data.message || "Failed to add lesson. Please try again.");
-                setToastType("error");
+                showToast(data.message || "Failed to add lesson. Please try again.", "error");
             }
         } catch (error) {
             console.error("Error adding lesson:", error);
-            setToastMessage("Failed to add lesson. Please try again.");
-            setToastType("error");
+            showToast("Something went wrong. Please try again.", "error");
         }
     };
-
-    useEffect(() => {
-        if (toastMessage) {
-            const timer = setTimeout(() => setToastMessage(""), 5000);
-            return () => clearTimeout(timer);
-        }
-    }, [toastMessage]);
 
     return (
         <AdminLayout>
@@ -231,11 +227,8 @@ export default function LessonCreate() {
                     </div>
                 </div>
             </div>
-            {toastMessage && (
-                <div className={`toast-message ${toastType}`}>
-                    <p>{toastMessage}</p>
-                </div>
-            )}
+            {/* Toaster Message Component */}
+            <ShowToast message={toastMessage} type={toastType} />
         </AdminLayout>
     );
 }

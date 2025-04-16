@@ -7,8 +7,7 @@ import Cookies from "js-cookie";
 import AdminLayout from "../../components/AdminLayout";
 import Link from "next/link";
 import { EditorState, ContentState } from 'draft-js';
-// import { Editor } from 'react-draft-wysiwyg';
-// import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import ShowToast from "../../components/ShowToast";
 import dynamic from 'next/dynamic';
 const Editor = dynamic(
     () => import('react-draft-wysiwyg').then(mod => mod.Editor),
@@ -20,9 +19,6 @@ export default function Lessons() {
     const router = useRouter();
     const [course, setCourse] = useState("");
     const [level, setLevel] = useState("");
-    const [title, setTitle] = useState("");
-    const [question, setQuestion] = useState("");
-    const [description, setDescription] = useState("");
     const [courses, setCourses] = useState([]);
     const [levels, setLevels] = useState([]);
     const [lessons, setLessons] = useState([]);
@@ -34,6 +30,14 @@ export default function Lessons() {
     const [toastMessage, setToastMessage] = useState("");
     const [toastType, setToastType] = useState("");
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
+
+    const showToast = (message, type = "error") => {
+        setToastMessage("");
+        setToastType(type);
+        setTimeout(() => {
+            setToastMessage(message);
+        }, 10);
+    };
 
     useEffect(() => {
         const sessionToken = Cookies.get("session_token");
@@ -71,31 +75,31 @@ export default function Lessons() {
         }
     };
 
-    const handleCourseChange = async (e) => {
-        const selectedCourse = e.target.value;
-        setCourse(selectedCourse);
-        setLevel("");
+    // const handleCourseChange = async (e) => {
+    //     const selectedCourse = e.target.value;
+    //     setCourse(selectedCourse);
+    //     setLevel("");
 
-        if (selectedCourse) {
-            try {
-                const res = await fetch(`/api/admin/courses/levels?courseId=${selectedCourse}`);
-                const data = await res.json();
-                if (data.success) {
-                    setLevels(data.levels || []);
-                } else {
-                    console.error(data.message);
-                    setLevels([]);
-                }
-            } catch (error) {
-                console.error("Error fetching levels:", error);
-                setLevels([]);
-            }
-        }
+    //     if (selectedCourse) {
+    //         try {
+    //             const res = await fetch(`/api/admin/courses/levels?courseId=${selectedCourse}`);
+    //             const data = await res.json();
+    //             if (data.success) {
+    //                 setLevels(data.levels || []);
+    //             } else {
+    //                 console.error(data.message);
+    //                 setLevels([]);
+    //             }
+    //         } catch (error) {
+    //             console.error("Error fetching levels:", error);
+    //             setLevels([]);
+    //         }
+    //     }
 
-        if (selectedCourse === "0") {
-            setLevel("");
-        }
-    };
+    //     if (selectedCourse === "0") {
+    //         setLevel("");
+    //     }
+    // };
 
     const fetchLessons = async () => {
         try {
@@ -126,15 +130,32 @@ export default function Lessons() {
 
     const saveEditLesson = async () => {
         try {
+            if (!editLesson || !editLesson._id) {
+                showToast("Invalid lesson data.", "error");
+                return;
+            }
+    
+            const courseId = editLesson.course_id;
+            const levelId = editLesson.level_id;
+            const title = editLesson.title?.trim();
+            const question = editLesson.question?.trim();
+            const status = editLesson.status;
+            const description = editorState.getCurrentContent().getPlainText().trim();
+    
+            if (!courseId || !levelId || !title || !question || !description || !status) {
+                showToast("All fields are required.", "error");
+                return;
+            }
+
             const formData = new FormData();
 
             formData.append("lessonId", editLesson._id);
-            formData.append("courseId", editLesson.course_id);
-            formData.append("levelId", editLesson.level_id);
-            formData.append("title", editLesson.title);
-            formData.append("question", editLesson.question);
-            formData.append("status", editLesson.status);
-            formData.append("description", editorState.getCurrentContent().getPlainText());
+            formData.append("courseId", courseId);
+            formData.append("levelId", levelId);
+            formData.append("title", title);
+            formData.append("question", question);
+            formData.append("status", status);
+            formData.append("description", description);
 
             const response = await fetch(`/api/admin/courses/lessons`, {
                 method: "PUT",
@@ -152,18 +173,19 @@ export default function Lessons() {
                             lesson._id === updatedLesson._id ? updatedLesson : lesson
                         )
                     );
-                    setToastMessage("Lesson updated successfully!");
-                    setToastType("success");
+                    fetchLessons();
+                    showToast("Lesson updated successfully!", "success");
                     setModalVisible(false);
                 } else {
-                    throw new Error("No lesson data returned");
+                    const errorMessage = result?.message || "Failed to update lesson. Please try again.";
+                    showToast(errorMessage, "error");
                 }
             } else {
-                throw new Error(result.message || "Error updating lesson");
+                showToast(result.message || "Error updating lesson", "error");
             }
         } catch (err) {
-            setToastMessage(err.message || "Something went wrong!");
-            setToastType("error");
+            const errorMessage = err.message || "Something went wrong!";
+            showToast(errorMessage, "error");
         }
     };
 
@@ -180,13 +202,6 @@ export default function Lessons() {
         }
     }, [modalVisible, editLesson]);
 
-    useEffect(() => {
-        if (toastMessage) {
-            const timer = setTimeout(() => setToastMessage(""), 5000);
-            return () => clearTimeout(timer);
-        }
-    }, [toastMessage]);
-
     const deleteLesson = async (id) => {
         if (typeof window !== 'undefined') {
             if (window.confirm("Are you sure...?")) { 
@@ -198,16 +213,13 @@ export default function Lessons() {
                     if (response.ok) {
                         const result = await response.json();
                         setLessons(lessons.filter((lesson) => lesson._id !== id));
-                        setToastMessage("Lesson deleted successfully!");
-                        setToastType("success");
+                        showToast(result?.message || "Deleted successfully!", "success");
                     } else {
-                        const error = await response.json();
-                        setToastMessage("Failed to delete . Please try again.");
-                        setToastType("error");
+                        const errorMessage = await response.json();
+                        showToast(errorMessage.message || "Failed to delete the lesson. Please try again.", "error");
                     }
                 } catch (error) {
-                    setToastMessage("Failed to delete . Please try again.");
-                    setToastType("error");
+                    showToast("Something went wrong. Please try again.", "error");
                 }
             }
         }
@@ -434,12 +446,8 @@ export default function Lessons() {
                     </div>
                 </div>
             )}
-            {/* Toaster Message */}
-            {toastMessage && (
-                <div className={`toast-message ${toastType}`}>
-                    <p>{toastMessage}</p>
-                </div>
-            )}
+            {/* Toaster Message Component */}
+            <ShowToast message={toastMessage} type={toastType} />
         </AdminLayout>
     );
 }

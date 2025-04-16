@@ -18,6 +18,11 @@ export async function POST(req) {
     const db = await connectToDatabase();
     const plan = await req.json();
 
+    // Server-side validation
+    if (!plan.planName || isNaN(plan.price) || isNaN(plan.originalPrice) || isNaN(plan.perDayPrice)) {
+      return NextResponse.json({ success: false, message: "Invalid data. Ensure all required fields are numbers and properly filled." }, { status: 400 });
+    }
+    
     await db.collection("plans").insertOne({
       plan_name: plan.planName,
       price: plan.price,
@@ -92,6 +97,10 @@ export async function PUT(req) {
     
     if (!planId || !ObjectId.isValid(planId)) {
       return NextResponse.json({ error: "Invalid Plan ID." }, { status: 400 });
+    }
+
+    if (!planName || isNaN(price) || isNaN(originalPrice) || isNaN(perDayPrice)) {
+      return NextResponse.json({ error: "Invalid data. Ensure all fields are required." }, { status: 400 });
     }
 
     // Update the plan in the database

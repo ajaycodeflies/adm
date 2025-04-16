@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import AdminLayout from "../components/AdminLayout";
+import ShowToast from "../components/ShowToast";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -16,6 +17,14 @@ export default function Courses() {
     const [modalVisible, setModalVisible] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
     const [toastType, setToastType] = useState("");
+
+    const showToast = (message, type = "error") => {
+        setToastMessage("");
+        setToastType(type);
+        setTimeout(() => {
+            setToastMessage(message);
+        }, 10);
+    };
 
     useEffect(() => {
         const sessionToken = Cookies.get("session_token");
@@ -50,8 +59,17 @@ export default function Courses() {
     // Function to handle saving the edited Course
     const saveEditCourse = async () => {
         try {
-            const formData = new FormData();
+            if (!editCourse || !editCourse._id) {
+                showToast("Invalid course data.", "error");
+                return;
+            }
 
+            if (!editCourse.title || !editCourse.name || !editCourse.status) {
+                showToast("All fields are required.", "error");
+                return;
+            }
+
+            const formData = new FormData();
             formData.append("courseId", editCourse._id);
             formData.append("title", editCourse.title);
             formData.append("name", editCourse.name);
@@ -77,33 +95,27 @@ export default function Courses() {
                             course._id === updatedCourse._id ? updatedCourse : course
                         )
                     );
-                    setToastMessage("Course updated successfully!");
-                    setToastType("success");
-                    setModalVisible(false);
+                    showToast("Course updated successfully!", "success");
                 } else {
-                    throw new Error("No course data returned");
+                    // throw new Error("No course data returned");
+                    showToast("No course data returned", "error");
                 }
             } else {
-                throw new Error(result.message || "Error updating course");
+                // throw new Error(result.message || "Error updating course");
+                showToast(result.message || "Error updating course", "error");
             }
         } catch (err) {
-            setToastMessage(err.message || "Something went wrong!");
-            setToastType("error");
+            const error =  err.message || "Something went wrong!";
+            showToast(error, "error");
         }
     };
+
 
 
     const closeModal = () => {
         setModalVisible(false);
         setEditCourse(null);
     };
-
-    useEffect(() => {
-        if (toastMessage) {
-            const timer = setTimeout(() => setToastMessage(""), 5000);
-            return () => clearTimeout(timer);
-        }
-    }, [toastMessage]);
 
     const deleteCourse = async (id) => {
         if (window.confirm("Are you sure you want to delete this course?")) {
@@ -115,16 +127,13 @@ export default function Courses() {
                 if (response.ok) {
                     const result = await response.json();
                     setCourses(courses.filter((course) => course._id !== id));
-                    setToastMessage("Course deleted successfully!");
-                    setToastType("success");
+                    showToast(result.message, "success");
                 } else {
                     const error = await response.json();
-                    setToastMessage("Failed to delete the course. Please try again.");
-                    setToastType("error");
+                    showToast(error.message || "Failed to delete the course. Please try again.", "error");
                 }
             } catch (error) {
-                setToastMessage("Failed to delete the course. Please try again.");
-                setToastType("error");
+                showToast("Something went wrong. Please try again.", "error");
             }
         }
     };
@@ -317,11 +326,7 @@ export default function Courses() {
                 </div>
             )}
             {/* Toaster Message */}
-            {toastMessage && (
-                <div className={`toast-message ${toastType}`}>
-                    <p>{toastMessage}</p>
-                </div>
-            )}
+            <ShowToast message={toastMessage} type={toastType} />
         </AdminLayout>
     );
 }

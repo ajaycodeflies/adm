@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback} from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import AdminLayout from "../components/AdminLayout";
-import Link from "next/link";
+import ShowToast from "../components/ShowToast";
 import Image from "next/image";
 
 export default function ProfilePage() {
@@ -18,6 +18,15 @@ export default function ProfilePage() {
         profile: "",
     });
     const [file, setFile] = useState(null);
+    const [toastMessage, setToastMessage] = useState("");
+    const [toastType, setToastType] = useState("");
+    const showToast = (message, type = "error") => {
+        setToastMessage("");
+        setToastType(type);
+        setTimeout(() => {
+            setToastMessage(message);
+        }, 10);
+    };
 
     useEffect(() => {
         const sessionToken = Cookies.get("session_token");
@@ -26,9 +35,9 @@ export default function ProfilePage() {
         } else {
             fetchProfile();
         }
-    }, [router]);
+    }, [router, fetchProfile]);
 
-    const fetchProfile = async () => {
+    const fetchProfile = useCallback(async () => {
         try {
             const response = await fetch("/api/admin/profile", {
                 method: "GET",
@@ -37,13 +46,13 @@ export default function ProfilePage() {
                     "Content-Type": "application/json",
                 },
             });
-
+    
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
-
+    
             const data = await response.json();
-
+    
             if (data.success) {
                 setProfile({
                     firstName: data.data.first_name || "Admin",
@@ -54,30 +63,30 @@ export default function ProfilePage() {
                 });
             } else {
                 console.error("Failed to fetch profile:", data.message);
+                showToast("Failed to fetch profile", "error");
             }
         } catch (err) {
             console.error("Error fetching profile:", err);
+            showToast("Failed to fetch profile", "error");
         } finally {
             setLoading(false);
         }
-    };
+    }, []);
+    
 
     const handleProfileUpdate = async (e) => {
         e.preventDefault();
 
-        // Prepare the form data
         const formData = new FormData();
         formData.append("first_name", e.target.first_name.value);
         formData.append("last_name", e.target.last_name.value);
         formData.append("email", e.target.email.value);
         formData.append("mobile", e.target.mobile.value);
-    
-        // Append the profile picture if provided
+
         if (file) {
             formData.append("profile", file);
         }
-    
-        // Only add password if entered
+
         const password = e.target.password.value;
         if (password) {
             formData.append("password", password);
@@ -88,30 +97,29 @@ export default function ProfilePage() {
                 method: "PUT",
                 body: formData,
             });
-    
+
             const data = await response.json();
-    
+
             if (data.success) {
                 console.log("Profile updated successfully!" + data);
-                alert("Profile updated successfully!");
-                
-                // Update the profile state with the new information
+                showToast("Profile updated successfully!", "success");
                 setProfile({
-                    firstName: e.target.firstName.value,
-                    lastName: e.target.lastName.value,
+                    firstName: e.target.first_name.value,
+                    lastName: e.target.last_name.value,
                     email: e.target.email.value,
                     mobile: e.target.mobile.value,
-                    profile: data.newProfileImage || profile.profile,  // Assuming the server returns the new image URL
+                    profile: data.newProfileImage || profile.profile,
                 });
             } else {
-                alert("Failed to update profile: " + data.message);
+                const error = data.message || "Failed to update profile";
+                console.error("Failed to update profile:", data.message);
+                showToast(error, "error");
             }
         } catch (error) {
             console.error("Error updating profile:", error);
-            alert("An error occurred while updating your profile.");
+            showToast("An error occurred while updating your profile.", "error");
         }
     };
-    
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -170,14 +178,15 @@ export default function ProfilePage() {
                                                 <input type="file" className="form-control" id="profile" name="profile" onChange={handleFileChange} />
                                             </div>
                                         </div>
+
                                         <div className="mb-3 row">
-                                            <label htmlFor="firstName" className="col-sm-4 col-form-label">Full Name</label>
+                                            <label htmlFor="first_name" className="col-sm-4 col-form-label">Full Name</label>
                                             <div className="col-md-4">
                                                 <input
                                                     type="text"
                                                     className="form-control"
-                                                    id="firstName"
-                                                    name="firstName"
+                                                    id="first_name"
+                                                    name="first_name"
                                                     defaultValue={profile.firstName}
                                                     required
                                                 />
@@ -186,13 +195,13 @@ export default function ProfilePage() {
                                                 <input
                                                     type="text"
                                                     className="form-control"
-                                                    id="lastName"
-                                                    name="lastName"
+                                                    id="last_name"
+                                                    name="last_name"
                                                     defaultValue={profile.lastName}
-                                                    
                                                 />
                                             </div>
                                         </div>
+
                                         <div className="mb-3 row">
                                             <label htmlFor="email" className="col-sm-4 col-form-label">Email</label>
                                             <div className="col-md-8">
@@ -206,6 +215,7 @@ export default function ProfilePage() {
                                                 />
                                             </div>
                                         </div>
+
                                         <div className="mb-3 row">
                                             <label htmlFor="mobile" className="col-sm-4 col-form-label">Mobile</label>
                                             <div className="col-md-8">
@@ -218,10 +228,11 @@ export default function ProfilePage() {
                                                 />
                                             </div>
                                         </div>
+
                                         <div className="align-items-center row">
                                             <label className="col-sm-4 form-label" htmlFor="password">Password</label>
                                             <div className="col-md-8 col-12">
-                                                <input type="password" id="password" className="form-control" />
+                                                <input type="password" id="password" className="form-control" name="password" />
                                                 <span className="small text-danger">Enter password if you want change</span>
                                             </div>
                                             <div className="mt-4 col-md-8 col-12 offset-md-4">
@@ -229,12 +240,15 @@ export default function ProfilePage() {
                                             </div>
                                         </div>
                                     </form>
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            {/* Toast message component */}
+            <ShowToast message={toastMessage} type={toastType} />
         </AdminLayout>
     );
 }

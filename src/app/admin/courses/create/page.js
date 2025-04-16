@@ -3,6 +3,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import AdminLayout from "../../components/AdminLayout";
+import ShowToast from "../../components/ShowToast";
 import Link from "next/link";
 
 export default function CourseCreate() {
@@ -14,6 +15,14 @@ export default function CourseCreate() {
   const [toastMessage, setToastMessage] = useState("");
   const [toastType, setToastType] = useState("");
   const formRef = useRef(null);
+
+  const showToast = (message, type = "error") => {
+    setToastMessage("");
+    setToastType(type);
+    setTimeout(() => {
+      setToastMessage(message);
+    }, 10);
+  };
 
   const validateForm = () => {
     const newErrors = {};
@@ -63,25 +72,16 @@ export default function CourseCreate() {
         if (formRef.current) {
           formRef.current.reset();
         }
-        setToastMessage("Course added successfully!");
-        setToastType("success");
+        showToast(data.message, "success");
       } else {
-        setToastMessage(data.message || "Failed to add course. Please try again.");
-        setToastType("error");
+        const errorMessage = data.message || "Failed to add course. Please try again.";
+        showToast(errorMessage, "error");
       }
     } catch (error) {
       console.error("Error adding course:", error);
-      setToastMessage("Failed to add course. Please try again.");
-      setToastType("error");
+      showToast("Failed to add course. Please try again.", "error");
     }
   };
-
-  useEffect(() => {
-    if (toastMessage) {
-      const timer = setTimeout(() => setToastMessage(""), 5000);
-      return () => clearTimeout(timer);
-    }
-  }, [toastMessage]);
 
   return (
     <AdminLayout>
@@ -149,12 +149,8 @@ export default function CourseCreate() {
           </div>
         </div>
       </div>
-      {/* Toaster Message */}
-      {toastMessage && (
-        <div className={`toast-message ${toastType}`}>
-          <p>{toastMessage}</p>
-        </div>
-      )}
+      {/* Toast message component */}
+      <ShowToast message={toastMessage} type={toastType} />
     </AdminLayout>
   );
 }

@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import AdminLayout from "../../components/AdminLayout";
+import ShowToast from "../../components/ShowToast";
 import Link from "next/link";
-import { set } from "mongoose";
 
 export default function QuestionCreatePage() {
   const [labels, setLabels] = useState([]);
@@ -17,6 +17,14 @@ export default function QuestionCreatePage() {
   const router = useRouter();
   const [toastMessage, setToastMessage] = useState("");
   const [toastType, setToastType] = useState("");
+
+  const showToast = (message, type = "error") => {
+    setToastMessage("");
+    setToastType(type);
+    setTimeout(() => {
+      setToastMessage(message);
+    }, 10);
+  };
 
   useEffect(() => {
     if (!Cookies.get("session_token")) router.push("/admin/login");
@@ -38,7 +46,7 @@ export default function QuestionCreatePage() {
   };
 
   const handleAddLabel = async () => {
-    if (!newLabel) return alert("Label cannot be empty.");
+    if (!newLabel) return showToast("Please enter a label", "error");
     try {
       const res = await fetch("/api/admin/labels", {
         method: "POST", headers: { "Content-Type": "application/json" },
@@ -48,15 +56,15 @@ export default function QuestionCreatePage() {
         const data = await res.json();
         setLabels([...labels, ...data.labels]);
         setNewLabel(""); setModalVisible(false);
-        setToastMessage("Label added successfully");
-        setToastType("success");
+        showToast("Label added successfully", "success");
       } else {
-        throw new Error("Failed to add label.");
+        const error = await res.json();
+        console.error("Error adding label:", error);
+        showToast(error.error, "error");
       }
     } catch (error) {
       setModalVisible(false);
-      setToastMessage("Failed to add label. Please try again.");
-      setToastType("error");
+      showToast("Failed to add label. Please try again.", "error");
       console.error("Error adding label:", error);
     }
   };
@@ -93,18 +101,16 @@ export default function QuestionCreatePage() {
           setQuestionLabel("");
           setOptions([{ text: "", value: "" }, { text: "", value: "" }]);
           setImage(null);
-          setToastMessage("Question added successfully");
-          setToastType("success");
+          showToast("Question added successfully", "success");
         } else {
-          console.error("Failed to add question:", data.error);
-          setToastMessage(data.error || "Failed to add question");
-          setToastType("error");
+          console.error("Failed to add question:", data.message);
+          const errorMessage = data.message || "Failed to add question. Please try again.";
+          showToast(errorMessage, "error")
         }
       })
       .catch((error) => {
         console.error("Error adding question:", error);
-        setToastMessage("Failed to add question. Please try again.");
-        setToastType("error");
+        showToast("Something went wrong while add question.", "error");
       });
   };
 
@@ -278,12 +284,8 @@ export default function QuestionCreatePage() {
           </div>
         )}
       </div>
-      {/* Toaster Message */}
-      {toastMessage && (
-        <div className={`toast-message ${toastType}`}>
-          <p>{toastMessage}</p>
-        </div>
-      )}
+      {/* Toast message component */}
+      <ShowToast message={toastMessage} type={toastType} />
     </AdminLayout>
   );
 }

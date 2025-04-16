@@ -25,7 +25,11 @@ export async function POST(req) {
         const title = formData.get("title");
         const name = formData.get("name");
         const status = '1';
-        console.log("Form Data:", Array.from(formData.entries()));
+
+        if (!title || !name || !status) {
+            return NextResponse.json({ error: "All fields are required." }, { status: 400 });
+        }
+        // console.log("Form Data:", Array.from(formData.entries()));
         let image = formData.get("image");
         if (image instanceof File) {
             const imageBuffer = Buffer.from(await image.arrayBuffer());
@@ -36,10 +40,6 @@ export async function POST(req) {
             image = `/uploads/courses/${imageName}`;
         } else {
             image = null;
-        }
-
-        if (!title || !name || !status) {
-            return NextResponse.json({ error: "All fields are required." }, { status: 400 });
         }
 
         await db.collection("courses").insertOne({
