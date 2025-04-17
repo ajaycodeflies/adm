@@ -1,12 +1,12 @@
 "use client";
 import { Suspense, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Header from "../components/Header";
 import Loader from "../components/Loader";
 import "../globals.css";
 import Image from "next/image";
 import Link from "next/link";
+
 
 function QuizContent() {
   const router = useRouter();
@@ -28,6 +28,12 @@ function QuizContent() {
     setIsSidebarVisible(!isSidebarVisible);
   };
   const utmGender = searchParams?.get("utm_gender");
+  useEffect(() => {
+    const stepFromUrl = parseInt(searchParams.get('step'));
+    if (!isNaN(stepFromUrl)) {
+      setCurrentQuestionIndex(stepFromUrl - 1);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     const fetchQuestionsAndLabels = async () => {
@@ -57,15 +63,31 @@ function QuizContent() {
   }, []);
 
   const handleBackClick = () => {
-    if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex((prevStep) => prevStep - 1);
+    if (showResults) {
+      setShowResults(false);
+  
+      const params = new URLSearchParams(router.query);
+      params.set("step", currentQuestionIndex + 1);
+      router.push(`?${params.toString()}`, undefined, { shallow: true });
+    } else if (currentQuestionIndex > 0) {
+      const newIndex = currentQuestionIndex - 1;
+      setCurrentQuestionIndex(newIndex);
+  
+      const params = new URLSearchParams(router.query);
+      params.set("step", newIndex + 1);
+      router.push(`?${params.toString()}`, undefined, { shallow: true });
     } else {
-      router.back();
+      const params = new URLSearchParams(router.query);
+      params.set("step", "1");
+      router.push(`?${params.toString()}`, undefined, { shallow: true });
+  
+      setCurrentQuestionIndex(0);
     }
   };
+  
 
   const handleOptionClick = (option, index) => {
-    setSelectedOption(index); // Highlight selected option
+    setSelectedOption(index);
   };
 
   const handleNextClick = () => {
@@ -87,7 +109,13 @@ function QuizContent() {
       if (isLastQuestionInLabel) {
         setShowResults(true);
       } else {
-        setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+        // setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+        const nextIndex = currentQuestionIndex + 1;
+        setCurrentQuestionIndex(nextIndex);
+
+        const params = new URLSearchParams(searchParams.toString());
+        params.set('step', nextIndex + 1);
+        router.push(`?${params.toString()}`);
       }
       setSelectedOption(null);
     }
@@ -245,9 +273,8 @@ function QuizContent() {
             {labels.map((label, index) => (
               <div
                 key={label._id}
-                className={`progress ${
-                  index <= currentLabelIndex ? "bg-primary" : ""
-                }`}
+                className={`progress ${index <= currentLabelIndex ? "bg-primary" : ""
+                  }`}
                 style={{
                   height: "5px",
                   backgroundColor: "#e0e0e0",
@@ -285,8 +312,8 @@ function QuizContent() {
                           result === "Low"
                             ? "10%"
                             : result === "Intermediate"
-                            ? "50%"
-                            : "90%",
+                              ? "50%"
+                              : "90%",
                         transform: "translateX(-50%)",
                         top: "0",
                         width: "12px",
@@ -313,8 +340,8 @@ function QuizContent() {
                         {result === "Low"
                           ? "Low"
                           : result === "Intermediate"
-                          ? "Moderate"
-                          : "High"}
+                            ? "Moderate"
+                            : "High"}
                       </span>
                     </div>
                   </div>
@@ -505,59 +532,58 @@ function QuizContent() {
         </div>
         <div className="d-flex w-100 align-items-center justify-content-center text-center position-relative my-pd">
           <div className="w-half">
-        <div className="question-image">
-          <Image
-            className="img-fluid mt-4"
-            src={currentQuestion?.image || "/images/chatbot-img.jpg"}
-            width={400}
-            height={400}
-            alt="Question Image"
-          />
-        </div>
-        {/* Question and Options */}
-        <section className="text-center mt-4 w-100">
-          <h4 className="fw-bold">{currentQuestion?.question}</h4>
-        </section>
-        </div>
-        <section className="d-flex flex-column mt-3 mb-4 w-half">
-          {currentQuestion.options.map((option, index) => {
-            const img =
-              option.text === "yes" || option.text === "Yes"
-                ? "/images/yes.webp"
-                : option.text === "no" || option.text === "No"
-                ? "/images/no.webp"
-                : "/images/somewhat.webp";
+            <div className="question-image">
+              <Image
+                className="img-fluid mt-4"
+                src={currentQuestion?.image || "/images/chatbot-img.jpg"}
+                width={400}
+                height={400}
+                alt="Question Image"
+              />
+            </div>
+            {/* Question and Options */}
+            <section className="text-center mt-4 w-100">
+              <h4 className="fw-bold">{currentQuestion?.question}</h4>
+            </section>
+          </div>
+          <section className="d-flex flex-column mt-3 mb-4 w-half">
+            {currentQuestion.options.map((option, index) => {
+              const img =
+                option.text === "yes" || option.text === "Yes"
+                  ? "/images/yes.webp"
+                  : option.text === "no" || option.text === "No"
+                    ? "/images/no.webp"
+                    : "/images/somewhat.webp";
 
-            return (
-              <div
-                key={index}
-                className={`card card-horizontal card-new ${
-                  selectedOption === index ? "highlighted" : ""
-                }`}
-                onClick={() => handleOptionClick(option, index)}
-              >
-                <input
-                  type="radio"
-                  id={`option-${index}`}
-                  name="step1"
-                  value={option.value}
-                  checked={selectedOption === index}
-                  readOnly
-                />
-                <Image src={img} alt={option.text} width={100} height={100} />
-                <p className="mb-0 fw-bold text-left">
-                  {option.text.charAt(0).toUpperCase() + option.text.slice(1)}
-                </p>
-                {selectedOption === index && (
-                  <i
-                    className="bi bi-check-circle text-blue ms-auto"
-                    style={{ fontSize: "1.5rem" }}
-                  ></i>
-                )}
-              </div>
-            );
-          })}
-        </section>
+              return (
+                <div
+                  key={index}
+                  className={`card card-horizontal card-new ${selectedOption === index ? "highlighted" : ""
+                    }`}
+                  onClick={() => handleOptionClick(option, index)}
+                >
+                  <input
+                    type="radio"
+                    id={`option-${index}`}
+                    name="step1"
+                    value={option.value}
+                    checked={selectedOption === index}
+                    readOnly
+                  />
+                  <Image src={img} alt={option.text} width={100} height={100} />
+                  <p className="mb-0 fw-bold text-left">
+                    {option.text.charAt(0).toUpperCase() + option.text.slice(1)}
+                  </p>
+                  {selectedOption === index && (
+                    <i
+                      className="bi bi-check-circle text-blue ms-auto"
+                      style={{ fontSize: "1.5rem" }}
+                    ></i>
+                  )}
+                </div>
+              );
+            })}
+          </section>
         </div>
         <div className="button-next">
           <button
@@ -575,7 +601,6 @@ function QuizContent() {
 
 export default function Quiz() {
   const [isDarkMode, setIsDarkMode] = useState(false);
-  // Load user's preference from localStorage
   useEffect(() => {
     const darkModePreference = localStorage.getItem("darkmode-active");
     if (darkModePreference === "true") {
@@ -583,7 +608,6 @@ export default function Quiz() {
       document.body.classList.add("darkmode-active");
     }
   }, []);
-  // Toggle dark mode for for design
   const toggleDarkMode = () => {
     const newMode = !isDarkMode;
     setIsDarkMode(newMode);
@@ -595,7 +619,6 @@ export default function Quiz() {
       <Suspense fallback={<p>Loading...</p>}>
         <QuizContent />
       </Suspense>
-      {/* Dark Mode Toggle Button */}
       <button onClick={toggleDarkMode} className="darkmode-toggle-btn">
         {isDarkMode ? (
           <i className="bi bi-sun-fill" style={{ fontSize: "1.2rem" }}></i>

@@ -5,7 +5,27 @@ import Link from "next/link";
 
 export default function Home() {
   const [isDarkMode, setIsDarkMode] = useState(false);
-  // Load user's preference from localStorage
+  const [avatars, setAvatars] = useState([]);
+  const [joinedCount, setJoinedCount] = useState(0);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("/api/frontend/home");
+        const data = await res.json();
+
+        if (data.success) {
+          setAvatars(data.avatars);
+          setJoinedCount(data.total);
+        }
+      } catch (error) {
+        console.error("Failed to load landing users", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  
   useEffect(() => {
     const darkModePreference = localStorage.getItem("darkmode-active");
     if (darkModePreference === "true") {
@@ -62,43 +82,20 @@ export default function Home() {
               </a>
               <div className="users-joined">
                 <div className="img-avatar-row">
-                  <Image
-                    className="img-avatar"
-                    src="/images/user_avatar-1.jpg"
-                    width={40}
-                    height={40}
-                    alt="User 1"
-                  />
-                  <Image
-                    className="img-avatar"
-                    src="/images/user_avatar-2.jpg"
-                    width={40}
-                    height={40}
-                    alt="User 2"
-                  />
-                  <Image
-                    className="img-avatar"
-                    src="/images/user_avatar-3.jpg"
-                    width={40}
-                    height={40}
-                    alt="User 3"
-                  />
-                  <Image
-                    className="img-avatar"
-                    src="/images/user_avatar-4.jpg"
-                    width={40}
-                    height={40}
-                    alt="User 4"
-                  />
-                  <Image
-                    className="img-avatar"
-                    src="/images/user_avatar-5.jpg"
-                    width={40}
-                    height={40}
-                    alt="User 5"
-                  />
+                  {avatars.map((avatar, index) => (
+                    <Image
+                      key={index}
+                      className="img-avatar"
+                      src={avatar}
+                      width={40}
+                      height={40}
+                      alt={`User ${index + 1}`}
+                    />
+                  ))}
                 </div>
-                <p className="users-joined">More than 373,317+ people joined</p>
+                <p className="users-joined">
+                  More than {joinedCount.toLocaleString()}+ people joined
+                </p>
               </div>
             </div>
             {/* Right Content */}
