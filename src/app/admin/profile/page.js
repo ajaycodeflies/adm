@@ -147,7 +147,7 @@ export default function ProfilePage() {
                             <div className="d-flex align-items-center justify-content-between pt-4 pb-6 px-4">
                                 <div className="d-flex align-items-center">
                                     <div className="avatar-xxl avatar-indicators avatar-online me-2 position-relative d-flex justify-content-end align-items-end mt-n10">
-                                        <Image src={profile.profile || "/images/admin/profile.jpg"} alt="admin" className="avatar-xxl rounded-circle border border-4 border-white-color-40" width={100} height={100} />
+                                        <Image src={profile.profile || "/images/admin/profile.jpg"} alt="admin" className="avatar-xxl rounded-circle border-4 border-white-color-40" width={100} height={100} />
                                     </div>
                                     <div className="lh-1">
                                         <h2 className="mb-0">Admin</h2>

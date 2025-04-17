@@ -7,6 +7,7 @@ import AdminLayout from "../components/AdminLayout";
 import Link from "next/link";
 import Image from "next/image";
 import ShowToast from "../components/ShowToast";
+import { set } from "draft-js/lib/DefaultDraftBlockRenderMap";
 
 export default function ProfilePage() {
     const [users, setUsers] = useState([]);
@@ -15,6 +16,9 @@ export default function ProfilePage() {
     const router = useRouter();
     const [toastMessage, setToastMessage] = useState("");
     const [toastType, setToastType] = useState("");
+    const [editUser, setEditUser] = useState(null);
+    const [modalVisible, setModalVisible] = useState(false);
+
     const showToast = (message, type = "error") => {
         setToastMessage("");
         setToastType(type);
@@ -43,6 +47,90 @@ export default function ProfilePage() {
         } catch (error) {
             console.error("Error fetching users:", error);
         }
+    };
+
+    // Function to handle opening the edit modal
+    const openEditModal = (user) => {
+        setEditUser({
+            _id: user._id,
+            first_name: user.first_name,
+            last_name: user.last_name,
+            email: user.email,
+            mobile: user.mobile,
+            status: user.status,
+        });
+        setModalVisible(true);
+        // setEditUser(user);
+        setModalVisible(true);
+    };
+
+    // Function to handle saving the edited user
+    const saveEditUser = async () => {
+        if (
+            !editUser ||
+            !editUser.first_name ||
+            editUser.first_name.trim().length === 0 ||
+            !editUser.email ||
+            editUser.status === undefined
+        ) {
+            return showToast("Please fill in all required fields.", "error");
+        }
+
+        try {
+            // Only include password if it's filled
+            const payload = {
+                userId: editUser._id,
+                first_name: editUser.first_name,
+                last_name: editUser.last_name,
+                email: editUser.email,
+                mobile: editUser.mobile,
+                status: editUser.status,
+            };
+
+            if (editUser.password && editUser.password.trim().length > 0) {
+                payload.password = editUser.password;
+            }
+
+            const response = await fetch(`/api/admin/users/`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload),
+                timeout: 10000,
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                const updatedUser = result;
+                console.log(updatedUser);
+                if (updatedUser) {
+                    setUsers((prevUsers) =>
+                        prevUsers.map((user) =>
+                            user._id === updatedUser._id ? updatedUser : user
+                        )
+                    );
+                    fetchUsers(currentPage);
+                    setModalVisible(false);
+                    showToast("User updated successfully", "success");
+                } else {
+                    const error =
+                        result.error || "Failed to update the user. Please try again.";
+                    showToast(error, "error");
+                }
+            } else {
+                showToast(result.error || "Failed to update the user. Please try again.", "error");
+            }
+        } catch (error) {
+            console.error("Error saving edited user:", error);
+            showToast("Failed to update the user. Please try again.", "error");
+        }
+    };
+
+
+    // Function to handle closing the modal
+    const closeModal = () => {
+        setModalVisible(false);
+        setEditUser(null);
     };
 
     const handleDeleteUser = async (userId) => {
@@ -153,9 +241,12 @@ export default function ProfilePage() {
                                                     </td>
                                                     <td className="align-middle">
                                                         <div className="dropdown">
-                                                            <Link href="" className="btn btn-sm btn-primary">
+                                                            <button
+                                                                className="btn btn-sm btn-primary"
+                                                                onClick={() => openEditModal(user)}
+                                                            >
                                                                 Edit
-                                                            </Link>
+                                                            </button>
                                                             &nbsp;
                                                             <button
                                                                 className="btn btn-sm btn-danger"
@@ -163,10 +254,6 @@ export default function ProfilePage() {
                                                             >
                                                                 Delete
                                                             </button>
-                                                            {/* &nbsp;
-                                                        <Link href="" className="btn btn-sm btn-info">
-                                                            View
-                                                        </Link> */}
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -200,6 +287,119 @@ export default function ProfilePage() {
                     </div>
                 </div>
             </div>
+            {/* Edit User Modal */}
+            {modalVisible && (
+                <div className="modal show d-block" tabIndex="-1">
+                    <div className="modal-dialog modal-lg" style={{ maxWidth: '700px' }}>
+                        <div className="modal-content shadow-lg rounded-3">
+                            <div className="modal-header">
+                                <h5 className="modal-title text-white">Edit User</h5>
+                                <button
+                                    type="button"
+                                    className="btn-close text-red"
+                                    onClick={closeModal}
+                                    aria-label="Close"
+                                ></button>
+                            </div>
+                            <div className="modal-body p-4">
+                                <div className="mb-3">
+                                    <label className="form-label">First Name <span className="text-danger">*</span></label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        value={editUser.first_name}
+                                        onChange={(e) =>
+                                            setEditUser({ ...editUser, first_name: e.target.value })
+                                        }
+                                        placeholder="Enter first name"
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Last Name <span className="text-danger">*</span></label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        value={editUser.last_name}
+                                        onChange={(e) =>
+                                            setEditUser({ ...editUser, last_name: e.target.value })
+                                        }
+                                        placeholder="Enter last name"
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Email <span className="text-danger">*</span></label>
+                                    <input
+                                        type="email"
+                                        className="form-control"
+                                        value={editUser.email}
+                                        onChange={(e) =>
+                                            setEditUser({ ...editUser, email: e.target.value })
+                                        }
+                                        placeholder="Enter email"
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Mobile <span className="text-danger">*</span></label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        value={editUser.mobile}
+                                        onChange={(e) =>
+                                            setEditUser({ ...editUser, mobile: e.target.value })
+                                        }
+                                        placeholder="Enter mobile number"
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Password</label>
+                                    <input
+                                        type="password"
+                                        className="form-control"
+                                        value={editUser.password || ""}
+                                        onChange={(e) =>
+                                            setEditUser({ ...editUser, password: e.target.value || null })
+                                        }
+                                        placeholder="Enter password"
+                                    />
+                                    <small className="form-text text-danger">
+                                        Leave blank to keep the current password.
+                                    </small>
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Status <span className="text-danger">*</span></label>
+                                    <select
+                                        className="form-select"
+                                        value={editUser.status}
+                                        onChange={(e) =>
+                                            setEditUser({ ...editUser, status: e.target.value })
+                                        }
+                                    >
+                                        <option value="1">Active</option>
+                                        <option value="0">Inactive</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div className="modal-footer">
+                                <button
+                                    type="button"
+                                    className="btn btn-secondary"
+                                    onClick={closeModal}
+                                >
+                                    Close
+                                </button>
+                                <button
+                                    type="button"
+                                    className="btn btn-primary"
+                                    onClick={saveEditUser}
+                                >
+                                    Save Changes
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {/* Toast message component */}
             <ShowToast message={toastMessage} type={toastType} />
         </AdminLayout>

@@ -12,8 +12,8 @@ export default function LabelPage() {
     const [labels, setlabels] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
-    const [editLabel, setEditLabel] = useState(null); // Holds the Label being edited
-    const [modalVisible, setModalVisible] = useState(false); // Modal visibility state
+    const [editLabel, setEditLabel] = useState(null);
+    const [modalVisible, setModalVisible] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
     const [toastType, setToastType] = useState("");
 

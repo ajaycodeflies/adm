@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import fs from "fs";
 import path from "path";
 import { ObjectId } from "mongodb";
+import { exit } from "process";
 
 export async function GET(request) {
   try {
@@ -83,7 +84,6 @@ export async function POST(request) {
       return NextResponse.json({ success: false, errors }, { status: 400 });
     }
 
-    // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Handle profile image upload
@@ -164,5 +164,58 @@ export async function DELETE(request) {
   } catch (error) {
     console.error("Error deleting user:", error);
     return NextResponse.json({ success: false, message: "Error deleting user" }, { status: 500 });
+  }
+}
+
+export async function PUT(request) {
+  try {
+    const client = await clientPromise;
+    const db = client.db();
+
+    const body = await request.json();
+
+    const { userId, first_name, last_name, email, mobile, password, status } = body;
+
+    if (!userId || !first_name || !email || status === undefined) {
+      return NextResponse.json({ success: false, error: "Required fields are missing." }, { status: 400 });
+    }
+
+    const existingUser = await db.collection("users").findOne({
+      email: email.toLowerCase(),
+      _id: { $ne: new ObjectId(userId) },
+    });
+
+    if (existingUser) {
+      return NextResponse.json({ success: false, error: "Email is already in use by another user." }, { status: 409 });
+    }
+
+    const updateData = {
+      first_name,
+      last_name,
+      email,
+      mobile,
+      status: parseInt(status),
+      updated_at: new Date(),
+    };
+
+    // Only update password if it's provided
+    if (password && password.trim().length > 0) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      updateData.password = hashedPassword;
+    }
+
+    const result = await db.collection("users").findOneAndUpdate(
+      { _id: new ObjectId(userId) },
+      { $set: updateData },
+      { returnDocument: "after" }
+    );
+    if(!result){
+      return NextResponse.json({ success: false, error: "User not found." }, { status: 404 });
+    }
+    return NextResponse.json({ success: true, message: "User updated successfully.", user: result });
+
+  } catch (error) {
+    console.error("Error updating user:", error);
+    return NextResponse.json({ success: false, error: "Error updating user." }, { status: 500 });
   }
 }

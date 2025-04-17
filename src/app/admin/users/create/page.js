@@ -101,7 +101,7 @@ export default function UserCreate() {
                             <div className="d-flex align-items-center justify-content-between pt-4 pb-6 px-4">
                                 <h3 className="mb-0 fw-bold">Create New User</h3>
                                 <Link href="/admin/users" className="btn btn-sm btn-blue">
-                                    <i className="bi bi-arrow-left"></i> View Users
+                                    <i className="bi bi-list"></i> Users List
                                 </Link>
                             </div>
                         </div>
