@@ -44,7 +44,7 @@ export default function AdminDashboard() {
           </div>
           {[
             { title: "Lessons", count: dashboardCounts.lessons, icon: "bi-book" },
-            { title: "Active Users", count: dashboardCounts.users, icon: "bi-people" },
+            { title: "Users", count: dashboardCounts.users, icon: "bi-people" },
             { title: "Assessment Questions", count: dashboardCounts.questions, icon: "bi-question-circle" },
             { title: "Pages", count: dashboardCounts.pages, icon: "bi-file-earmark" },
           ].map((item, idx) => (

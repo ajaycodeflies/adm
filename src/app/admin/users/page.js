@@ -6,12 +6,22 @@ import Cookies from "js-cookie";
 import AdminLayout from "../components/AdminLayout";
 import Link from "next/link";
 import Image from "next/image";
+import ShowToast from "../components/ShowToast";
 
 export default function ProfilePage() {
     const [users, setUsers] = useState([]);
     const [totalPages, setTotalPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
     const router = useRouter();
+    const [toastMessage, setToastMessage] = useState("");
+    const [toastType, setToastType] = useState("");
+    const showToast = (message, type = "error") => {
+        setToastMessage("");
+        setToastType(type);
+        setTimeout(() => {
+            setToastMessage(message);
+        }, 10);
+    };
 
     useEffect(() => {
         const sessionToken = Cookies.get("session_token");
@@ -32,6 +42,29 @@ export default function ProfilePage() {
             setCurrentPage(data.currentPage);
         } catch (error) {
             console.error("Error fetching users:", error);
+        }
+    };
+
+    const handleDeleteUser = async (userId) => {
+        if (!confirm("Are you sure you want to delete this user?")) return;
+
+        try {
+            const response = await fetch(`/api/admin/users?id=${userId}`, {
+                method: "DELETE",
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.success) {
+                setUsers(prevUsers => prevUsers.filter(user => user._id !== userId));
+                showToast("User deleted successfully", "success");
+            } else {
+                console.error("Failed to delete user:", data.message);
+                showToast("Failed to delete user. Please try again.", "error");
+            }
+        } catch (error) {
+            console.error("Error deleting user:", error);
+            showToast("Something went wrong. Please try again.", "error");
         }
     };
 
@@ -124,9 +157,12 @@ export default function ProfilePage() {
                                                                 Edit
                                                             </Link>
                                                             &nbsp;
-                                                            <Link href="" className="btn btn-sm btn-danger">
+                                                            <button
+                                                                className="btn btn-sm btn-danger"
+                                                                onClick={() => handleDeleteUser(user._id)}
+                                                            >
                                                                 Delete
-                                                            </Link>
+                                                            </button>
                                                             {/* &nbsp;
                                                         <Link href="" className="btn btn-sm btn-info">
                                                             View
@@ -164,6 +200,8 @@ export default function ProfilePage() {
                     </div>
                 </div>
             </div>
+            {/* Toast message component */}
+            <ShowToast message={toastMessage} type={toastType} />
         </AdminLayout>
     );
 }

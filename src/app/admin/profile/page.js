@@ -27,16 +27,6 @@ export default function ProfilePage() {
             setToastMessage(message);
         }, 10);
     };
-
-    useEffect(() => {
-        const sessionToken = Cookies.get("session_token");
-        if (!sessionToken) {
-            router.push("/admin/login");
-        } else {
-            fetchProfile();
-        }
-    }, [router, fetchProfile]);
-
     const fetchProfile = useCallback(async () => {
         try {
             const response = await fetch("/api/admin/profile", {
@@ -73,7 +63,15 @@ export default function ProfilePage() {
         }
     }, []);
     
-
+    useEffect(() => {
+        const sessionToken = Cookies.get("session_token");
+        if (!sessionToken) {
+            router.push("/admin/login");
+        } else {
+            fetchProfile();
+        }
+    }, [router, fetchProfile]);
+    
     const handleProfileUpdate = async (e) => {
         e.preventDefault();
 

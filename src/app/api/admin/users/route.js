@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import { v4 as uuidv4 } from "uuid";
 import fs from "fs";
 import path from "path";
+import { ObjectId } from "mongodb";
 
 export async function GET(request) {
   try {
@@ -121,5 +122,47 @@ export async function POST(request) {
   } catch (error) {
     console.error("Error creating user:", error);
     return NextResponse.json({ success: false, message: "Error creating user" }, { status: 500 });
+  }
+}
+
+
+export async function DELETE(request) {
+  try {
+    const client = await clientPromise;
+    const db = client.db();
+
+    const url = new URL(request.url);
+    const userId = url.searchParams.get("id");
+
+    if (!userId) {
+      return NextResponse.json({ success: false, message: "User ID is required." }, { status: 400 });
+    }
+
+    // Correct way to get the user document
+    const user = await db.collection("users").findOne({ _id: new ObjectId(userId) });
+
+    if (!user) {
+      return NextResponse.json({ success: false, message: "User not found." }, { status: 404 });
+    }
+
+    // Delete profile image if it exists
+    if (user.profile) {
+      const imagePath = path.join(process.cwd(), "public", user.profile);
+      if (fs.existsSync(imagePath)) {
+        fs.unlinkSync(imagePath);
+      }
+    }
+
+    // Delete user from DB
+    const result = await db.collection("users").deleteOne({ _id: new ObjectId(userId) });
+
+    if (result.deletedCount === 0) {
+      return NextResponse.json({ success: false, message: "Failed to delete user." }, { status: 500 });
+    }
+
+    return NextResponse.json({ success: true, message: "User deleted successfully." });
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    return NextResponse.json({ success: false, message: "Error deleting user" }, { status: 500 });
   }
 }
