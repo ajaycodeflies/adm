@@ -13,8 +13,8 @@ import PlansPoints from "./components/plans-points";
 
 function Selling() {
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(10 * 60);
 
-  // Load user's preference from localStorage
   useEffect(() => {
     const darkModePreference = localStorage.getItem("darkmode-active");
     if (darkModePreference === "true") {
@@ -23,13 +23,27 @@ function Selling() {
     }
   }, []);
 
-  // Toggle dark mode
   const toggleDarkMode = () => {
     const newMode = !isDarkMode;
     setIsDarkMode(newMode);
     document.body.classList.toggle("darkmode-active", newMode);
     localStorage.setItem("darkmode-active", newMode.toString());
   };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimeLeft((prevTime) => {
+        if (prevTime <= 1) {
+          clearInterval(interval);
+          return 0;
+        }
+        return prevTime - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <>
       <section className="bg-selling">
@@ -47,12 +61,16 @@ function Selling() {
             <p className="counter-label">Discount expires in</p>
             <div className="counter-time">
               <div className="time-box">
-                <span className="time-value">07</span>
+                <span className="time-value">
+                  {String(Math.floor(timeLeft / 60)).padStart(2, "0")}
+                </span>
                 <span className="time-label">min</span>
               </div>
               <span className="time-separator">:</span>
               <div className="time-box">
-                <span className="time-value">27</span>
+                <span className="time-value">
+                  {String(timeLeft % 60).padStart(2, "0")}
+                </span>
                 <span className="time-label">sec</span>
               </div>
             </div>

@@ -4,11 +4,7 @@ function PaymentNotified() {
   return (
     <>
       <div className="payment-notified">
-        <p>
-          Extended every 4-week at the price of $39.99 if you do not cancel 24
-          hours before the renewal date in your account settings.{" "}
-          <a href="#">Subscription Terms</a>.
-        </p>
+        {/* <p>You agree to our <a href="#">Subscription Terms</a> and <a href="#">Privacy Policy</a></p> */}
         <div className="paydent">
           <i className="bi bi-shield-check me-1"></i> Pay safe & secure
         </div>
