@@ -2,6 +2,7 @@
 
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import Link from "next/link";
 
 const Cancel = () => {
   return (
@@ -27,9 +28,9 @@ const Cancel = () => {
           It looks like your payment was cancelled. No worries—you can try again anytime.
         </p>
 
-        <a href="/" className="btn btn-outline-primary px-4">
+        <Link href="/" className="btn btn-outline-primary px-4">
           Back to Home
-        </a>
+        </Link>
       </div>
 
       <Footer />

@@ -1,5 +1,6 @@
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import { useState } from "react";
+import Image from "next/image";
 
 const CheckoutForm = ({ selectedPlanData, onClose }) => {
   const stripe = useStripe();
@@ -44,12 +45,12 @@ const CheckoutForm = ({ selectedPlanData, onClose }) => {
     <form onSubmit={handleSubmit} className="checkout-body">
       <h4 className="payment-heading">Pay fast & secure with Card</h4>
       <div className="card-icons">
-        <img src="/images/visa.svg" alt="Visa" />
-        <img src="/images/ms.svg" alt="MasterCard" />
-        <img src="/images/maestro.svg" alt="Maestro" />
-        <img src="/images/ae.svg" alt="Amex" />
-        <img src="/images/capa_1.svg" alt="Diners" />
-        <img src="/images/dn.svg" alt="Discover" />
+        <Image src="/images/visa.svg" alt="Visa" width={40} height={24} />
+        <Image src="/images/ms.svg" alt="MasterCard" width={40} height={24} />
+        <Image src="/images/maestro.svg" alt="Maestro" width={40} height={24} />
+        <Image src="/images/ae.svg" alt="Amex" width={40} height={24} />
+        <Image src="/images/capa_1.svg" alt="Diners" width={40} height={24} />
+        <Image src="/images/dn.svg" alt="Discover" width={40} height={24} />
       </div>
 
       <div className="card-input-wrapper">

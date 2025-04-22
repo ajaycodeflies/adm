@@ -2,6 +2,7 @@
 
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import Link from "next/link";
 
 const Success = () => {
   return (
@@ -27,9 +28,10 @@ const Success = () => {
           Thank you for your purchase. Your plan is now active and ready to use.
         </p>
 
-        <a href="/" className="btn btn-primary px-4">
+        <Link href="/" className="btn btn-primary px-4">
           Go to Dashboard
-        </a>
+        </Link>
+
       </div>
 
       <Footer />
