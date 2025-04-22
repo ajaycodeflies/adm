@@ -29,7 +29,7 @@ function CourseSlider() {
         <SwiperSlide>
           <div className="image-container">
             <Image
-              src="/images/users/phone-1.png"
+              src="/images/users/phone-4.png"
               alt="Phone 1"
               width={200}
               height={400}
@@ -74,7 +74,7 @@ function CourseSlider() {
           </div>
         </SwiperSlide>
         {/* Slide 5 */}
-        <SwiperSlide>
+        {/* <SwiperSlide>
           <div className="image-container">
             <Image
               src="/images/users/phone-5.png"
@@ -84,7 +84,7 @@ function CourseSlider() {
               className="slider-image"
             />
           </div>
-        </SwiperSlide>
+        </SwiperSlide> */}
         {/* Custom Buttons */}
         <div className="swiper-nav-icons">
           <div className="swiper-button-prev" />

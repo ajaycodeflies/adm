@@ -44,8 +44,13 @@ export async function POST(request) {
       expired_at: new Date(Date.now() + 3600000), // 1 hour expiration
     });
 
-    return new Response(JSON.stringify({ token: sessionToken, message: "Login successful" }), {
+    return new Response(JSON.stringify({ message: "Login successful" }), {
       status: 200,
+      headers: {
+        "Set-Cookie": `admin_session_token=${sessionToken}; Path=/; HttpOnly; SameSite=Lax; Max-Age=3600${
+          process.env.NODE_ENV === "production" ? "; Secure" : ""
+        }`,
+      },
     });
   } catch (error) {
     console.error("Login error:", error);

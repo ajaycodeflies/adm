@@ -4,12 +4,6 @@ import clientPromise from "@/lib/connection";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
 const connectToDatabase = async () => {
   try {
     const client = await clientPromise;
@@ -21,56 +15,53 @@ const connectToDatabase = async () => {
   }
 };
 
-const webhookHandler = async (req, res) => {
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
+const handleWebhook = async (req, res) => {
   const sig = req.headers['stripe-signature'];
   const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+  const reqBuffer = await buffer(req);
 
   let event;
 
   try {
-    const buf = await buffer(req);
-    event = stripe.webhooks.constructEvent(buf.toString(), sig, endpointSecret);
-
-    if (event.type === 'checkout.session.completed') {
-      const session = event.data.object;
-      const { customer_email, payment_intent, amount_total, metadata } = session;
-
-      // Store the successful payment record in the database
-      const db = await connectToDatabase();
-      await db.collection('payments').insertOne({
-        email: customer_email,
-        payment_status: 'success',
-        plan_id: metadata.planId,
-        amount: amount_total / 100,
-        transaction_id: payment_intent,
-        timestamp: new Date(),
-      });
-
-      console.log('Payment recorded successfully');
-    }
-
-    if (event.type === 'checkout.session.async_payment_failed') {
-      const session = event.data.object;
-      const { customer_email, payment_intent, amount_total, metadata } = session;
-
-      const db = await connectToDatabase();
-      await db.collection('payments').insertOne({
-        email: customer_email,
-        payment_status: 'failed',
-        plan_id: metadata.planId,
-        amount: amount_total / 100,
-        transaction_id: payment_intent,
-        timestamp: new Date(),
-      });
-
-      console.log('Payment failed recorded');
-    }
-
-    res.status(200).json({ received: true });
+    event = stripe.webhooks.constructEvent(reqBuffer, sig, endpointSecret);
   } catch (err) {
-    console.error(`Webhook Error: ${err.message}`);
-    res.status(400).send(`Webhook Error: ${err.message}`);
+    console.error('Webhook signature verification failed:', err);
+    return res.status(400).send(`Webhook Error: ${err.message}`);
   }
+
+  if (event.type === 'payment_intent.succeeded') {
+    const paymentIntent = event.data.object;
+
+    const { id: paymentIntentId, amount_received, metadata } = paymentIntent;
+
+    try {
+      const db = await connectToDatabase();
+      
+      const payment = await db.collection('payments').findOne({ transaction_id: paymentIntentId });
+
+      if (payment) {
+        await db.collection('payments').updateOne(
+          { transaction_id: paymentIntentId },
+          { $set: { payment_status: 'succeeded', amount_received: amount_received / 100 } }
+        );
+        
+        console.log("Payment status updated to 'succeeded'");
+      } else {
+        console.log("Payment record not found for payment intent");
+      }
+    } catch (error) {
+      console.error("Error updating payment status:", error);
+      return res.status(500).send('Error updating payment status.');
+    }
+  }
+
+  res.json({ received: true });
 };
 
-export default webhookHandler;
+export default handleWebhook;

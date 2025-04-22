@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
+import { Elements, CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import CheckoutForm from "./CheckoutForm";
+
 
 const Plans = () => {
   const [selectedPlan, setSelectedPlan] = useState(null);
@@ -161,61 +164,18 @@ const Plans = () => {
                 </div>
               </div>
 
-              <div className="checkout-body">
-                <h4 className="payment-heading">Pay fast & secure with Card</h4>
-                <div className="payment-options">
-                </div>
+              <Elements stripe={stripePromise}>
+                <CheckoutForm selectedPlanData={selectedPlanData} onClose={toggleModal} />
+              </Elements>
 
-                <div className="card-form">
-                  <div className="card-icons">
-                    <img src="/images/visa.svg" alt="Visa" />
-                    <img src="/images/ms.svg" alt="MasterCard" />
-                    <img src="/images/maestro.svg" alt="Maestro" />
-                    <img src="/images/ae.svg" alt="Amex" />
-                    <img src="/images/capa_1.svg" alt="Diners" />
-                    <img src="/images/dn.svg" alt="Discover" />
-                  </div>
-
-                  <input type="text" placeholder="XXXX XXXX XXXX XXXX" className="card-input" />
-                  <div className="card-row">
-                    <input type="text" placeholder="MM/YY" className="card-input" />
-                    <input type="text" placeholder="CVV" className="card-input" />
-                  </div>
-                  <button
-                    className="confirm-btn"
-                    onClick={async () => {
-                      const stripe = await stripePromise;
-                      const res = await fetch('/api/frontend/checkout', {
-                        method: 'POST',
-                        headers: {
-                          'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                          planId: selectedPlanData.plan_name,
-                          price: selectedPlanData.price,
-                        }),
-                      });
-
-                      const { sessionId } = await res.json();
-                      await stripe.redirectToCheckout({ sessionId });
-                    }}
-                  >
-                    🔒 CONFIRM PAYMENT
-                  </button>
-
-                </div>
-                <div className="safe-label">
-                  ✅ Pay safe & secure
-                </div>
-
-                <p className="checkout-info">
-                  You agree to our <a href="#">Subscription Terms</a> and <a href="#">Privacy Policy</a>
-                </p>
-              </div>
+              <p className="checkout-info">
+                You agree to our <a href="#">Subscription Terms</a> and <a href="#">Privacy Policy</a>
+              </p>
             </div>
           </div>
         </div>
       )}
+
     </div>
   );
 };
