@@ -1,19 +1,15 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
 import AdminLayout from "../components/AdminLayout";
 import Link from "next/link";
 import Image from "next/image";
 import ShowToast from "../components/ShowToast";
-import { set } from "draft-js/lib/DefaultDraftBlockRenderMap";
 
 export default function ProfilePage() {
     const [users, setUsers] = useState([]);
     const [totalPages, setTotalPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
-    const router = useRouter();
     const [toastMessage, setToastMessage] = useState("");
     const [toastType, setToastType] = useState("");
     const [editUser, setEditUser] = useState(null);
@@ -26,13 +22,6 @@ export default function ProfilePage() {
             setToastMessage(message);
         }, 10);
     };
-
-    useEffect(() => {
-        const sessionToken = Cookies.get("session_token");
-        if (!sessionToken) {
-            router.push("/admin/login");
-        }
-    }, [router]);
 
     const fetchUsers = async (page = 1) => {
         try {

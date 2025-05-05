@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
 import AdminLayout from "../components/AdminLayout";
 
 export default function AdminDashboard() {
@@ -14,25 +13,21 @@ export default function AdminDashboard() {
   });
 
   useEffect(() => {
-    const sessionToken = Cookies.get("session_token");
-    if (!sessionToken) {
-      router.push("/admin/login");
-    } else {
-      fetch("/api/admin/dashboard/count")
-        .then((res) => res.json())
-        .then((data) => {
-          if (!data.error) {
-            setDashboardCounts({
-              lessons: data.lessons,
-              users: data.usersCount,
-              questions: data.questionsCount,
-              pages: data.pagesCount,
-            });
-          }
-        })
-        .catch((err) => console.error("Error fetching dashboard counts:", err));
-    }
-  }, [router]);
+    fetch("/api/admin/dashboard/count")
+      .then((res) => res.json())
+      .then((data) => {
+        if (!data.error) {
+          setDashboardCounts({
+            lessons: data.lessons,
+            users: data.usersCount,
+            questions: data.questionsCount,
+            pages: data.pagesCount,
+          });
+        }
+      })
+      .catch((err) => console.error("Error fetching dashboard counts:", err));
+  }, []);
+  
 
   return (
     <AdminLayout>

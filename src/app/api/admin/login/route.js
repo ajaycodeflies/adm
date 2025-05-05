@@ -18,7 +18,6 @@ export async function POST(request) {
     const usersCollection = db.collection("users");
     const sessionsCollection = db.collection("sessions");
 
-    // Find user by email
     const user = await usersCollection.findOne({ email, role: "admin" });
 
     if (!user) {
@@ -26,8 +25,6 @@ export async function POST(request) {
         status: 404,
       });
     }
-
-    // Compare password using bcryptjs
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
@@ -36,12 +33,11 @@ export async function POST(request) {
       });
     }
 
-    // Generate session token and store it
     const sessionToken = jwt.sign({ userId: user._id }, "secret", { expiresIn: "1h" });
     await sessionsCollection.insertOne({
       user_id: user._id,
       session_token: sessionToken,
-      expired_at: new Date(Date.now() + 3600000), // 1 hour expiration
+      expired_at: new Date(Date.now() + 3600000),
     });
 
     return new Response(JSON.stringify({ message: "Login successful" }), {

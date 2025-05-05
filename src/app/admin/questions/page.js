@@ -1,15 +1,12 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
 import AdminLayout from "../components/AdminLayout";
 import ShowToast from "../components/ShowToast";
 import Link from "next/link";
 import Image from "next/image";
 
 export default function QuestionsPage() {
-    const router = useRouter();
     const [questions, setQuestions] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
@@ -26,13 +23,6 @@ export default function QuestionsPage() {
             setToastMessage(message);
         }, 10);
     };
-
-    useEffect(() => {
-        const sessionToken = Cookies.get("session_token");
-        if (!sessionToken) {
-            router.push("/admin/login");
-        }
-    }, [router]);
 
     useEffect(() => {
         const fetchLabels = async () => {

@@ -121,8 +121,7 @@ export const PUT = async (req) => {
 // GET - Fetch Profile
 export async function GET(req) {
     try {
-        const sessionToken = req.cookies.get("session_token")?.value;
-
+        const sessionToken = req.cookies.get("admin_session_token")?.value;
         if (!sessionToken || typeof sessionToken !== "string") {
             return NextResponse.json({ success: false, message: "Unauthorized" }, { status: 401 });
         }

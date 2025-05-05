@@ -1,15 +1,12 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
 import AdminLayout from "../components/AdminLayout";
 import ShowToast from "../components/ShowToast";
 import Link from "next/link";
 import Image from "next/image";
 
 export default function Courses() {
-    const router = useRouter();
     const [courses, setCourses] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
@@ -26,14 +23,7 @@ export default function Courses() {
         }, 10);
     };
 
-    useEffect(() => {
-        const sessionToken = Cookies.get("session_token");
-        if (!sessionToken) {
-            router.push("/admin/login");
-        } else {
-            fetchCourses();
-        }
-    }, [router]);
+    useEffect(() => {fetchCourses()});
     const fetchCourses = async () => {
         try {
             const response = await fetch("/api/admin/courses");

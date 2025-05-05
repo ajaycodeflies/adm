@@ -1,14 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
+import React, {useState } from "react";
 import AdminLayout from "../../components/AdminLayout";
 import ShowToast from "../../components/ShowToast";
 import Link from "next/link";
 
 export default function PlanCreate() {
-  const router = useRouter();
   const [toastMessage, setToastMessage] = useState("");
   const [toastType, setToastType] = useState("");
 
@@ -93,13 +90,6 @@ export default function PlanCreate() {
     }));
   };
 
-  useEffect(() => {
-    const sessionToken = Cookies.get("session_token");
-    if (!sessionToken) {
-      router.push("/admin/login");
-    }
-  }, [router]);
-
   return (
     <AdminLayout>
       <div className="p-6 container-fluid">
@@ -109,7 +99,7 @@ export default function PlanCreate() {
               <div className="d-flex align-items-center justify-content-between pt-4 pb-6 px-4">
                 <h3 className="mb-0 fw-bold">Add Plan</h3>
                 <Link href="/admin/plan" className="btn btn-sm btn-blue">
-                  <i className="bi bi-arrow-left"></i> View Plans
+                  <i className="bi bi-list"></i> View Plans
                 </Link>
               </div>
             </div>

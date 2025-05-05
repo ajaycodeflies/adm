@@ -2,7 +2,7 @@ import clientPromise from "@/lib/connection";
 
 export async function POST(request) {
   try {
-    const sessionToken = request.cookies.get("admin_session_token")?.value;
+    const sessionToken = request.cookies.get("user_session_token")?.value;
 
     if (sessionToken) {
       const client = await clientPromise;
@@ -15,7 +15,7 @@ export async function POST(request) {
       {
         status: 200,
         headers: {
-          "Set-Cookie": `admin_session_token=deleted; Path=/; HttpOnly; Max-Age=0`,
+          "Set-Cookie": `user_session_token=deleted; Path=/; HttpOnly; Max-Age=0`,
         },
       }
     );

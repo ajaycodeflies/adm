@@ -2,14 +2,11 @@
 "use client";
 
 import React, { useEffect, useState, useRef } from "react";
-import { useRouter } from "next/navigation";
 import AdminLayout from "../../../components/AdminLayout";
 import ShowToast from "../../../components/ShowToast";
 import Link from "next/link";
-import Cookies from "js-cookie";
 
 export default function CourseCreate() {
-    const router = useRouter();
     const [course, setCourse] = useState("");
     const [step, setStep] = useState("");
     const [title, setTitle] = useState("");
@@ -27,14 +24,7 @@ export default function CourseCreate() {
         }, 10);
       };
 
-    useEffect(() => {
-        const sessionToken = Cookies.get("session_token");
-        if (!sessionToken) {
-            router.push("/admin/login");
-        } else {
-            fetchCourses();
-        }
-    }, [router]);
+    useEffect(() => {fetchCourses()});
     const fetchCourses = async () => {
         try {
             const res = await fetch("/api/admin/courses");
@@ -116,7 +106,7 @@ export default function CourseCreate() {
                             <div className="d-flex align-items-center justify-content-between pt-4 pb-6 px-4">
                                 <h3 className="mb-0 fw-bold">Add Level</h3>
                                 <Link href="/admin/courses/levels" className="btn btn-sm btn-blue">
-                                    Level List <i className="bi bi-arrow-right"></i>
+                                    <i className="bi bi-list"></i> Level List 
                                 </Link>
                             </div>
                         </div>

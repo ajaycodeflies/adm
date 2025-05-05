@@ -24,13 +24,11 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  // Logged-in user visiting /user/login -> redirect to user dashboard
   if (userToken && isUserLoginPage) {
     url.pathname = "/user/dashboard";
     return NextResponse.redirect(url);
   }
 
-  // Logged-in admin visiting /admin/login -> redirect to admin dashboard
   if (adminToken && isAdminLoginPage) {
     url.pathname = "/admin/dashboard";
     return NextResponse.redirect(url);

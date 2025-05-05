@@ -1,13 +1,11 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
-import { useRouter } from "next/navigation";
+import React, { useState, useRef } from "react";
 import AdminLayout from "../../components/AdminLayout";
 import ShowToast from "../../components/ShowToast";
 import Link from "next/link";
 
 export default function CourseCreate() {
-  const router = useRouter();
   const [image, setImage] = useState(null);
   const [title, setTitle] = useState("");
   const [courseName, setCourseName] = useState("");
@@ -92,7 +90,7 @@ export default function CourseCreate() {
               <div className="d-flex align-items-center justify-content-between pt-4 pb-6 px-4">
                 <h3 className="mb-0 fw-bold">Add Course</h3>
                 <Link href="/admin/courses" className="btn btn-sm btn-blue">
-                  Course List <i className="bi bi-arrow-right"></i>
+                <i className="bi bi-list"></i> Course List 
                 </Link>
               </div>
             </div>

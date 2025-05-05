@@ -19,26 +19,21 @@ const toggleCoursesDropdown = () => setIsCoursesOpen(!isCoursesOpen);
     setIsOpen(!isOpen);
   };
 
-  // Handle logout
+
   const handleLogout = async () => {
-    const sessionToken = Cookies.get("session_token");
-
     try {
-      await fetch("/api/admin/logout", {
+      const response = await fetch("/api/admin/logout", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ session_token: sessionToken }),
       });
-
-      // Remove the session token from cookies
-      Cookies.remove("session_token");
-
-      // Redirect to login page
-      router.push("/admin/login");
+      const data = await response.json();
+      if (response.ok) {
+        router.push("/admin/login");
+      } else {
+        alert(data.message);
+      }
     } catch (error) {
-      console.error("Logout failed:", error);
+      console.error("Logout error:", error);
+      alert("An error occurred. Please try again.");
     }
   };
 

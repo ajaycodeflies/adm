@@ -26,10 +26,7 @@ export default function QuestionCreatePage() {
     }, 10);
   };
 
-  useEffect(() => {
-    if (!Cookies.get("session_token")) router.push("/admin/login");
-    else fetchLabels();
-  }, [router]);
+  useEffect(() => {fetchLabels()});
 
   const fetchLabels = async () => {
     try {
@@ -136,7 +133,7 @@ export default function QuestionCreatePage() {
                     <i className="bi bi-plus"></i> Add Label
                   </button>
                   <Link href="/admin/questions" className="btn btn-blue btn-sm ml-3">
-                    View Questions <i className="bi bi-arrow-right"></i>
+                    <i className="bi bi-list"></i> View Questions 
                   </Link>
                 </div>
               </div>

@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
 import Image from "next/image";
 import Footer from "../components/Footer";
 
@@ -12,18 +11,12 @@ export default function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
-  useEffect(() => {
-    const authToken = Cookies.get("session_token");
-
-    if (authToken) {
-      router.push("/admin/dashboard");
-    }
-  }, [router]);
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
 
     try {
       const response = await fetch("/api/admin/login", {
@@ -35,8 +28,6 @@ export default function AdminLogin() {
       });
 
       if (response.ok) {
-        const data = await response.json();
-        Cookies.set("session_token", data.token, { expires: 1 });
         router.push("/admin/dashboard");
       } else {
         const errorData = await response.json();
@@ -44,8 +35,17 @@ export default function AdminLogin() {
       }
     } catch (err) {
       setError("Something went wrong. Please try again later.");
+    } finally {
+      setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => setError(""), 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [error]);
 
   return (
     <main className="d-flex flex-column align-items-center justify-content-center vh-100 bg-light">
@@ -86,9 +86,24 @@ export default function AdminLogin() {
               required
             />
           </div>
-          <button type="submit" className="btn btn-blue w-100">
-            Login
-          </button>
+          <button
+              type="submit"
+              className="btn btn-blue w-100 custom-form-btn"
+              disabled={loading}
+            >
+              {loading ? (
+                <>
+                  <span
+                    className="spinner-border spinner-border-sm me-2"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                  Logging in...
+                </>
+              ) : (
+                "Login"
+              )}
+            </button>
         </form>
       </div>
 

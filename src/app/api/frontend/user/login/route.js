@@ -47,8 +47,6 @@ export async function POST(request) {
       session_token: sessionToken,
       expired_at: new Date(Date.now() + 3600000),
     });
-
-    // ✅ Set session cookie
     return new Response(JSON.stringify({ message: "Login successful" }), {
       status: 200,
       headers: {

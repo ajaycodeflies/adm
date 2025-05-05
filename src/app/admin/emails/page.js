@@ -1,17 +1,13 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
 import AdminLayout from "../components/AdminLayout";
 import ShowToast from "../components/ShowToast";
-import Link from "next/link";
 
 export default function Email() {
     const [emails, setEmails] = useState([]);
     const [totalPages, setTotalPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
-    const router = useRouter();
     const [toastMessage, setToastMessage] = useState("");
     const [toastType, setToastType] = useState("");
 
@@ -22,13 +18,6 @@ export default function Email() {
             setToastMessage(message);
         }, 10);
     };
-
-    useEffect(() => {
-        const sessionToken = Cookies.get("session_token");
-        if (!sessionToken) {
-            router.push("/admin/login");
-        }
-    }, [router]);
 
     const fetchEmails = async (page = 1) => {
         try {

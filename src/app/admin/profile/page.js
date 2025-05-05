@@ -1,14 +1,11 @@
 "use client";
 
 import React, { useEffect, useState, useCallback} from "react";
-import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
 import AdminLayout from "../components/AdminLayout";
 import ShowToast from "../components/ShowToast";
 import Image from "next/image";
 
 export default function ProfilePage() {
-    const router = useRouter();
     const [loading, setLoading] = useState(true);
     const [profile, setProfile] = useState({
         firstName: "",
@@ -42,7 +39,7 @@ export default function ProfilePage() {
             }
     
             const data = await response.json();
-    
+            console.log(data);
             if (data.success) {
                 setProfile({
                     firstName: data.data.first_name || "Admin",
@@ -63,14 +60,7 @@ export default function ProfilePage() {
         }
     }, []);
     
-    useEffect(() => {
-        const sessionToken = Cookies.get("session_token");
-        if (!sessionToken) {
-            router.push("/admin/login");
-        } else {
-            fetchProfile();
-        }
-    }, [router, fetchProfile]);
+    useEffect(() => {fetchProfile();}, [fetchProfile]);
     
     const handleProfileUpdate = async (e) => {
         e.preventDefault();

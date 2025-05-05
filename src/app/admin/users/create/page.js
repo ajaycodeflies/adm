@@ -1,14 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
+import React, {useState } from "react";
 import AdminLayout from "../../components/AdminLayout";
 import ShowToast from "../../components/ShowToast";
 import Link from "next/link";
 
 export default function UserCreate() {
-    const router = useRouter();
     const [toastMessage, setToastMessage] = useState("");
     const [toastType, setToastType] = useState("");
 
@@ -19,13 +16,6 @@ export default function UserCreate() {
             setToastMessage(message);
         }, 10);
     };
-
-    useEffect(() => {
-        const sessionToken = Cookies.get("session_token");
-        if (!sessionToken) {
-            router.push("/admin/login");
-        }
-    }, [router]);
 
     const [user, setUser] = useState({
         first_name: "",

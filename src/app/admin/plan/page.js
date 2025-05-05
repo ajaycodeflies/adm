@@ -1,14 +1,11 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
 import AdminLayout from "../components/AdminLayout";
 import ShowToast from "../components/ShowToast";
 import Link from "next/link";
 
 export default function PlanPage() {
-    const router = useRouter();
     const [plans, setPlans] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
@@ -25,14 +22,7 @@ export default function PlanPage() {
         }, 10);
     };
 
-    useEffect(() => {
-        const sessionToken = Cookies.get("session_token");
-        if (!sessionToken) {
-            router.push("/admin/login");
-        } else {
-            fetchPlans();
-        }
-    }, [router]);
+    useEffect(() => {fetchPlans();});
 
     // Function to fetch plans from the API
     const fetchPlans = async () => {

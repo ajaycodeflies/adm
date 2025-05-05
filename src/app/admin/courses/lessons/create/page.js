@@ -1,11 +1,9 @@
 "use client";
 
 import React, { useEffect, useState, useRef } from "react";
-import { useRouter } from "next/navigation";
 import AdminLayout from "../../../components/AdminLayout";
 import ShowToast from "../../../components/ShowToast";
 import Link from "next/link";
-import Cookies from "js-cookie";
 import dynamic from 'next/dynamic';
 const Editor = dynamic(
     () => import('react-draft-wysiwyg').then(mod => mod.Editor),
@@ -14,7 +12,6 @@ const Editor = dynamic(
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 export default function LessonCreate() {
-    const router = useRouter();
     const [course, setCourse] = useState("");
     const [level, setLevel] = useState("");
     const [title, setTitle] = useState("");
@@ -34,14 +31,7 @@ export default function LessonCreate() {
         }, 10);
     };
 
-    useEffect(() => {
-        const sessionToken = Cookies.get("session_token");
-        if (!sessionToken) {
-            router.push("/admin/login");
-        } else {
-            fetchCourses();
-        }
-    }, [router]);
+    useEffect(() => {fetchCourses()});
 
     const fetchCourses = async () => {
         try {

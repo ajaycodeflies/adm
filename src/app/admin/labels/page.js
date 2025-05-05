@@ -1,14 +1,11 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
 import AdminLayout from "../components/AdminLayout";
 import ShowToast from "../components/ShowToast";
 import Link from "next/link";
 
 export default function LabelPage() {
-    const router = useRouter();
     const [labels, setlabels] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
@@ -25,14 +22,7 @@ export default function LabelPage() {
         }, 10);
     };
 
-    useEffect(() => {
-        const sessionToken = Cookies.get("session_token");
-        if (!sessionToken) {
-            router.push("/admin/login");
-        } else {
-            fetchLabels();
-        }
-    }, [router]);
+    useEffect(() => {fetchLabels()});
 
     // Function to fetch labels from the API
     const fetchLabels = async () => {
