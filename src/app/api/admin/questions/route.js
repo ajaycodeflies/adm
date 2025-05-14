@@ -149,12 +149,12 @@ export async function DELETE(req) {
 export async function PUT(req) {
   try {
     const formData = await req.formData();
-    // console.log("Form Data:", Array.from(formData.entries()));
 
     const id = formData.get("questionId");
     const label = formData.get("label");
     const question = formData.get("question");
     const options = [];
+    // const step = formData.get("step");
 
     for (const key of formData.keys()) {
       if (key.startsWith("options")) {
@@ -211,6 +211,7 @@ export async function PUT(req) {
       question,
       image: imagePath,
       options,
+      // step
     };
 
     const updatedQuestion = await updateQuestion(id, questionData);

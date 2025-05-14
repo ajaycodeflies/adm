@@ -75,6 +75,7 @@ export default function QuestionsPage() {
             formData.append("questionId", editQuestion._id);
             formData.append("label", editQuestion.label);
             formData.append("question", editQuestion.question);
+            formData.append("step", Number(editQuestion.step));
 
             editQuestion.options.forEach((option, index) => {
                 formData.append(`options[${index}][text]`, option.text);
@@ -84,7 +85,7 @@ export default function QuestionsPage() {
             if (editQuestion.image) {
                 formData.append("image", editQuestion.image);
             }
-
+            
             const response = await fetch(`/api/admin/questions/`, {
                 method: "PUT",
                 body: formData,
@@ -372,6 +373,14 @@ export default function QuestionsPage() {
                                         />
                                     )}
                                 </div>
+                                <label className="form-label">Positions</label>
+                                <input
+                                    type="number"
+                                    className="form-control"
+                                    value={editQuestion.step}
+                                    onChange={(e) => setEditQuestion({ ...editQuestion, step: e.target.value })}
+                                    disabled
+                                />
                             </div>
 
                             {/* Modal Footer */}

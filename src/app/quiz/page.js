@@ -530,6 +530,7 @@ function QuizContent() {
             />
           </div>
         </div>
+        <div className="d-flex w-100 align-items-center justify-content-center text-center position-relative my-pd"><h4 className="fw-bold">{currentQuestion?.labelDetails.label}</h4></div>
         <div className="d-flex w-100 align-items-center justify-content-center text-center position-relative my-pd">
           <div className="w-half">
             <div className="question-image">

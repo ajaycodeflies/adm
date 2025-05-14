@@ -33,12 +33,15 @@ export const addQuestion = async ({ label, question, options, image }) => {
       return { success: false, message: "At least one valid option is required." };
     }
     const labelId = new ObjectId(label);
+    const questionCount = await questionCollection.countDocuments({ label: labelId });
+
 
     const newQuestion = {
       label: labelId,
       image,
       question,
       options: processedOptions,
+      step: questionCount + 1,
       createdAt: new Date(),
     };
     
@@ -165,6 +168,7 @@ export const updateQuestion = async (id, questionData) => {
     }
 
     const { label, question, image, options } = questionData;
+    // const { label, question, image, options, step } = questionData;
 
     if (!question || !options || options.length === 0) {
       return {
@@ -194,6 +198,7 @@ export const updateQuestion = async (id, questionData) => {
       question,
       image,
       options: processedOptions,
+      // step,
       updatedAt: new Date(),
     };
 
