@@ -20,6 +20,7 @@ const QuizContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const utmGender = searchParams.get("utm_gender");
+  const age = searchParams.get("age");
   const step = searchParams.get("step");
 
   const handleClick = (params) => {
@@ -60,7 +61,7 @@ const QuizContent = () => {
             <div className="button-continue">
               <button
                 type="button"
-                onClick={() => router.push(`/quiz?utm_gender=${utmGender}&step=1`)}
+                onClick={() => router.push(`/quiz?utm_gender=${utmGender}&age=${age}&step=1`)}
                 className="head-btn-alt btn-alt mb-2 text-uppercase"
               >
                 Continue <i className="bi bi-arrow-right"></i>

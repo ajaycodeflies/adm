@@ -373,14 +373,14 @@ export default function QuestionsPage() {
                                         />
                                     )}
                                 </div>
-                                <label className="form-label">Positions</label>
+                                {/* <label className="form-label">Positions</label>
                                 <input
                                     type="number"
                                     className="form-control"
                                     value={editQuestion.step}
                                     onChange={(e) => setEditQuestion({ ...editQuestion, step: e.target.value })}
                                     disabled
-                                />
+                                /> */}
                             </div>
 
                             {/* Modal Footer */}

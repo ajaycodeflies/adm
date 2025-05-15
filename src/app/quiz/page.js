@@ -62,30 +62,6 @@ function QuizContent() {
     fetchQuestionsAndLabels();
   }, []);
 
-  const handleBackClick = () => {
-    if (showResults) {
-      setShowResults(false);
-  
-      const params = new URLSearchParams(router.query);
-      params.set("step", currentQuestionIndex + 1);
-      router.push(`?${params.toString()}`, undefined, { shallow: true });
-    } else if (currentQuestionIndex > 0) {
-      const newIndex = currentQuestionIndex - 1;
-      setCurrentQuestionIndex(newIndex);
-  
-      const params = new URLSearchParams(router.query);
-      params.set("step", newIndex + 1);
-      router.push(`?${params.toString()}`, undefined, { shallow: true });
-    } else {
-      const params = new URLSearchParams(router.query);
-      params.set("step", "1");
-      router.push(`?${params.toString()}`, undefined, { shallow: true });
-  
-      setCurrentQuestionIndex(0);
-    }
-  };
-  
-
   const handleOptionClick = (option, index) => {
     setSelectedOption(index);
   };
@@ -101,23 +77,62 @@ function QuizContent() {
 
       const currentLabel = labels[currentLabelIndex];
       const currentLabelQuestions = questions.filter(
-        (question) => question.label === currentLabel._id
+        (q) => q.label === currentLabel._id
       );
+      const labelQuestionIndices = questions
+        .map((q, i) => ({ ...q, index: i }))
+        .filter((q) => q.label === currentLabel._id)
+        .map((q) => q.index);
 
       const isLastQuestionInLabel =
-        currentQuestionIndex === currentLabelQuestions.length - 1;
+        currentQuestionIndex === labelQuestionIndices[labelQuestionIndices.length - 1];
+
       if (isLastQuestionInLabel) {
         setShowResults(true);
       } else {
-        // setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
         const nextIndex = currentQuestionIndex + 1;
         setCurrentQuestionIndex(nextIndex);
-
         const params = new URLSearchParams(searchParams.toString());
         params.set('step', nextIndex + 1);
         router.push(`?${params.toString()}`);
       }
       setSelectedOption(null);
+    }
+  };
+
+  const handleContinueClick = () => {
+    const nextLabelIndex = currentLabelIndex + 1;
+    if (nextLabelIndex < labels.length) {
+      const nextLabelId = labels[nextLabelIndex]._id;
+
+      // Find the index of the first question of the next label
+      const nextQuestionIndex = questions.findIndex(q => q.label === nextLabelId);
+
+      setCurrentLabelIndex(nextLabelIndex);
+      setCurrentQuestionIndex(nextQuestionIndex);
+      setShowResults(false);
+
+      const params = new URLSearchParams(searchParams.toString());
+      params.set('step', nextQuestionIndex + 1);
+      router.push(`?${params.toString()}`);
+    } else {
+      setShowResults(false);
+      setShowEmailSection(true);
+    }
+  };
+
+  const handleBackClick = () => {
+    if (showResults) {
+      setShowResults(false);
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("step", currentQuestionIndex + 1);
+      router.push(`?${params.toString()}`, undefined, { shallow: true });
+    } else if (currentQuestionIndex > 0) {
+      const newIndex = currentQuestionIndex - 1;
+      setCurrentQuestionIndex(newIndex);
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("step", newIndex + 1);
+      router.push(`?${params.toString()}`, undefined, { shallow: true });
     }
   };
 
@@ -156,18 +171,6 @@ function QuizContent() {
     } catch (error) {
       console.error("Error saving email:", error);
       setEmailError("Internal Server Error occurred while saving your email.");
-    }
-  };
-
-  const handleContinueClick = () => {
-    const nextLabelIndex = currentLabelIndex + 1;
-    if (nextLabelIndex < labels.length) {
-      setCurrentLabelIndex(nextLabelIndex);
-      setCurrentQuestionIndex(0);
-      setShowResults(false);
-    } else {
-      setShowResults(false);
-      setShowEmailSection(true);
     }
   };
 
