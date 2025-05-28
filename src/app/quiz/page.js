@@ -157,7 +157,7 @@ function QuizContent() {
       if (response.ok) {
         setEmailSuccess("Well done!");
         e.target.reset();
-        router.push("/pathway");
+        // router.push("/pathway");
       } else {
         setEmailError("Hmm... something's wrong, try to enter another email");
       }
@@ -402,7 +402,7 @@ function QuizContent() {
   if (showEmailSection) {
     return (
       <div className="box-container">
-        <div className="d-flex flex-column h-vh">
+        <div className="d-flex flex-column position-relative h-100">
           <Header />
           <section className="form-section">
             <form onSubmit={emailSaved}>
@@ -452,7 +452,7 @@ function QuizContent() {
                 </span>
               )}
               <br />
-              <small>
+              <p className="quiz-p">
                 We respect your privacy and are committed to protecting your
                 personal data. Your data will be processed in accordance with
                 our{" "}
@@ -463,14 +463,12 @@ function QuizContent() {
                 >
                   Privacy Policy.
                 </a>
-              </small>
-              <button
-                type="submit"
-                className="btn btn-blue main-btn-con"
-                style={{ width: "100%", padding: ".75rem" }}
-              >
+              </p>
+              <div className="button-continue">
+              <button type="submit" className="head-btn-alt btn-alt mb-2 text-uppercase">
                 Continue
               </button>
+              </div>
             </form>
           </section>
         </div>
@@ -491,9 +489,9 @@ function QuizContent() {
 
   if (!currentQuestion) {
     return (
-      <div className="box-container">
+      <div className="container h-100vh">
         <div className="text-center">
-          <p>Your Previous Session Completed </p>
+          <p className="prev-page">Your Previous Session Completed </p>
         </div>
         <button
             type="button"

@@ -3992,3 +3992,32 @@ body.darkmode-active .chart-note {
 .checkout-top-header {
   padding: 1.5rem;
 }
+
+.quiz-p {
+  font-size: 14px;
+    line-height: 22px;
+}
+.chat-gpt-quick-query-container {
+  display: none !important;
+}
+.ant-popover{
+  display: none !important;
+}
+.ant-popover-content {
+  display: none !important;
+}
+.h-100vh {
+  height: 100vh;
+    justify-content: center;
+    align-items: center;
+    display: flex
+;
+    flex-direction: column;
+}
+.prev-page {
+  font-size: 30px;
+}
+.bottom-ftr {
+  position: absolute;
+  bottom: 20px;
+}

@@ -78,7 +78,7 @@ const QuizContent = () => {
       <div className="box-container">
         <div className="d-flex flex-column align-items-center text-center">
           <Header />
-          <section className="mt-5">
+          <section className="container mt-5">
             <h2 className="fw-bold text-uppercase">AI-Driven income growth challenge</h2>
             <p className="text-uppercase">Select Your <strong>age</strong></p>
             <p className="fw-bold">1-Minute Quiz</p>
@@ -119,7 +119,7 @@ const QuizContent = () => {
     <div className="box-container">
       <div className="d-flex flex-column align-items-center text-center">
         <Header />
-        <section className="mt-5">
+        <section className="mt-5 container">
           <h2 className="fw-bold text-uppercase">AI-Driven income growth challenge</h2>
           <p className="text-uppercase">Select Your <strong>Gender</strong></p>
           <p className="fw-bold">1-Minute Quiz</p>
@@ -138,7 +138,9 @@ const QuizContent = () => {
             ))}
           </div>
         </section>
+        <div className="bottom-ftr">
         <Footer />
+        </div>
       </div>
     </div>
   );

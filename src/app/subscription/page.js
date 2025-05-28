@@ -13,13 +13,13 @@ const Subscription = () => {
                         <h2>Subscription Terms</h2>
                         <p>
                             Please read these Subscription Terms thoroughly and carefully. The purpose of these Subscription Terms is to establish the terms and conditions under which you obtain access to the investment learning materials. Should you
-                            have any questions, don’t hesitate to contact us through the
-                            <a href="https://www.google.com/url?q=https://ADM Digital.freshdesk.com/en/support/home&amp;sa=D&amp;source=editors&amp;ust=1733470477589067&amp;usg=AOvVaw17AGAEAVsQUsYHeKLmJAF1">Support Center</a>
+                            have any questions, don’t hesitate to contact us through the 
+                            <a href="https://www.google.com/url?q=https://ADM Digital.freshdesk.com/en/support/home&amp;sa=D&amp;source=editors&amp;ust=1733470477589067&amp;usg=AOvVaw17AGAEAVsQUsYHeKLmJAF1"> Support Center</a>
                             .
                         </p>
                         <p>
-                            These Subscription Terms are incorporated by reference in the
-                            <a href="https://www.google.com/url?q=https://legal.ADM Digital.io/terms&amp;sa=D&amp;source=editors&amp;ust=1733470477589596&amp;usg=AOvVaw1Tv_qmmRxpno_Dcs_pLmhj">Terms and Conditions</a>
+                            These Subscription Terms are incorporated by reference in the 
+                            <a href="https://www.google.com/url?q=https://legal.ADM Digital.io/terms&amp;sa=D&amp;source=editors&amp;ust=1733470477589596&amp;usg=AOvVaw1Tv_qmmRxpno_Dcs_pLmhj"> Terms and Conditions</a>
                             &nbsp;of ADM Digital™ (“ADM Digital“, or “us“), and is part of the agreement between you, user of the website www.ADM Digital.io (“Website”) or the app of ADM Digital at AppStore (“App”), and ADM Digital.
                         </p>
                         <h3>1. Trial</h3>
