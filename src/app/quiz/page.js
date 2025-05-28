@@ -616,6 +616,7 @@ function QuizContent() {
             type="button"
             className="head-btn-alt btn-alt mb-2 text-uppercase prg-btn"
             onClick={handleNextClick}
+            disabled={selectedOption === null}
           >
             Next Step <i className="bi bi-arrow-right"></i>
           </button>

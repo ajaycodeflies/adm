@@ -4023,3 +4023,7 @@ body.darkmode-active .chart-note {
 .footer-main{
   margin-top: 4vw;
 }
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
