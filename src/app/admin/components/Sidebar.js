@@ -86,11 +86,11 @@ const toggleCoursesDropdown = () => setIsCoursesOpen(!isCoursesOpen);
                     <li className="nav-item">
                       {/* <div className="navbar-heading">Page Documentation</div> */}
                     </li>
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                       <Link className="nav-link " href="/admin/users">
                         <Image src="/icons/users.svg" alt="users" className="nav-icon me-2" width={20} height={20} /> Users
                       </Link>
-                    </li>
+                    </li> */}
                     <li className="nav-item">
                       <Link
                         className="nav-link"
@@ -105,11 +105,11 @@ const toggleCoursesDropdown = () => setIsCoursesOpen(!isCoursesOpen);
                         Questions
                       </Link>
                       <ul className={`nav flex-column list-group collapse ${isQuestionsOpen ? 'show' : ''}`} id="navQuestions">
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                           <Link className="nav-link" href="/admin/questions/create">
                             - Add Question
                           </Link>
-                        </li>
+                        </li> */}
                         <li className="nav-item">
                           <Link className="nav-link" href="/admin/questions">
                             - View Questions
@@ -166,7 +166,7 @@ const toggleCoursesDropdown = () => setIsCoursesOpen(!isCoursesOpen);
                       </ul>
                     </li>
 
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                       <Link className="nav-link " href="">
                         <Image src="/icons/file-text.svg" alt="pages" className="nav-icon me-2" width={20} height={20} />Pages
                       </Link>
@@ -176,7 +176,7 @@ const toggleCoursesDropdown = () => setIsCoursesOpen(!isCoursesOpen);
                       <Link className="nav-link " href="">
                         <Image src="/icons/settings.svg" alt="settings" className="nav-icon me-2" width={20} height={20} />Settings
                       </Link>
-                    </li>
+                    </li> */}
                     <li className="nav-item">
                       <Link className="nav-link " href="/admin/emails">
                         <Image src="/icons/mail.svg" alt="email" className="nav-icon me-2" width={20} height={20} />Emails

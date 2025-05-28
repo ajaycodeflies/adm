@@ -171,7 +171,7 @@ export default function QuestionsPage() {
                     <div className="col-lg-12 col-md-12 col-12">
                         <div className="border-bottom pb-4 mb-4 d-flex justify-content-between align-items-center">
                             <h3 className="mb-0 fw-bold">Assessments Questions List</h3>
-                            <Link href="/admin/questions/create" className="btn btn-sm btn-blue"><i className="bi bi-plus-lg"></i> Add More</Link>
+                            {/* <Link href="/admin/questions/create" className="btn btn-sm btn-blue"><i className="bi bi-plus-lg"></i> Add More</Link> */}
                         </div>
                     </div>
                 </div>
@@ -278,11 +278,12 @@ export default function QuestionsPage() {
                                         onChange={(e) =>
                                             setEditQuestion({ ...editQuestion, label: e.target.value })
                                         }
-                                    >
+                                        disabled
+                                        >
                                         <option value="">Select Label</option>
                                         {labels.map((label) => (
                                             <option key={label._id} value={label._id}>
-                                                {label.label}
+                                            {label.label}
                                             </option>
                                         ))}
                                     </select>

@@ -134,9 +134,9 @@ export default function LabelPage() {
                     <div className="col-lg-12 col-md-12 col-12">
                         <div className="border-bottom pb-4 mb-4 d-flex justify-content-between align-items-center">
                             <h3 className="mb-0 fw-bold">All Question labels</h3>
-                            <Link href="/admin/questions/create" className="btn btn-sm btn-blue">
+                            {/* <Link href="/admin/questions/create" className="btn btn-sm btn-blue">
                                 <i className="bi bi-plus-lg"></i> Add label
-                            </Link>
+                            </Link> */}
                         </div>
                     </div>
                 </div>

@@ -5,6 +5,7 @@ import { Chart as ChartJS, LineElement, PointElement, CategoryScale, LinearScale
 import Header from "../components/Header";
 import "../globals.css";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 
 ChartJS.register(LineElement, PointElement, CategoryScale, LinearScale, Tooltip);
@@ -87,12 +88,15 @@ function Pathway() {
                         <div className="cta-text mb-4">
                             <h3 className="fw-bold">Your 4-week AI-Driven Income Growth Challenge is ready!</h3>
                         </div>
-                        <button
+                        {/* <button
                             type="button"
                             onClick={() => handleQuizClick("continue")}
                             className="head-btn-alt btn-alt mb-2 text-uppercase" style={{ fontSize : "16px"}}>
                             Continue 
-                        </button>
+                        </button> */}
+                        <Link href="https://adm-digital.learnworlds.com/course/making-the-most-out-of-chatgpt" className="btn btn-blue main-btn-con">
+                            Continue
+                        </Link>
                     </div>
                 </section>
             </div>

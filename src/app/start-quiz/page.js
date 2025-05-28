@@ -21,14 +21,14 @@ const QuizContent = () => {
   const searchParams = useSearchParams();
   const utmGender = searchParams.get("utm_gender");
   const age = searchParams.get("age");
-  const step = searchParams.get("step");
+  // const step = searchParams.get("step");
 
   const handleClick = (params) => {
     const query = new URLSearchParams(params).toString();
     router.push(`/start-quiz?${query}`);
   };
 
-  if (step === "1") {
+  if (utmGender && age) {
     return (
       <div className="box-container">
         <div className="d-flex flex-column align-items-center text-center h-100">
@@ -61,7 +61,7 @@ const QuizContent = () => {
             <div className="button-continue">
               <button
                 type="button"
-                onClick={() => router.push(`/quiz?utm_gender=${utmGender}&age=${age}&step=1`)}
+                onClick={() => router.push(`/quiz?utm_gender=${utmGender}&age=${age}`)}
                 className="head-btn-alt btn-alt mb-2 text-uppercase"
               >
                 Continue <i className="bi bi-arrow-right"></i>
@@ -85,7 +85,7 @@ const QuizContent = () => {
             <div className="row justify-content-center mt-4">
               {ageGroups.map(({ label, value }) => (
                 <div key={value} className="col-6 mb-3">
-                  <div className="card" onClick={() => handleClick({ utm_gender: utmGender, age: value, step: "1" })}>
+                  <div className="card" onClick={() => handleClick({ utm_gender: utmGender, age: value})}>
                     <Image
                       src={`/images/${value}-${utmGender[0]}.webp`}
                       width={100}

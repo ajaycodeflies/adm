@@ -58,9 +58,9 @@ export default function Home() {
               </Link>
             </div>
             <div className="group-right">
-              <a href="/user/login" className="head-btn">
+              {/* <a href="/user/login" className="head-btn">
                 Login
-              </a>
+              </a> */}
               <a href="/start-quiz" className="head-btn-alt">
                 Start Now
               </a>
@@ -81,7 +81,7 @@ export default function Home() {
                 Start Now <i className="bi bi-chevron-right"></i>
               </a>
               <div className="users-joined">
-                <div className="img-avatar-row">
+                {/* <div className="img-avatar-row">
                   {avatars.map((avatar, index) => (
                     <Image
                       key={index}
@@ -92,10 +92,10 @@ export default function Home() {
                       alt={`User ${index + 1}`}
                     />
                   ))}
-                </div>
-                <p className="users-joined">
+                </div> */}
+                {/* <p className="users-joined">
                   More than {joinedCount.toLocaleString()}+ people joined
-                </p>
+                </p> */}
               </div>
             </div>
             {/* Right Content */}

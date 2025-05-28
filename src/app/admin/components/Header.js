@@ -50,15 +50,15 @@ export default function Header({ onToggleSidebar }) {
               >
                 <i className="bi bi-list"></i>
               </button>
-              <div className="ms-lg-3 d-none d-md-none d-lg-block">
+              {/* <div className="ms-lg-3 d-none d-md-none d-lg-block">
                 <form className="d-flex align-items-center">
                   <input placeholder="Search" type="search" className="form-control" />
                 </form>
-              </div>
+              </div> */}
             </div>
             <div className="navbar-right-wrap ms-2 d-flex nav-top-wrap navbar-nav">
               <ul className="navbar-right-wrap ms-auto d-flex nav-top-wrap navbar-nav gap-2">
-                <li className="stopevent dropdown">
+                {/* <li className="stopevent dropdown">
                   <button
                     className="btn btn-light btn-icon rounded-circle indicator indicator-primary text-muted"
                     id="dropdownNotification"
@@ -149,7 +149,7 @@ export default function Header({ onToggleSidebar }) {
                       </div>
                     </div>
                   </div>
-                </li>
+                </li> */}
                 <li className="ms-2 dropdown">
                   <button className="btn btn-light btn-icon rounded-circle indicator indicator-primary text-muted" id="dropdownUser" aria-expanded="false" onClick={handleProfileButtonClick}>
                     <Image src="/icons/user.svg" alt="profile" className="fe-icon" width={24} height={24} />

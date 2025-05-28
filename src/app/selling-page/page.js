@@ -57,7 +57,7 @@ function Selling() {
               alt="User 1"
             />
           </Link>
-          <div className="counter">
+          {/* <div className="counter">
             <p className="counter-label">Discount expires in</p>
             <div className="counter-time">
               <div className="time-box">
@@ -74,7 +74,7 @@ function Selling() {
                 <span className="time-label">sec</span>
               </div>
             </div>
-          </div>
+          </div> */}
           <Link href="#plans" className="pulse-btn">
             Get My Plan
           </Link>
@@ -83,12 +83,12 @@ function Selling() {
           <SellingFirst />
           <p>This is not a guarantee or promise of results.</p>
           <Program />
-          <PlansPoints />
+          {/* <PlansPoints />
           <Plans />
           <PaymentNotified />
           <CourseSlider />
           <PointerBlock />
-          <Testmonial />
+          <Testmonial /> */}
         </div>
         {/* Dark Mode Toggle Button */}
         <button

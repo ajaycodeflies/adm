@@ -1,3 +1,4 @@
+
 "use client";
 import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -6,6 +7,7 @@ import Loader from "../components/Loader";
 import "../globals.css";
 import Image from "next/image";
 import Link from "next/link";
+import e from "cors";
 
 
 function QuizContent() {
@@ -62,6 +64,41 @@ function QuizContent() {
     fetchQuestionsAndLabels();
   }, []);
 
+  const handleBackClick = () => {
+    const currentLabel = labels[currentLabelIndex];
+    const currentLabelQuestions = questions.filter(
+      (question) => question.label === currentLabel?._id
+    );
+    const currentQuestion = currentLabelQuestions[currentQuestionIndex];
+
+    if (showResults) {
+      setShowResults(false);
+      const params = new URLSearchParams(searchParams.toString());
+      router.push(`?${params.toString()}`);
+      return;
+    }
+
+    if (currentQuestion && currentQuestion.step > 1) {
+      const prevStep = currentQuestion.step - 1;
+      const prevIndex = currentLabelQuestions.findIndex(q => q.step === prevStep);
+      if (prevIndex !== -1) {
+        setCurrentQuestionIndex(prevIndex);
+        const params = new URLSearchParams(searchParams.toString());
+        router.push(`?${params.toString()}`);
+        return;
+      }else {
+        setCurrentQuestionIndex(currentQuestionIndex - 1);
+        const params = new URLSearchParams(searchParams.toString());
+        router.push(`?${params.toString()}`);
+        return;
+      }
+    }
+    setCurrentQuestionIndex(0);
+    const params = new URLSearchParams(searchParams.toString());
+    router.push(`?${params.toString()}`);
+  };
+
+
   const handleOptionClick = (option, index) => {
     setSelectedOption(index);
   };
@@ -77,62 +114,18 @@ function QuizContent() {
 
       const currentLabel = labels[currentLabelIndex];
       const currentLabelQuestions = questions.filter(
-        (q) => q.label === currentLabel._id
+        (question) => question.label === currentLabel._id
       );
-      const labelQuestionIndices = questions
-        .map((q, i) => ({ ...q, index: i }))
-        .filter((q) => q.label === currentLabel._id)
-        .map((q) => q.index);
 
       const isLastQuestionInLabel =
-        currentQuestionIndex === labelQuestionIndices[labelQuestionIndices.length - 1];
-
+        currentQuestionIndex === currentLabelQuestions.length - 1;
       if (isLastQuestionInLabel) {
         setShowResults(true);
       } else {
         const nextIndex = currentQuestionIndex + 1;
         setCurrentQuestionIndex(nextIndex);
-        const params = new URLSearchParams(searchParams.toString());
-        params.set('step', nextIndex + 1);
-        router.push(`?${params.toString()}`);
       }
       setSelectedOption(null);
-    }
-  };
-
-  const handleContinueClick = () => {
-    const nextLabelIndex = currentLabelIndex + 1;
-    if (nextLabelIndex < labels.length) {
-      const nextLabelId = labels[nextLabelIndex]._id;
-
-      // Find the index of the first question of the next label
-      const nextQuestionIndex = questions.findIndex(q => q.label === nextLabelId);
-
-      setCurrentLabelIndex(nextLabelIndex);
-      setCurrentQuestionIndex(nextQuestionIndex);
-      setShowResults(false);
-
-      const params = new URLSearchParams(searchParams.toString());
-      params.set('step', nextQuestionIndex + 1);
-      router.push(`?${params.toString()}`);
-    } else {
-      setShowResults(false);
-      setShowEmailSection(true);
-    }
-  };
-
-  const handleBackClick = () => {
-    if (showResults) {
-      setShowResults(false);
-      const params = new URLSearchParams(searchParams.toString());
-      params.set("step", currentQuestionIndex + 1);
-      router.push(`?${params.toString()}`, undefined, { shallow: true });
-    } else if (currentQuestionIndex > 0) {
-      const newIndex = currentQuestionIndex - 1;
-      setCurrentQuestionIndex(newIndex);
-      const params = new URLSearchParams(searchParams.toString());
-      params.set("step", newIndex + 1);
-      router.push(`?${params.toString()}`, undefined, { shallow: true });
     }
   };
 
@@ -168,9 +161,23 @@ function QuizContent() {
       } else {
         setEmailError("Hmm... something's wrong, try to enter another email");
       }
+      window.location.href = "https://adm-digital.learnworlds.com/course/making-the-most-out-of-chatgpt";
     } catch (error) {
       console.error("Error saving email:", error);
       setEmailError("Internal Server Error occurred while saving your email.");
+      window.location.href = "https://adm-digital.learnworlds.com/course/making-the-most-out-of-chatgpt";
+    }
+  };
+
+  const handleContinueClick = () => {
+    const nextLabelIndex = currentLabelIndex + 1;
+    if (nextLabelIndex < labels.length) {
+      setCurrentLabelIndex(nextLabelIndex);
+      setCurrentQuestionIndex(0);
+      setShowResults(false);
+    } else {
+      setShowResults(false);
+      setShowEmailSection(true);
     }
   };
 
@@ -263,11 +270,11 @@ function QuizContent() {
                           Subscription Terms
                         </Link>
                       </li>
-                      <li className="nav-item">
+                      {/* <li className="nav-item">
                         <Link className="nav-link" href="/support">
                           Support Center
                         </Link>
-                      </li>
+                      </li> */}
                     </ul>
                   </div>
                 </nav>
@@ -485,7 +492,24 @@ function QuizContent() {
   if (!currentQuestion) {
     return (
       <div className="box-container">
-        <p>No questions available for this label.</p>
+        <div className="text-center">
+          <p>Your Previous Session Completed </p>
+        </div>
+        <button
+            type="button"
+            className="head-btn-alt btn-alt mb-2 text-uppercase prg-btn"
+            onClick={() => router.push("/")}
+          >
+            <i className="bi bi-arrow-left"></i> Go to Home
+          </button>
+          
+        <button
+            type="button"
+            className="head-btn-alt btn-alt mb-2 text-uppercase prg-btn"
+            onClick={handleBackClick}
+          >
+             Next Step Quiz <i className="bi bi-arrow-right"></i>
+          </button>
       </div>
     );
   }
@@ -512,7 +536,7 @@ function QuizContent() {
               />
             </Link>
             <h6 className="fw-bold count">
-              <span className="text-primary">{currentQuestionIndex + 1} </span>{" "}
+              <span className="text-primary">{currentQuestion.step} </span>{" "}
               / {questions.length}
             </h6>
           </div>
@@ -524,16 +548,15 @@ function QuizContent() {
               className="progress-bar"
               role="progressbar"
               style={{
-                width: `${((answers.length + 1) / questions.length) * 100}%`,
+                width: `${(currentQuestion.step / questions.length) * 100}%`,
                 transition: "width 0.3s ease-in-out",
               }}
-              aria-valuenow={answers.length + 1}
+              aria-valuenow={currentQuestion.step}
               aria-valuemin="0"
               aria-valuemax={questions.length}
             />
           </div>
         </div>
-        <div className="d-flex w-100 align-items-center justify-content-center text-center position-relative my-pd"><h4 className="fw-bold">{currentQuestion?.labelDetails.label}</h4></div>
         <div className="d-flex w-100 align-items-center justify-content-center text-center position-relative my-pd">
           <div className="w-half">
             <div className="question-image">

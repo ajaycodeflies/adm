@@ -38,10 +38,10 @@ export default function AdminDashboard() {
             <h3 className="mb-0 text-white">Dashboard</h3>
           </div>
           {[
-            { title: "Lessons", count: dashboardCounts.lessons, icon: "bi-book" },
-            { title: "Users", count: dashboardCounts.users, icon: "bi-people" },
+            // { title: "Lessons", count: dashboardCounts.lessons, icon: "bi-book" },
+            // { title: "Users", count: dashboardCounts.users, icon: "bi-people" },
             { title: "Assessment Questions", count: dashboardCounts.questions, icon: "bi-question-circle" },
-            { title: "Pages", count: dashboardCounts.pages, icon: "bi-file-earmark" },
+            // { title: "Pages", count: dashboardCounts.pages, icon: "bi-file-earmark" },
           ].map((item, idx) => (
             <div key={idx} className="mt-6 col-xl-3 col-lg-6 col-md-12 col-12">
               <div className="card">
