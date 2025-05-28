@@ -965,7 +965,7 @@ img.img-banner {
 .button-continue {
   width: 100%;
   position: absolute;
-  bottom: 0;
+  bottom: 15px;
   left: 0;
   padding-inline: 15px;
   backdrop-filter: blur(5px);
@@ -4018,6 +4018,8 @@ body.darkmode-active .chart-note {
   font-size: 30px;
 }
 .bottom-ftr {
-  position: absolute;
-  bottom: 20px;
+  margin-top: 4vw;
+}
+.footer-main{
+  margin-top: 4vw;
 }
