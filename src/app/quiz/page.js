@@ -36,6 +36,7 @@ function QuizContent() {
       setCurrentQuestionIndex(stepFromUrl - 1);
     }
   }, [searchParams]);
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
   useEffect(() => {
     const fetchQuestionsAndLabels = async () => {
@@ -560,7 +561,7 @@ function QuizContent() {
             <div className="question-image">
               <Image
                 className="img-fluid mt-4"
-                src={currentQuestion?.image || "/images/chatbot-img.jpg"}
+                src={`${baseUrl}${currentQuestion.image}` || "/images/chatbot-img.jpg"}
                 width={400}
                 height={400}
                 alt="Question Image"

@@ -16,6 +16,8 @@ export default function QuestionsPage() {
     const [modalVisible, setModalVisible] = useState(false);
     const [labels, setLabels] = useState([]);
 
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
     const showToast = (message, type = "error") => {
         setToastMessage("");
         setToastType(type);
@@ -219,7 +221,7 @@ export default function QuestionsPage() {
                                                 <td className="align-middle">
                                                     {question.image && (
                                                         <Image
-                                                            src={question.image}
+                                                            src={`${baseUrl}${question.image}`}
                                                             alt="Question Image"
                                                             width={80}
                                                             height={80}
@@ -363,9 +365,9 @@ export default function QuestionsPage() {
                                     {editQuestion.image && (
                                         <Image
                                             src={
-                                                typeof editQuestion.image === 'string'
-                                                    ? editQuestion.image
-                                                    : URL.createObjectURL(editQuestion.image)
+                                            typeof editQuestion.image === 'string'
+                                                ? `${baseUrl}${editQuestion.image}`
+                                                : URL.createObjectURL(editQuestion.image)
                                             }
                                             alt="Question Image"
                                             width={80}

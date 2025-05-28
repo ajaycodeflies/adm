@@ -146,6 +146,83 @@ export async function DELETE(req) {
   }
 }
 
+// export async function PUT(req) {
+//   try {
+//     const formData = await req.formData();
+
+//     const id = formData.get("questionId");
+//     const label = formData.get("label");
+//     const question = formData.get("question");
+//     const options = [];
+//     // const step = formData.get("step");
+
+//     for (const key of formData.keys()) {
+//       if (key.startsWith("options")) {
+//         const [_, index, field] = key.match(/options\[(\d+)\]\[(.+)\]/);
+//         if (!options[index]) options[index] = {};
+//         options[index][field] = formData.get(key);
+//       }
+//     }
+
+//     if (!id || !ObjectId.isValid(id)) {
+//       console.error("Invalid question ID.");
+//       return NextResponse.json({ error: "Invalid question ID." }, { status: 400 });
+//     }
+
+//     if (!question || !options.length || options.some((option) => !option.text || !option.value)) {
+//       return NextResponse.json(
+//         { success: false, message: "Invalid data format" },
+//         { status: 400 }
+//       );
+//     }
+
+//     const existingQuestion = await getQuestionById(id);
+
+//     if (!existingQuestion) {
+//       return NextResponse.json(
+//         { success: false, message: "Question not found" },
+//         { status: 404 }
+//       );
+//     }
+
+//     let image = formData.get("image");
+//     let imagePath;
+
+//     if (image instanceof File) {
+//       if (existingQuestion.image) {
+//         const oldImagePath = path.join(process.cwd(), "public", existingQuestion.image);
+//         if (fs.existsSync(oldImagePath)) {
+//           fs.unlinkSync(oldImagePath);
+//         }
+//       }
+
+//       const imageBuffer = Buffer.from(await image.arrayBuffer());
+//       const imageName = `${uuidv4()}_${image.name}`;
+//       imagePath = `/uploads/${imageName}`;
+//       const savePath = path.join(process.cwd(), "public/uploads", imageName);
+
+//       fs.writeFileSync(savePath, imageBuffer);
+//     } else {
+//       imagePath = existingQuestion.image;
+//     }
+
+//     const questionData = {
+//       label,
+//       question,
+//       image: imagePath,
+//       options,
+//       // step
+//     };
+
+//     const updatedQuestion = await updateQuestion(id, questionData);
+    
+//     return NextResponse.json(updatedQuestion, { status: 200 });
+//   } catch (error) {
+//     console.error("Error updating question:", error);
+//     return NextResponse.json({ error: "Failed to update question." }, { status: 500 });
+//   }
+// }
+
 export async function PUT(req) {
   try {
     const formData = await req.formData();
@@ -153,9 +230,12 @@ export async function PUT(req) {
     const id = formData.get("questionId");
     const label = formData.get("label");
     const question = formData.get("question");
-    const options = [];
-    // const step = formData.get("step");
 
+    console.log("Updating Question ID:", id);
+    console.log("Label:", label);
+    console.log("Question:", question);
+
+    const options = [];
     for (const key of formData.keys()) {
       if (key.startsWith("options")) {
         const [_, index, field] = key.match(/options\[(\d+)\]\[(.+)\]/);
@@ -163,62 +243,46 @@ export async function PUT(req) {
         options[index][field] = formData.get(key);
       }
     }
+    console.log("Options:", options);
 
     if (!id || !ObjectId.isValid(id)) {
-      console.error("Invalid question ID.");
+      console.error("Invalid ID:", id);
       return NextResponse.json({ error: "Invalid question ID." }, { status: 400 });
     }
 
-    if (!question || !options.length || options.some((option) => !option.text || !option.value)) {
-      return NextResponse.json(
-        { success: false, message: "Invalid data format" },
-        { status: 400 }
-      );
-    }
-
     const existingQuestion = await getQuestionById(id);
-
     if (!existingQuestion) {
-      return NextResponse.json(
-        { success: false, message: "Question not found" },
-        { status: 404 }
-      );
+      console.error("Question not found for ID:", id);
+      return NextResponse.json({ error: "Question not found." }, { status: 404 });
     }
 
     let image = formData.get("image");
     let imagePath;
+    console.log("Image Type:", typeof image, image?.name);
 
-    if (image instanceof File) {
-      if (existingQuestion.image) {
-        const oldImagePath = path.join(process.cwd(), "public", existingQuestion.image);
-        if (fs.existsSync(oldImagePath)) {
-          fs.unlinkSync(oldImagePath);
-        }
-      }
-
+    if (image && typeof image === "object" && typeof image.arrayBuffer === "function") {
       const imageBuffer = Buffer.from(await image.arrayBuffer());
       const imageName = `${uuidv4()}_${image.name}`;
       imagePath = `/uploads/${imageName}`;
       const savePath = path.join(process.cwd(), "public/uploads", imageName);
-
       fs.writeFileSync(savePath, imageBuffer);
+      console.log("Image saved at:", imagePath);
     } else {
       imagePath = existingQuestion.image;
+      console.log("Using existing image:", imagePath);
     }
 
-    const questionData = {
+    const updatedQuestion = await updateQuestion(id, {
       label,
       question,
       image: imagePath,
       options,
-      // step
-    };
+    });
 
-    const updatedQuestion = await updateQuestion(id, questionData);
-    
+    console.log("Updated question response:", updatedQuestion);
     return NextResponse.json(updatedQuestion, { status: 200 });
   } catch (error) {
-    console.error("Error updating question:", error);
+    console.error("Error in PUT /questions:", error.stack || error);
     return NextResponse.json({ error: "Failed to update question." }, { status: 500 });
   }
 }

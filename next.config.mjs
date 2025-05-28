@@ -2,22 +2,31 @@
 const nextConfig = {
     reactStrictMode: true,
 
-    // Add rewrites to proxy API requests
     async rewrites() {
         return [
             {
-                source: "/api/:path*", // Match all /api routes
-                destination: "http://localhost:3000/api/:path*", // Replace with your backend server URL
+                source: "/api/:path*",
+                destination: "http://localhost:3000/api/:path*",
             },
         ];
     },
 
-    // Allow images to be loaded from localhost (or any other required domains)
     images: {
-        domains: ["localhost"], // Add other domains as needed
+        remotePatterns: [
+            {
+                protocol: "https",
+                hostname: "adm.localserverpro.com",
+                pathname: "/uploads/**",
+            },
+            {
+                protocol: "http",
+                hostname: "localhost",
+                pathname: "/uploads/**",
+            },
+        ],
     },
 
-    // Add staticPageGenerationTimeout if required
+
     staticPageGenerationTimeout: 60,
 };
 
