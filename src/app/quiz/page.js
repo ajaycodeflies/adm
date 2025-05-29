@@ -7,7 +7,6 @@ import Loader from "../components/Loader";
 import "../globals.css";
 import Image from "next/image";
 import Link from "next/link";
-import Head from 'next/head';
 
 
 function QuizContent() {
@@ -65,16 +64,10 @@ function QuizContent() {
     fetchQuestionsAndLabels();
   }, []);
 
+  const [imageLoaded, setImageLoaded] = useState(false);
   useEffect(() => {
-    const next = questions[currentQuestionIndex + 1];
-    if (next?.image) {
-      const link = document.createElement("link");
-      link.rel = "preload";
-      link.as = "image";
-      link.href = `${baseUrl}${next.image}`;
-      document.head.appendChild(link);
-    }
-  }, [currentQuestionIndex]);
+    setImageLoaded(false);
+  }, [currentQuestionIndex, currentLabelIndex]);
 
   const handleBackClick = () => {
     const currentLabel = labels[currentLabelIndex];
@@ -525,16 +518,6 @@ function QuizContent() {
   }
 
   return (
-    <>
-    <Head>
-      {questions[currentQuestionIndex + 1] && (
-        <link
-          rel="preload"
-          as="image"
-          href={`${baseUrl}${questions[currentQuestionIndex + 1].image}`}
-        />
-      )}
-    </Head>
     <div className="box-container my-container">
       <div className="d-flex flex-column align-items-center justify-content-center text-center position-relative mb-5 h-vh">
         {/* Back Button and Logo */}
@@ -546,16 +529,15 @@ function QuizContent() {
             >
               <i className="bi bi-arrow-left fw-bold"></i>
             </button>
-            {questions[currentQuestionIndex + 1]?.image && (
+            <Link href="/">
               <Image
-                src={`${baseUrl}${questions[currentQuestionIndex + 1].image}`}
-                alt="Preload"
-                width={1}
-                height={1}
-                priority
-                style={{ display: "none" }}
+                src="/images/logo.png"
+                className="logo-img"
+                alt="Logo"
+                width={128}
+                height={30}
               />
-            )}
+            </Link>
             <h6 className="fw-bold count">
               <span className="text-primary">{currentQuestion.step} </span>{" "}
               / {questions.length}
@@ -588,7 +570,12 @@ function QuizContent() {
                 height={400}
                 alt="Question Image"
                 priority
+                onLoadingComplete={() => setImageLoaded(true)}
+                style={{ display: imageLoaded ? "" : "none" }}
               />
+              {!imageLoaded && (
+                <p>...</p>
+              )}
             </div>
             {/* Question and Options */}
             <section className="text-center mt-4 w-100">
@@ -646,7 +633,6 @@ function QuizContent() {
         </div>
       </div>
     </div>
-    </>
   );
 }
 
