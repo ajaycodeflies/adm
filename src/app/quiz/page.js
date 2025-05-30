@@ -494,7 +494,9 @@ function QuizContent() {
   }
 
   if (questions.length === 0 || labels.length === 0) {
-    return <p>Loading questions...</p>;
+    return <div className="fullscreen-loader">
+              <Image src="/images/spiner.gif" alt="Loading..." width={60} height={60} />
+            </div>;
   }
 
   const currentLabel = labels[currentLabelIndex];
