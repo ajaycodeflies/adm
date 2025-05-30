@@ -574,7 +574,7 @@ function QuizContent() {
                 style={{ display: imageLoaded ? "" : "none" }}
               />
               {!imageLoaded && (
-                <p>...</p>
+                <Image src="/images/spiner.gif" alt="Spiner" width={20} height={20} />
               )}
             </div>
             {/* Question and Options */}
