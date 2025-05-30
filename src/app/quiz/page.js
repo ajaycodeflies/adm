@@ -24,6 +24,8 @@ function QuizContent() {
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const [emailError, setEmailError] = useState("");
   const [emailSuccess, setEmailSuccess] = useState("");
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const toggleSidebar = () => {
     setIsSidebarVisible(!isSidebarVisible);
@@ -64,12 +66,14 @@ function QuizContent() {
     fetchQuestionsAndLabels();
   }, []);
 
-  const [imageLoaded, setImageLoaded] = useState(false);
   useEffect(() => {
     setImageLoaded(false);
   }, [currentQuestionIndex, currentLabelIndex]);
 
   const handleBackClick = () => {
+    setLoading(true);
+    setImageLoaded(false);
+
     const currentLabel = labels[currentLabelIndex];
     const currentLabelQuestions = questions.filter(
       (question) => question.label === currentLabel?._id
@@ -110,6 +114,9 @@ function QuizContent() {
 
   const handleNextClick = () => {
     if (selectedOption !== null) {
+      setLoading(true);
+      setImageLoaded(false);
+
       const updatedAnswers = [...answers];
       updatedAnswers[currentQuestionIndex] = {
         questionId: questions[currentQuestionIndex]._id,
@@ -126,6 +133,7 @@ function QuizContent() {
         currentQuestionIndex === currentLabelQuestions.length - 1;
       if (isLastQuestionInLabel) {
         setShowResults(true);
+         setLoading(false);
       } else {
         const nextIndex = currentQuestionIndex + 1;
         setCurrentQuestionIndex(nextIndex);
@@ -175,6 +183,9 @@ function QuizContent() {
   };
 
   const handleContinueClick = () => {
+    setLoading(true);
+    setImageLoaded(false);
+
     const nextLabelIndex = currentLabelIndex + 1;
     if (nextLabelIndex < labels.length) {
       setCurrentLabelIndex(nextLabelIndex);
@@ -183,6 +194,7 @@ function QuizContent() {
     } else {
       setShowResults(false);
       setShowEmailSection(true);
+      setLoading(false);
     }
   };
 
@@ -561,6 +573,12 @@ function QuizContent() {
           </div>
         </div>
         <div className="d-flex w-100 align-items-center justify-content-center text-center position-relative my-pd">
+          {loading && (
+            <div className="fullscreen-loader">
+              <Image src="/images/spiner.gif" alt="Loading..." width={60} height={60} />
+            </div>
+          )}
+
           <div className="w-half">
             <div className="question-image">
               <Image
@@ -570,12 +588,18 @@ function QuizContent() {
                 height={400}
                 alt="Question Image"
                 priority
-                onLoadingComplete={() => setImageLoaded(true)}
-                style={{ display: imageLoaded ? "" : "none" }}
+                onLoad={() => {
+                  setImageLoaded(true);
+                  setLoading(false);
+                }}
+                // onLoadingComplete={() => setImageLoaded(true)}
+                // style={{ display: imageLoaded ? "" : "none" }}
               />
-              {!imageLoaded && (
-                <Image src="/images/spiner.gif" alt="Spiner" width={20} height={20} />
-              )}
+              {/* {!imageLoaded && (
+                <div className="spiner">
+                  <Image src="/images/spiner.gif" alt="Spiner" width={50} height={50} />
+                </div>
+              )} */}
             </div>
             {/* Question and Options */}
             <section className="text-center mt-4 w-100">
